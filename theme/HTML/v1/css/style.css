@@ -1,0 +1,805 @@
+/*--------------------------------------------------------
+Resets
+--------------------------------------------------------*/
+html, body {
+    height: 100%;
+}
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+
+body {
+	line-height: 1;
+}
+
+ol, ul {
+	list-style: none;
+}
+
+blockquote, q {
+	quotes: none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+
+
+/*--------------------------------------------------------
+Commons
+--------------------------------------------------------*/
+
+@font-face {
+    font-family: 'BebasNeueRegular';
+    src: url('../fonts/BebasNeue-webfont.eot');
+    src: url('../fonts/BebasNeue-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/BebasNeue-webfont.woff') format('woff'),
+         url('../fonts/BebasNeue-webfont.ttf') format('truetype'),
+         url('../fonts/BebasNeue-webfont.svg#BebasNeueRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+::-moz-selection {background: #b0b825;color: white; }
+::selection {background: #b0b825;color: white; }
+
+body {
+	background: white;
+	font: 13px 'Open Sans', sans-serif;
+	color: #1c1f26;
+	-webkit-font-smoothing: antialiased;
+	-webkit-text-size-adjust: 100%;
+}
+
+.embed-container {
+    position: relative;
+    padding-bottom: 56.25%; /* 16/9 ratio */
+    padding-top: 30px; /* IE6 workaround*/
+    height: 0;
+    overflow: hidden;
+}
+
+.embed-container iframe,
+.embed-container object,
+.embed-container embed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+img.scaleimg {
+	width: 100%;
+    height: auto;
+}
+
+.hidden {
+	display: none;
+}
+
+.vertical-text {
+	display: table-cell;
+	vertical-align: middle;
+}
+
+.pattern {
+	background: url(../images/pattern.png);
+	width: 100%;
+	position: absolute;
+}
+
+	/*Buttons------------------------------------------*/
+
+	.button {
+		width: auto;
+		background: #1c1f26;
+		color: white;
+		cursor: pointer; 
+		display: inline-block;
+		font-size: 12px;
+		font-weight: 600;
+		text-transform: uppercase;
+		margin: 0;
+		outline: none;
+		padding: 11px 20px 11px;
+		position: relative;
+		text-align: center;
+		text-decoration: none;
+		border-radius: 4px;
+		-webkit-border-radius: 4px;
+		-moz-border-radius: 4px;
+		-webkit-transition: background-color 0.15s ease-in-out;
+		-moz-transition: background-color 0.15s ease-in-out;
+		-o-transition: background-color 0.15s ease-in-out;
+		transition: background-color 0.15s ease-in-out;
+	}
+	
+	.button:hover {
+		background-color: #b0b825;
+	}
+	
+	.button:active {
+		background-color: #666b26;
+	}
+	
+	.button:focus {
+		background-color: #b0b825;
+	}
+	
+	.button.large {
+		font-size: 16px;
+		padding: 14px 30px 14px;
+	}
+	
+	.button.small {
+		font-size: 10px;
+		padding: 6px 10px 6px;
+	}
+
+
+	/*Forms------------------------------------------*/
+
+	form {
+		margin-bottom: 20px;
+	}
+	
+	fieldset {
+		margin-bottom: 20px;
+	}
+	
+	input, textarea {
+		border: 1px solid #ccc;
+		padding: 10px 10px;
+		outline: none;
+		color: #868991;
+		margin: 5px 0 0 0;
+		width: 100%;
+		display: block;
+		margin-bottom: 20px;
+		background: #fafafa;
+		font-size: 13px;
+		text-transform: none;
+		font-family: 'Open Sans', sans-serif;
+		font-weight: 400;
+	}
+	
+	textarea {
+		min-height: 100px;
+	}
+	
+	input[type="text"]:focus,
+	input[type="password"]:focus,
+	input[type="email"]:focus,
+	textarea:focus {
+		border: 1px solid #868991;
+ 		color: #1c1f26;
+ 		background: white;
+ 		-moz-box-shadow: 0 0 4px rgba(0,0,0,.2);
+		-webkit-box-shadow: 0 0 4px rgba(0,0,0,.2);
+		box-shadow:  0 0 4px rgba(0,0,0,.2);
+	}
+	
+	input.error {
+		border: 1px solid #c60f13;
+		background: #f9e7e8;
+	}
+	
+	input.error[type="text"]:focus,
+	input.error[type="password"]:focus,
+	input.error[type="email"]:focus {
+ 		border: 1px solid #c60f13;
+	}
+	
+	legend {
+		display: block;
+		font-weight: 600;
+		font-size: 14px;
+	}
+	
+
+
+/*--------------------------------------------------------
+Typography
+--------------------------------------------------------*/
+
+h1, h2, h3, h4 {
+	text-transform: uppercase;
+	font-weight: 400;
+}
+
+h1 {
+	font-family: 'BebasNeueRegular', sans-serif;
+	font-size: 86px;
+	text-transform: uppercase;
+	position: relative;
+	margin-bottom: 7px;
+}
+
+h1.white {
+	color: white;
+}
+
+h2 {
+	font-family: 'BebasNeueRegular', sans-serif;
+	font-size: 44px;
+	text-transform: uppercase;
+	position: relative;
+}
+
+h2.white {
+	color: white;
+}
+
+
+h3 {
+	font-family: 'Oswald', sans-serif;
+	font-size: 22px;
+}
+
+h3.white {
+	color: white;
+}
+
+h4 {
+	font-family: 'Oswald', sans-serif;
+	font-size: 22px;
+}
+
+p {
+	margin-top: 10px;
+}
+
+p a {
+	color: #a5ad25;
+	text-decoration: none;
+}
+
+p a:hover {
+	color: #868991;
+	transition: color 0.5s;
+	-moz-transition: color 0.5s;
+	-webkit-transition: color 0.5s;
+	-o-transition: color 0.5s;
+}
+
+
+
+/*--------------------------------------------------------
+Navigation
+--------------------------------------------------------*/
+
+nav {
+	background: url(../images/nav-bg.png);
+	width: 100%;
+	position: relative;
+	z-index: 1000;
+	height: 50px;
+	opacity: 0;
+	filter: alpha(opacity=0);
+}
+
+.links {
+	height: 50px;
+	display: table-cell;
+	vertical-align: middle;
+}
+
+.links li {
+	display: inline;
+	margin: 0 15px 0 0;
+}
+
+.links a {
+	font-family: 'Oswald', sans-serif;
+	font-size: 18px;
+	color: white;
+	text-decoration: none;
+	text-transform: uppercase;
+}
+
+.links a:visited {
+	color: white;
+}
+
+.links a:hover {
+	color: #b0b825;
+	transition: color 0.5s;
+	-moz-transition: color 0.5s;
+	-webkit-transition: color 0.5s;
+	-o-transition: color 0.5s;
+}
+
+.links img {
+	margin-left: 22px;
+	width: 18px;
+	height: 18px;
+	opacity:0.3;
+}
+
+.links img:hover {
+	opacity:1; 
+}
+
+.social-icons {
+	text-align: right;
+	margin-top: 18px;
+}
+
+.social-icons li {
+	display: inline-block;
+	margin: 0 0 0 6px;
+}
+
+.social-icons img {
+	background: url(../images/social-icons-bg.png);
+	border-radius: 18px;
+	-webkit-border-radius: 18px;
+	-moz-border-radius: 18px;
+}
+
+.social-icons img:hover {
+	background-color: #a5ad25;
+	transition: background-color 0.5s;
+	-moz-transition: background-color 0.5s;
+	-webkit-transition: background-color 0.5s;
+	-o-transition: wbackground-color 0.5s;
+}
+
+.dropmenu {
+	display: none;
+}
+
+
+
+
+/*--------------------------------------------------------
+Parallax
+--------------------------------------------------------*/
+
+
+#parallax1, #parallax2, #parallax3 {
+	width: 100%;
+	height: 440px;
+	background-color: #1c1f26;
+	position: relative;
+	overflow: hidden;
+}
+
+#parallax1 .vertical-text,
+#parallax2 .vertical-text,
+#parallax3 .vertical-text,
+#parallax1 .pattern,
+#parallax2 .pattern,
+#parallax3 .pattern {
+	height: 440px;
+}
+
+
+	/*Parallax1------------------------------------------*/
+	
+	.bg1 {
+		background: url(../images/parallax/teaser1.jpg) 50% 50% fixed repeat-y;
+		width: 100%;
+		height: 100%;
+		margin: 0 auto;
+		position: absolute;
+		background-size: 110%;
+	}
+	
+	p.prlx-quote {
+		font-family: 'BebasNeueRegular', sans-serif;
+		font-size: 48px;
+		line-height: 1;
+		margin-bottom: 20px;
+		color: white;
+		text-align: center;
+		text-transform: uppercase;
+		z-index: 200;
+		margin: 0 10% 0 10%;
+	}
+	
+	.prlx-author {
+		height: 24px;
+		background: url(../images/quote.png) left no-repeat;
+		width: auto;
+		padding-left: 40px;
+		font-size: 11px;
+		font-weight: 600;
+		color: white;
+		text-transform: uppercase;
+		line-height: 0.9;
+		position: relative;
+		margin-top: 26px;
+		left: 42%;
+		z-index: 200;
+	}
+
+
+	/*Parallax2------------------------------------------*/
+	
+	.bg2 {
+		background: url(../images/parallax/teaser2.jpg) top center fixed repeat-y;
+		width: 100%;
+		height: 100%;
+		margin: 0 auto;
+		position: absolute;
+		background-size: 120%;
+	}
+	
+	.twitter-author {
+		text-transform: uppercase;
+		font-family: 'BebasNeueRegular', sans-serif;
+		font-size: 24px;
+	
+	}
+	
+	.tweet {
+		font-family: 'Oswald', sans-serif;
+		font-size: 24px;
+		color: white;
+		line-height: 1.4;
+		margin: 7px 0 12px 0;
+	
+	}
+	
+	.twitter-date {
+		color: #868991;
+		font-size: 11px;
+		text-transform: uppercase;
+		font-weight: 600;
+	}
+
+
+	/*Parallax3------------------------------------------*/
+	
+	#parallax3 h2 {
+		text-align: center;
+		margin-bottom: 20px;
+	}
+	
+	.bg3 {
+		background: url(../images/parallax/teaser3.jpg) 50% 50% fixed repeat-y;
+		width: 100%;
+		height: 100%;
+		margin: 0 auto;
+		position: absolute;
+		background-size: 110%;
+	}
+	
+	.clients {
+		text-align: center;
+	}
+	
+	.clients li {
+		display: inline;
+		margin: 0 15px 0 15px;
+		height: 50px;
+		opacity:1;
+	}
+	
+	.clients li:hover {
+		opacity:0.7;
+	}
+
+
+
+/*--------------------------------------------------------
+Content
+--------------------------------------------------------*/
+
+#about, #culture, #services, #portfolio {
+	padding-top: 64px;
+	padding-bottom: 80px;
+	position: relative;
+	background: white;
+}
+
+.one-text {
+	font-size: 20px;
+	line-height: 1.5; 
+}
+
+.description {
+	font-size: 12px;
+	line-height: 18px;
+}
+
+.columns .img-wrp {
+	position: relative;
+}
+
+.img-wrp img {
+	display: block;
+}
+
+
+.overlay-wrp {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	display: none;
+	height: 100%;
+	width: 100%;
+}
+
+.overlay-wrp .overlay {
+	opacity: 0.5;
+	filter: alpha(opacity=50);
+	height: 100%;
+	width: 100%;
+}
+
+.overlay {
+	background: #b0b825;
+
+}
+    
+	
+	/*Homepage------------------------------------------*/
+	
+	#homepage {
+		background: url(../images/pattern.png);
+		position: relative;
+		overflow: hidden;
+		height: 100%;
+		margin-bottom: -50px;
+	}
+	
+	#homepage .container {
+		height: 100%;
+	}
+	
+	.logo {
+		top: 40px;
+		position: absolute;
+		opacity: 0;
+		filter: alpha(opacity=50);
+	}
+	
+	
+	.slider-text {
+		position: absolute;
+		overflow: hidden;
+		bottom: 110px;
+		min-height: 220px;
+	}
+	
+	#slidecaption { 
+		overflow: hidden;
+		float: left;
+		color: white;
+		font: 92px/0.9 "BebasNeueRegular", Helvetica, Arial, sans-serif;
+		margin: 0 20px 0 0;
+	}
+	
+	.slidedescription {
+		font: 600 14px "Open Sans", Helvetica, Arial, sans-serif;
+		margin: 13px 0 0 0;
+	}
+	
+	.line {
+		border-bottom: solid white 1px;
+		margin-bottom: 36px;
+		opacity: 0;
+		filter: alpha(opacity=0);
+	}	
+	
+	
+	/*About------------------------------------------*/
+	
+	.container .overlay-content.social-icons {
+		text-align: center;
+		margin-top: -11px;
+		position: absolute;
+		top: 20%;
+		width: 100%;
+		z-index: 10;
+	}
+	
+	.container .overlay-content.social-icons img {
+		background: white;
+		border-radius: 18px;
+		-webkit-border-radius: 18px;
+		-moz-border-radius: 18px;
+		opacity: 0.7;
+	}
+	
+	.container .overlay-content.social-icons img:hover {
+		opacity: 1;
+		transition: opacity 0.5s;
+		-moz-transition: opacity 0.5s;
+		-webkit-transition: opacity 0.5s;
+		-o-transition: opacity 0.5s;
+	}
+	
+	.column .img-wrp {
+		position: relative;
+		margin: 52px 0 14px 0;
+		
+	}	
+	
+	
+	.job-position {
+		color: #868991;
+		font-size: 11px;
+		text-transform: uppercase;
+		font-weight: 600;
+		margin: -4px 0px 14px 0px;
+	}
+	
+
+
+
+	/*Culrute------------------------------------------*/
+
+	.culture-full {
+		background: #f0f2f5;
+		padding: 60px 0px 60px 0px;
+		margin: 53px 0px 0px 0px;
+	}
+	
+	#culture h4 {
+		margin: 54px 0 10px 0;
+	}
+
+
+	/*Services------------------------------------------*/
+	
+	#services h3 {
+		text-align: center;
+		margin-top: 46px;
+	}
+	
+	#services .description {
+		text-align: center;
+	}
+
+	.icon {
+		width: 160px;
+		height: 160px;
+		border-radius:160px;
+		-webkit-border-radius: 160px;
+		-moz-border-radius: 160px;
+		margin: 24px auto 24px auto;
+		background: #f0f2f5 center center no-repeat;
+	}
+	
+	
+	/*Portfolio------------------------------------------*/
+	
+	#portfolio h1  {
+		margin-bottom: 34px;
+	}
+	
+	.project-title {
+		font-family: 'Oswald', sans-serif;
+		font-size: 12px;
+		text-transform: uppercase;
+		margin-top: 7px;
+	}
+	
+	.project-description {
+		color: #868991;
+		font-size: 10px;
+		text-transform: uppercase;
+		font-weight: 600;
+		margin: 0 0 20px 0;
+	}
+	
+	.columns .overlay-content.loupe {
+		width: 34px;
+		height: 34px;
+		background: url(../images/loupe.png) 0px 0px no-repeat;
+		position: absolute;
+		top: 22%;
+		margin: -17px 0 0 -17px;
+		left: 50%;
+		z-index: 10;
+	}
+
+
+	/*Contact------------------------------------------*/
+
+	#contact {
+		width: 100%;
+		height: auto;
+		min-height: 100%;
+		position: relative;
+		background-color: #1c1f26;
+		background: url(../images/contacts.jpg) top center fixed;
+		background-size: cover;
+	}
+	
+	#contact .pattern {
+		height: 100%;
+	}
+
+	.card {
+		width: 100%;
+		background: url(../images/contact-bg.png);
+		text-align: center;
+		padding: 45px 0 60px 0;
+		margin: 15% 0 100px 0;
+	}
+	
+	.adress {
+		color: #868991;
+		font-size: 22px;
+		margin-top: 10px;
+	}
+    
+	.lines {
+		width: 76%;
+		border-top: white 1px solid;
+		border-bottom: white 1px solid;
+		text-transform: uppercase;
+		color: white;
+		font-family: 'Oswald', sans-serif;
+		font-size: 36px;
+		padding: 31px 0 31px 0;
+		margin: 12px auto 40px auto;
+		line-height: 1.45;
+	}
+
+	.contact-social-icons {
+		text-align: center;
+	}
+	
+	.contact-social-icons li {
+		display: inline;
+		margin: 0 7px 0 7px;
+	}
+	
+	.contact-social-icons img {
+		background: url(../images/social-icons-bg.png);
+		width: 60px;
+		height: 60px;
+		border-radius: 60px;
+		-webkit-border-radius: 60px;
+		-moz-border-radius: 60px;
+	}
+	
+	.contact-social-icons img:hover {
+		background-color: #a5ad25;
+		transition: background-color 0.5s;
+		-moz-transition: background-color 0.5s;
+		-webkit-transition: background-color 0.5s;
+		-o-transition: wbackground-color 0.5s;
+	}
+	
+	.copyright {
+		background: url(../images/footer-gr.png);
+		width: 100%;
+		height: 80px;
+		position: absolute;
+		bottom: 0;
+	}
+	
+	.copyright p {
+		text-transform: uppercase;
+		text-align: center;
+		font-weight: 600;
+		font-size: 11px;
+		color: white;
+		margin-top: 46px;
+	}
