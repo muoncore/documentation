@@ -17,7 +17,7 @@ pwd
 
 find -iname '*.adoc' -execdir asciidoctor {} \;
 
-rsync -av --exclude=".git/"  --include='*.adoc' . /tmp/muon-doc-gen
+rsync -av --del --exclude=".git/" --exclude="*.class"  --include='*.adoc' . /tmp/muon-doc-gen
 
 cd /tmp/muon-doc-gen
 
