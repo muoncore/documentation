@@ -1,0 +1,48 @@
+# Building a Discovery using AMQP
+
+## Specifications
+
+The functional tests for this are at
+
+They assume that you have an AMQP server running on localhost (or bound to localhost if running in a container or VM) with the user ```muon``` that has the password ```microservices```
+
+Like all Protocol Specs, they specify that you will build a service named ```tck``` that implements various capabilities that are then checked by the specs to ensure they are compatible.
+
+To use the specs :
+* start your service
+* checkout the muon-protocol-specifications project
+* run ```./runTck.sh discovery amqp```
+
+This will execute the appropriate tests against your service, via the local AMQP server.
+
+## Protocol
+
+AMQP discovery is implemented by a service sending regular announcement broadcasts. These broadcasts contain a full Muon Discovery structure as is.
+
+## Check 1 - your service announces correctly.
+
+The first check the protocol specs run is that your service correctly announces itself.
+
+To make this pass, your service should send a message to the ```serviceAnnounce``` AMQP exchange. It should repeat this every 3 seconds (or close to).
+
+```
+{
+  "identifier":"tck",
+  "tags":["my-tag","tck-service"],
+  "resourceConnections":["amqp://localhost:5672", "http://"],
+  "streamConnections":["amqp://localhost:5672"]
+}
+```
+
+## Check 2 - your service listens to other announcements correctly and caches the results
+
+Muon is generally AP by nature (disregarding the clustered nature of AMQP, this is only one options for Discovery/ transport) and so it is encouraged that local caches of discovery information are built up and maintained over time (with appropriate expiry)
+
+The second check requires that your service listens on the ```serviceAnnounce``` exchange and builds a local cache of the messages, permitting fast lookup of active services.
+
+This check re-uses the 'CQ' style interaction to allow the protocol specs to interrogate the remote service.
+
+It is recommended that you implement this feature, and then begin building the AMQP transport CQ capabilities.
+
+To make this pass, you should provide a Query endpoint at ```/discover``` that returns a list of the serviceAnnounce broadcasts that have been received. Additionally, the list should be trimmed down as the broadcast messages go beyond the TTL, which is 3.5 seconds.
+
