@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="generator" content="Asciidoctor 0.1.4">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Introducing Muon</title>
+<title>Microservices Toolkit</title>
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
 article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, section, summary { display: block; }
@@ -362,13 +362,29 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 </head>
 <body class="article">
 <div id="header">
-<h1>Introducing Muon</h1>
+<h1>Microservices Toolkit</h1>
 </div>
 <div id="content">
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Muon is an opinionated programming model for building Microservice based systems.</p>
+<p>Microservices have taken the world by storm. There are many ways to build Microservices, however many developers will
+reach for HTTP based systems. We believe that this is very limiting.</p>
+</div>
+<div class="paragraph">
+<p>There is another way!</p>
+</div>
+<div class="paragraph">
+<p>This project contains a set of tools, libraries and templates for you to build <em>event based</em>, highly scalable Microservices
+using best practice approaches and above all, a great developer and operations experience.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_muon">Muon</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Muon is an opinionated programming model for building Microservice based systems. It is the basis of the other tools below.</p>
 </div>
 <div class="paragraph">
 <p>It takes the position that adopting a programming model for Microservices should be a positive choice, and that you shouldn&#8217;t simply adopt the way that HTTP or a particular messaging system expects you to interact.</p>
@@ -379,47 +395,47 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <div class="paragraph">
 <p>It supports multiple network transports, and multiple serialisation/ encoding schemes out of the box with excellent interoperability between languages and runtimes.</p>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_muon_microservices_in_10_minutes">Muon Microservices in 10 minutes</h2>
-<div class="sectionbody">
 <div class="paragraph">
-<p>See <a href="Getting_Started.html">Getting Started</a></p>
+<p>It is designed to be naturally polyglot, and there are currently implementations for Java and NodeJS</p>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_next_steps">Next Steps</h2>
-<div class="sectionbody">
 <div class="ulist">
 <ul>
 <li>
-<p>Using CQRS</p>
+<p><a href="java/SNAPSHOT/index.html">Muon Java</a></p>
 </li>
 <li>
-<p>Using event broadcasting</p>
+<p><a href="clojure/SNAPSHOT/index.html">Muon Clojure</a></p>
 </li>
 <li>
-<p>Using Reactive Streams</p>
-</li>
-<li>
-<p>Event Sourcing using the Photon Event Store</p>
-</li>
-<li>
-<p>Extending Muon</p>
-</li>
-<li>
-<p>Building a new implementation of Muon.</p>
+<p><a href="node/latest/index.html">Muon Node</a></p>
 </li>
 </ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_photon">Photon</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Photon is a high performance event stream store. It enables Muon Microservices to move beyond simple event based communication to add <em>event sourcing</em> as a core feature.</p>
+</div>
+<div class="paragraph">
+<p>It also has HA, pluggable persistence and the ability to generate run aggregation/ event projection functions written in a variety of languages.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_tutorials">Tutorials</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Getting started NodeJS - <a href="Getting_Started.html">Getting Started</a></p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2015-12-22 12:43:12 GMT
+Last updated 2015-12-23 08:40:23 GMT
 </div>
 </div>
 </body>
