@@ -8734,7 +8734,92 @@ as a set of <em>Events</em>, and your business processes as a set of causal rela
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="_wiretap">Wiretap</h3>
+<div class="paragraph">
+<p>The transport subsystem of Muon injects a WiretapChannel into every connection that is made. This allows you to optionally
+read the messages moving in and out of the transport and further interpret them. The messages themselves are immutable,
+and so you recieve the message itself for processing.</p>
+</div>
+<div class="paragraph">
+<p>Ordinarily, this is used to record the way a service communicates with the rest of the distributed application. This
+is particularly useful when designing and building a new communication protocol.</p>
+</div>
+<div class="paragraph">
+<p>Image a service with a single RPC endpoint that accepts an undefined object data structure, which represent using a Map.
+ It then responds inline wth the number 42. A very simple service.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="java language-java">        <span class="tok-n">Broadcaster</span><span class="tok-o">&lt;</span><span class="tok-n">String</span><span class="tok-o">&gt;</span> <span class="tok-n">publisher</span> <span class="tok-o">=</span> <span class="tok-n">Broadcaster</span><span class="tok-o">.</span><span class="tok-na">create</span><span class="tok-o">();</span>
 
+        <span class="tok-n">muon</span><span class="tok-o">.</span><span class="tok-na">handleRequest</span><span class="tok-o">(</span><span class="tok-n">all</span><span class="tok-o">(),</span> <span class="tok-n">Map</span><span class="tok-o">.</span><span class="tok-na">class</span><span class="tok-o">,</span> <span class="tok-n">request</span> <span class="tok-o">-&gt;</span> <span class="tok-o">{</span>
+            <span class="tok-n">request</span><span class="tok-o">.</span><span class="tok-na">ok</span><span class="tok-o">(</span><span class="tok-mi">42</span><span class="tok-o">);</span>
+        <span class="tok-o">});</span>
+</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>We would like to generate a list of all the services that are calling this one, without altering the business method.</p>
+</div>
+<div class="paragraph">
+<p>We could implement this using a wiretap, this will extract a stream of all the requests that match a particular filter.
+The stream interface provided implements the Reactive Stream interface.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="java language-java">        <span class="tok-n">Set</span><span class="tok-o">&lt;</span><span class="tok-n">String</span><span class="tok-o">&gt;</span> <span class="tok-n">remoteServices</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-n">HashSet</span><span class="tok-o">&lt;&gt;();</span>     <b>(1)</b>
+        <span class="tok-n">Broadcaster</span><span class="tok-o">&lt;</span><span class="tok-n">TransportMessage</span><span class="tok-o">&gt;</span> <span class="tok-n">requests</span> <span class="tok-o">=</span> <span class="tok-n">Broadcaster</span><span class="tok-o">.</span><span class="tok-na">create</span><span class="tok-o">();</span>
+
+        <span class="tok-n">requests</span><span class="tok-o">.</span><span class="tok-na">consume</span><span class="tok-o">(</span><span class="tok-n">msg</span> <span class="tok-o">-&gt;</span> <span class="tok-o">{</span>
+            <span class="tok-n">remoteServices</span><span class="tok-o">.</span><span class="tok-na">add</span><span class="tok-o">(</span><span class="tok-n">msg</span><span class="tok-o">.</span><span class="tok-na">getSourceServiceName</span><span class="tok-o">());</span>  <b>(2)</b>
+        <span class="tok-o">});</span>
+
+        <span class="tok-n">muon</span><span class="tok-o">.</span><span class="tok-na">getTransportControl</span><span class="tok-o">().</span><span class="tok-na">tap</span><span class="tok-o">(</span>                      <b>(3)</b>
+                <span class="tok-n">msg</span> <span class="tok-o">-&gt;</span> <span class="tok-n">msg</span><span class="tok-o">.</span><span class="tok-na">getType</span><span class="tok-o">().</span><span class="tok-na">equals</span><span class="tok-o">(</span><span class="tok-n">RRPEvents</span><span class="tok-o">.</span><span class="tok-na">REQUEST</span><span class="tok-o">)).</span><span class="tok-na">subscribe</span><span class="tok-o">(</span><span class="tok-n">requests</span><span class="tok-o">);</span> <b>(4)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<ol>
+<li>
+<p>The services that have connected to this one via the RPC endpont.</p>
+</li>
+<li>
+<p>A Spring Reactor Broadcaster, converting the messages into the list.</p>
+</li>
+<li>
+<p>Adding the tap into the Muon transport subsystem</p>
+</li>
+<li>
+<p>The filter matches for the EventType field on the TransportMessage, picking out particular messages.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Whenever you then perform an RPC communication, the Request ```TransportMessage``` events will be selected by your wiretap
+ and passed into the Subscriber, in this case the Reactor Broadcaster.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="java language-java">        <span class="tok-kt">int</span> <span class="tok-n">value</span> <span class="tok-o">=</span> <span class="tok-n">muon</span><span class="tok-o">.</span><span class="tok-na">request</span><span class="tok-o">(</span><span class="tok-s">&quot;request://myservice/&quot;</span><span class="tok-o">,</span> <span class="tok-n">Integer</span><span class="tok-o">.</span><span class="tok-na">class</span><span class="tok-o">).</span><span class="tok-na">get</span><span class="tok-o">().</span><span class="tok-na">getPayload</span><span class="tok-o">();</span>
+</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>As many wiretaps as you like can be active. You may add another Wiretap later on to select the Response messages, and it will then begin
+to receive all the messages required.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="java language-java">        <span class="tok-n">Broadcaster</span><span class="tok-o">&lt;</span><span class="tok-n">TransportMessage</span><span class="tok-o">&gt;</span> <span class="tok-n">responses</span> <span class="tok-o">=</span> <span class="tok-n">Broadcaster</span><span class="tok-o">.</span><span class="tok-na">create</span><span class="tok-o">();</span>
+
+        <span class="tok-n">responses</span><span class="tok-o">.</span><span class="tok-na">consume</span><span class="tok-o">(</span><span class="tok-n">msg</span> <span class="tok-o">-&gt;</span> <span class="tok-o">{</span>
+            <span class="tok-n">System</span><span class="tok-o">.</span><span class="tok-na">out</span><span class="tok-o">.</span><span class="tok-na">println</span><span class="tok-o">(</span><span class="tok-s">&quot;Sent a response to &quot;</span> <span class="tok-o">+</span> <span class="tok-n">msg</span><span class="tok-o">.</span><span class="tok-na">getTargetServiceName</span><span class="tok-o">());</span>
+        <span class="tok-o">});</span>
+
+        <span class="tok-n">muon</span><span class="tok-o">.</span><span class="tok-na">getTransportControl</span><span class="tok-o">().</span><span class="tok-na">tap</span><span class="tok-o">(</span>
+                <span class="tok-n">msg</span> <span class="tok-o">-&gt;</span> <span class="tok-n">msg</span><span class="tok-o">.</span><span class="tok-na">getType</span><span class="tok-o">().</span><span class="tok-na">equals</span><span class="tok-o">(</span><span class="tok-n">RRPEvents</span><span class="tok-o">.</span><span class="tok-na">RESPONSE</span><span class="tok-o">)).</span><span class="tok-na">subscribe</span><span class="tok-o">(</span><span class="tok-n">responses</span><span class="tok-o">);</span>
+</code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -8752,7 +8837,7 @@ added to the Java library that will enable it to be awesome.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2015-12-27 20:19:52 GMT
+Last updated 2015-12-27 21:25:15 GMT
 </div>
 </div>
 </body>
