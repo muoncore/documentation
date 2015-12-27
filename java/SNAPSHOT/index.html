@@ -881,19 +881,32 @@ be used.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>Again, this example uses Java and shows two applications communicating over a stream, with back pressure.</p>
+<p>Again, this example uses Java and shows two separate services communicating using a reactive message stream, with back pressure support
+managed by Reactor.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_event_sourcing">Event Sourcing</h3>
-
+<div class="paragraph">
+<p>TODO, link core event sourcing docs.</p>
+</div>
+<div class="paragraph">
+<p>Apart from the recommended event store, Photon, Muon Java provides an in memory, simplified event store that only implements
+ the core ingest and stream functionality of a muon compatible event store. You can read more about it <a href="InMemEventStore.html">here</a></p>
+</div>
+<div class="paragraph">
+<p>This is most useful during building tests.</p>
+</div>
 </div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="_event_based_testing">Event Based Testing</h2>
 <div class="sectionbody">
-
+<div class="paragraph">
+<p>If you adopt the Event system (which requires an event store such as <em>Photon</em>), then you will design your system domains
+as a set of <em>Events</em>, and your business processes as a set of causal relationships between them.</p>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -905,19 +918,16 @@ be used.</p>
 <div class="sect1">
 <h2 id="_transports">Transports</h2>
 <div class="sectionbody">
+<div class="sect2">
+<h3 id="_wiretap">Wiretap</h3>
 
+</div>
 </div>
 </div>
 <h1 id="_extended_features" class="sect0">Extended Features</h1>
 <div class="paragraph">
 <p>While the above are common to all Muon implementations and required to be compatible, the following are extra features
 added to the Java library that will enable it to be awesome.</p>
-</div>
-<div class="sect1">
-<h2 id="_wiretap">Wiretap</h2>
-<div class="sectionbody">
-
-</div>
 </div>
 <div class="sect1">
 <h2 id="_spring_support">Spring Support</h2>
@@ -928,7 +938,7 @@ added to the Java library that will enable it to be awesome.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2015-12-27 18:31:27 GMT
+Last updated 2015-12-27 20:17:32 GMT
 </div>
 </div>
 </body>
