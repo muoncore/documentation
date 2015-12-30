@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="generator" content="Asciidoctor 0.1.4">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The MicroserviceUX Toolkit</title>
+<title>Muon Clojure</title>
 <style>
 /*!
  * Bootstrap v3.3.6 (http://getbootstrap.com)
@@ -8173,123 +8173,80 @@ span.icon > .fa {
   display: none;
 }
 </style>
+<style>
+.highlight .hll { background-color: #ffffcc }
+.highlight  { background: #ffffff; }
+.highlight .tok-c { color: #888888 } /* Comment */
+.highlight .tok-err { color: #a61717; background-color: #e3d2d2 } /* Error */
+.highlight .tok-k { color: #008800; font-weight: bold } /* Keyword */
+.highlight .tok-cm { color: #888888 } /* Comment.Multiline */
+.highlight .tok-cp { color: #cc0000; font-weight: bold } /* Comment.Preproc */
+.highlight .tok-c1 { color: #888888 } /* Comment.Single */
+.highlight .tok-cs { color: #cc0000; font-weight: bold; background-color: #fff0f0 } /* Comment.Special */
+.highlight .tok-gd { color: #000000; background-color: #ffdddd } /* Generic.Deleted */
+.highlight .tok-ge { font-style: italic } /* Generic.Emph */
+.highlight .tok-gr { color: #aa0000 } /* Generic.Error */
+.highlight .tok-gh { color: #333333 } /* Generic.Heading */
+.highlight .tok-gi { color: #000000; background-color: #ddffdd } /* Generic.Inserted */
+.highlight .tok-go { color: #888888 } /* Generic.Output */
+.highlight .tok-gp { color: #555555 } /* Generic.Prompt */
+.highlight .tok-gs { font-weight: bold } /* Generic.Strong */
+.highlight .tok-gu { color: #666666 } /* Generic.Subheading */
+.highlight .tok-gt { color: #aa0000 } /* Generic.Traceback */
+.highlight .tok-kc { color: #008800; font-weight: bold } /* Keyword.Constant */
+.highlight .tok-kd { color: #008800; font-weight: bold } /* Keyword.Declaration */
+.highlight .tok-kn { color: #008800; font-weight: bold } /* Keyword.Namespace */
+.highlight .tok-kp { color: #008800 } /* Keyword.Pseudo */
+.highlight .tok-kr { color: #008800; font-weight: bold } /* Keyword.Reserved */
+.highlight .tok-kt { color: #888888; font-weight: bold } /* Keyword.Type */
+.highlight .tok-m { color: #0000DD; font-weight: bold } /* Literal.Number */
+.highlight .tok-s { color: #dd2200; background-color: #fff0f0 } /* Literal.String */
+.highlight .tok-na { color: #336699 } /* Name.Attribute */
+.highlight .tok-nb { color: #003388 } /* Name.Builtin */
+.highlight .tok-nc { color: #bb0066; font-weight: bold } /* Name.Class */
+.highlight .tok-no { color: #003366; font-weight: bold } /* Name.Constant */
+.highlight .tok-nd { color: #555555 } /* Name.Decorator */
+.highlight .tok-ne { color: #bb0066; font-weight: bold } /* Name.Exception */
+.highlight .tok-nf { color: #0066bb; font-weight: bold } /* Name.Function */
+.highlight .tok-nl { color: #336699; font-style: italic } /* Name.Label */
+.highlight .tok-nn { color: #bb0066; font-weight: bold } /* Name.Namespace */
+.highlight .tok-py { color: #336699; font-weight: bold } /* Name.Property */
+.highlight .tok-nt { color: #bb0066; font-weight: bold } /* Name.Tag */
+.highlight .tok-nv { color: #336699 } /* Name.Variable */
+.highlight .tok-ow { color: #008800 } /* Operator.Word */
+.highlight .tok-w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .tok-mb { color: #0000DD; font-weight: bold } /* Literal.Number.Bin */
+.highlight .tok-mf { color: #0000DD; font-weight: bold } /* Literal.Number.Float */
+.highlight .tok-mh { color: #0000DD; font-weight: bold } /* Literal.Number.Hex */
+.highlight .tok-mi { color: #0000DD; font-weight: bold } /* Literal.Number.Integer */
+.highlight .tok-mo { color: #0000DD; font-weight: bold } /* Literal.Number.Oct */
+.highlight .tok-sb { color: #dd2200; background-color: #fff0f0 } /* Literal.String.Backtick */
+.highlight .tok-sc { color: #dd2200; background-color: #fff0f0 } /* Literal.String.Char */
+.highlight .tok-sd { color: #dd2200; background-color: #fff0f0 } /* Literal.String.Doc */
+.highlight .tok-s2 { color: #dd2200; background-color: #fff0f0 } /* Literal.String.Double */
+.highlight .tok-se { color: #0044dd; background-color: #fff0f0 } /* Literal.String.Escape */
+.highlight .tok-sh { color: #dd2200; background-color: #fff0f0 } /* Literal.String.Heredoc */
+.highlight .tok-si { color: #3333bb; background-color: #fff0f0 } /* Literal.String.Interpol */
+.highlight .tok-sx { color: #22bb22; background-color: #f0fff0 } /* Literal.String.Other */
+.highlight .tok-sr { color: #008800; background-color: #fff0ff } /* Literal.String.Regex */
+.highlight .tok-s1 { color: #dd2200; background-color: #fff0f0 } /* Literal.String.Single */
+.highlight .tok-ss { color: #aa6600; background-color: #fff0f0 } /* Literal.String.Symbol */
+.highlight .tok-bp { color: #003388 } /* Name.Builtin.Pseudo */
+.highlight .tok-vc { color: #336699 } /* Name.Variable.Class */
+.highlight .tok-vg { color: #dd7700 } /* Name.Variable.Global */
+.highlight .tok-vi { color: #3333bb } /* Name.Variable.Instance */
+.highlight .tok-il { color: #0000DD; font-weight: bold } /* Literal.Number.Integer.Long */
+</style>
 </head>
 <body class="article">
 <div id="header">
-<h1>The MicroserviceUX Toolkit</h1>
+<h1>Muon Clojure</h1>
 </div>
 <div id="content">
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Microservices have taken the world by storm. There are many ways to build Microservices, however many developers will
-reach for HTTP based systems. We believe that this is very limiting.   <em>There is another way!</em></p>
-</div>
-<div class="paragraph">
-<p>The group of projects, that we group together as <strong>MicroserviceUX</strong>, contains a set of tools, libraries, templates and frameworks for you to build <em>event based</em>, highly scalable Microservices
-using best practice approaches and above all, a great developer and operations experience.</p>
-</div>
-<div class="paragraph">
-<p>The curently released projects are :-</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="#muon">Muon</a> - A new programming model for microservices. Event based, reactive, polyglot and performant.</p>
-</li>
-<li>
-<p><a href="#photon">Photon</a> - A high performance event store with HA, event projections and more.</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="muon">Muon</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Muon is an opinionated programming model for building Microservice based systems. Many systems today either communicate using HTTP, or some other network transport, or require you to use a framework that binds you to a single language and runtime.</p>
-</div>
-<div class="paragraph">
-<p>Muon takes the position that adopting a programming model for Microservices should be a positive choice, and that you shouldn&#8217;t simply adopt the way that HTTP or a particular messaging system expects you to interact.</p>
-</div>
-<div class="paragraph">
-<p>It is Event Oriented, Reactive and fully polyglot, enabling you to choose the best language for the particular job and easily integrate into your Microservices system.</p>
-</div>
-<div class="paragraph">
-<p>It supports multiple network transports, and multiple serialisation/ encoding schemes out of the box with excellent interoperability between languages and runtimes.</p>
-</div>
-<div class="paragraph">
-<p>It is designed to be naturally polyglot, and there are currently implementations for Java and NodeJS with Python, Go and .Net under development.</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="java/SNAPSHOT/index.html">Muon Java</a></p>
-</li>
-<li>
-<p><a href="java/SNAPSHOT/index.html">Muon Java</a></p>
-</li>
-<li>
-<p><a href="clojure/SNAPSHOT/index.html">Muon Clojure</a></p>
-</li>
-<li>
-<p><a href="node/latest/index.html">Muon Node</a></p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="photon">Photon</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Photon is a high performance event stream store. It enables Muon Microservices to move beyond simple event based communication to add <em>event sourcing</em> as a core feature.</p>
-</div>
-<div class="paragraph">
-<p>It also has HA, pluggable persistence and the ability to generate run aggregation/ event projection functions written in a variety of languages.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_tutorials">Tutorials</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Getting started NodeJS - <a href="Getting_Started.html">Getting Started</a></p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_contributor">Contributor</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>The MicroserviceUX contains components contributed by</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="img/simplicityitself.jpg" alt="simplicityitself" width="500">
-</div>
-<div class="title">Figure 1. Simplicity Itself</div>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="img/sky.png" alt="sky" width="300">
-</div>
-<div class="title">Figure 2. Sky CIS Tech Futures</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_commercial_support">Commercial Support</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>The MicroserviceUX toolkit is commercially supported by</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="img/simplicityitself.jpg" alt="simplicityitself" width="500">
-</div>
-<div class="title">Figure 3. Simplicity Itself</div>
+<p>Muon Clojure is just awesome.</p>
 </div>
 </div>
 </div>
