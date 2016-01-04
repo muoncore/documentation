@@ -8246,12 +8246,9 @@ span.icon > .fa {
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Muon Java is the implementation of the Muon microservices toolkit for the Java platform. It enables you to easily build
+<p>Muon Java is the implementation of the Muon microservices toolkit, for the Java platform. Muon enables you to easily build
 microservices in many languages that have richer, more performant and fully reactive communication semantics and gain access
 to Muon compatible services written in other languages without having to sacrifice the rich semantics or performance.</p>
-</div>
-<div class="paragraph">
-<p>Go from days to minutes.</p>
 </div>
 </div>
 </div>
@@ -8352,7 +8349,10 @@ that exposes this to the outside world.</p>
 <div class="paragraph">
 <p>Here, we have used Spring MVC, configured again via Spring Boot. This gives an easy way to start up an HTTP container
 and make it accessible. When you call <a href="http://localhost:8080/">http://localhost:8080/</a> you will receive an http response. The body of that response
-will ultimately come from data supplied by UserService.</p>
+will be created from the data supplied by the UserService Microservice.</p>
+</div>
+<div class="paragraph">
+<p>You have successfully built a distributed system, congratulations!</p>
 </div>
 <div class="paragraph">
 <p>These will run in production, as independent services and require no underlying platform or runtime.</p>
@@ -8362,58 +8362,6 @@ will ultimately come from data supplied by UserService.</p>
 <div class="sect1">
 <h2 id="_core_features">Core Features</h2>
 <div class="sectionbody">
-
-</div>
-</div>
-<div class="sect1">
-<h2 id="_service_discovery">Service Discovery</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>When distributing computation in the way that Microservices encourage you to, there is a deep need to actually go and find
-all the pieces currently are. Tracking all of the service instances in your distributed system, understand what logical services
-are actually available, and what they are capable of is a necessary and easily overlooked piece of the puzzle.</p>
-</div>
-<div class="paragraph">
-<p>Done properly, service discovery gives you the ability to change as needed, and to move and change your services without
-having to update every other service to match. Muon takes the position that <em>availability</em> (in the CAP theorum sense) is more
-likely to be systemically useful than <em>consistency</em>. Not all service discovery systems take this same view.</p>
-</div>
-<div class="paragraph">
-<p>Service discovery is baked into the core of Muon, and every implementation has a similar looking subsystem. This allows you
-to build services that are <em>autonomous</em> and <em>self healing</em>. As dependencies of a service start and stop, Muon can tell your application,
-and it can react accordingly.</p>
-</div>
-<div class="paragraph">
-<p>This is accessed in Muon Java by the ```Discovery``` object. This is accessible on the Muon and gives access to listings
-of the existing services and a ```ServiceDescriptor``` for each remote service that is currently accessible by the local service.</p>
-</div>
-<div class="paragraph">
-<p>The Discovery system has most effect when you access the various communication APIs that Muon provides. Each will generally accept
-a URL of some kind. The <em>host</em> within that url is a logical service identifier, not a DNS name. This identifier is declared
- by the service itself and then registered in the backing discovery service. The actual service discovery
- implementation used depends on the configuration.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_communication_protocols_and_apis">Communication Protocols and APIs</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Muon is a polyglot toolkit for event based communication. Internally, it uses Communicating Sequential Processes to create and
-manage flows of data between networks of services in a scalable, performant and reactive manner.</p>
-</div>
-<div class="paragraph">
-<p>This underlying model is very powerful and flexible. TO make this easy to pick up and use, we have defined a series of <em>protocols</em>,
-well known event based exchanges of data across the CSP web that gives semantics that are well known and understood by users.</p>
-</div>
-<div class="paragraph">
-<p>For the protocol to enable communication between services, it must be implemented on both sides of a connection and so
- we have defined a common set of core protocols that are implemented in every Muon library.</p>
-</div>
-<div class="paragraph">
-<p>It is straightforward to add your own event protocols to give more advanced behaviours, however this comes with the caveat that you would
-need to implement this in each muon implementation you want to access.</p>
-</div>
 <div class="sect2">
 <h3 id="_reactive_rpc">Reactive RPC</h3>
 <div class="paragraph">
@@ -8712,26 +8660,13 @@ managed by Reactor.</p>
 <p>This is most useful during building tests.</p>
 </div>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_event_based_testing">Event Based Testing</h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="_event_based_testing">Event Based Testing</h3>
 <div class="paragraph">
 <p>If you adopt the Event system (which requires an event store such as <em>Photon</em>), then you will design your system domains
 as a set of <em>Events</em>, and your business processes as a set of causal relationships between them.</p>
 </div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_encoding">Encoding</h2>
-<div class="sectionbody">
-
-</div>
-</div>
-<div class="sect1">
-<h2 id="_transports">Transports</h2>
-<div class="sectionbody">
 <div class="sect2">
 <h3 id="_wiretap">Wiretap</h3>
 <div class="paragraph">
@@ -8823,21 +8758,159 @@ to receive all the messages required.</p>
 </div>
 </div>
 </div>
-<h1 id="_extended_features" class="sect0">Extended Features</h1>
-<div class="paragraph">
-<p>While the above are common to all Muon implementations and required to be compatible, the following are extra features
-added to the Java library that will enable it to be awesome.</p>
-</div>
 <div class="sect1">
 <h2 id="_spring_support">Spring Support</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>Muon Java does not require Spring Core to run, however it does have a set of integrations for Spring and in particular, Spring Boot.</p>
+</div>
+<div class="sect2">
+<h3 id="_create_an_new_muon_spring_boot_microservice">Create an new Muon Spring Boot Microservice</h3>
+<div class="paragraph">
+<p>To create a new Muon Spring Boot Microservice, you need to</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="java language-java"><span class="tok-nd">@SpringBootApplication</span>
+<span class="tok-nd">@EnableMuon</span><span class="tok-o">(</span><span class="tok-n">serviceName</span> <span class="tok-o">=</span> <span class="tok-s">&quot;myService&quot;</span><span class="tok-o">)</span>
+<span class="tok-nd">@MuonController</span>
+<span class="tok-kd">public</span> <span class="tok-kd">class</span> <span class="tok-nc">AutowireMuon</span> <span class="tok-o">{</span>
 
+    <span class="tok-nd">@Autowired</span> <span class="tok-n">Muon</span> <span class="tok-n">muon</span><span class="tok-o">;</span>
+
+    <span class="tok-nd">@PostConstruct</span>
+    <span class="tok-kd">public</span> <span class="tok-kt">void</span> <span class="tok-nf">tapTransport</span><span class="tok-o">()</span> <span class="tok-o">{</span>
+        <span class="tok-n">Broadcaster</span><span class="tok-o">&lt;</span><span class="tok-n">TransportMessage</span><span class="tok-o">&gt;</span> <span class="tok-n">broadcaster</span> <span class="tok-o">=</span> <span class="tok-n">Broadcaster</span><span class="tok-o">.</span><span class="tok-na">create</span><span class="tok-o">();</span>
+        <span class="tok-n">broadcaster</span><span class="tok-o">.</span><span class="tok-na">consume</span><span class="tok-o">(</span> <span class="tok-n">msg</span> <span class="tok-o">-&gt;</span> <span class="tok-o">{</span>
+            <span class="tok-n">System</span><span class="tok-o">.</span><span class="tok-na">out</span><span class="tok-o">.</span><span class="tok-na">println</span><span class="tok-o">(</span><span class="tok-s">&quot;Message seen from &quot;</span> <span class="tok-o">+</span> <span class="tok-n">msg</span><span class="tok-o">.</span><span class="tok-na">getSourceServiceName</span><span class="tok-o">());</span>
+        <span class="tok-o">});</span>
+        <span class="tok-n">muon</span><span class="tok-o">.</span><span class="tok-na">getTransportControl</span><span class="tok-o">().</span><span class="tok-na">tap</span><span class="tok-o">(</span> <span class="tok-n">msg</span> <span class="tok-o">-&gt;</span> <span class="tok-kc">true</span><span class="tok-o">).</span><span class="tok-na">subscribe</span><span class="tok-o">(</span><span class="tok-n">broadcaster</span><span class="tok-o">);</span>
+    <span class="tok-o">}</span>
+
+    <span class="tok-kd">public</span> <span class="tok-kd">static</span> <span class="tok-kt">void</span> <span class="tok-nf">main</span><span class="tok-o">(</span><span class="tok-n">String</span><span class="tok-o">[]</span> <span class="tok-n">args</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+        <span class="tok-n">SpringApplication</span><span class="tok-o">.</span><span class="tok-na">run</span><span class="tok-o">(</span><span class="tok-n">AutowireMuon</span><span class="tok-o">.</span><span class="tok-na">class</span><span class="tok-o">,</span> <span class="tok-n">args</span><span class="tok-o">);</span>
+    <span class="tok-o">}</span>
+<span class="tok-o">}</span>
+</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_provide_an_rpc_endpoint">Provide an RPC endpoint</h3>
+
+</div>
+<div class="sect2">
+<h3 id="_create_a_spring_repository">Create a Spring Repository</h3>
+
+</div>
+<div class="sect2">
+<h3 id="_subscribe_to_a_remote_stream">Subscribe to a Remote Stream</h3>
+
+</div>
+<div class="sect2">
+<h3 id="_obtain_the_muon_object">Obtain the Muon object</h3>
+<div class="paragraph">
+<p>Currently, not all features of Muon are fully exposed in the spring support.</p>
+</div>
+<div class="paragraph">
+<p>You can obtain the current Muon instance that has been automatically created via a simple @Autowire and then perform
+any of the actions you find in the rest of the documentation on it.</p>
+</div>
+<div class="paragraph">
+<p>Here is an example of this, combined with a @PostConstruct to allow a wiretap to be set up.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="java language-java"><span class="tok-nd">@SpringBootApplication</span>
+<span class="tok-nd">@EnableMuon</span><span class="tok-o">(</span><span class="tok-n">serviceName</span> <span class="tok-o">=</span> <span class="tok-s">&quot;myService&quot;</span><span class="tok-o">)</span>
+<span class="tok-nd">@MuonController</span>
+<span class="tok-kd">public</span> <span class="tok-kd">class</span> <span class="tok-nc">AutowireMuon</span> <span class="tok-o">{</span>
+
+    <span class="tok-nd">@Autowired</span> <span class="tok-n">Muon</span> <span class="tok-n">muon</span><span class="tok-o">;</span>
+
+    <span class="tok-nd">@PostConstruct</span>
+    <span class="tok-kd">public</span> <span class="tok-kt">void</span> <span class="tok-nf">tapTransport</span><span class="tok-o">()</span> <span class="tok-o">{</span>
+        <span class="tok-n">Broadcaster</span><span class="tok-o">&lt;</span><span class="tok-n">TransportMessage</span><span class="tok-o">&gt;</span> <span class="tok-n">broadcaster</span> <span class="tok-o">=</span> <span class="tok-n">Broadcaster</span><span class="tok-o">.</span><span class="tok-na">create</span><span class="tok-o">();</span>
+        <span class="tok-n">broadcaster</span><span class="tok-o">.</span><span class="tok-na">consume</span><span class="tok-o">(</span> <span class="tok-n">msg</span> <span class="tok-o">-&gt;</span> <span class="tok-o">{</span>
+            <span class="tok-n">System</span><span class="tok-o">.</span><span class="tok-na">out</span><span class="tok-o">.</span><span class="tok-na">println</span><span class="tok-o">(</span><span class="tok-s">&quot;Message seen from &quot;</span> <span class="tok-o">+</span> <span class="tok-n">msg</span><span class="tok-o">.</span><span class="tok-na">getSourceServiceName</span><span class="tok-o">());</span>
+        <span class="tok-o">});</span>
+        <span class="tok-n">muon</span><span class="tok-o">.</span><span class="tok-na">getTransportControl</span><span class="tok-o">().</span><span class="tok-na">tap</span><span class="tok-o">(</span> <span class="tok-n">msg</span> <span class="tok-o">-&gt;</span> <span class="tok-kc">true</span><span class="tok-o">).</span><span class="tok-na">subscribe</span><span class="tok-o">(</span><span class="tok-n">broadcaster</span><span class="tok-o">);</span>
+    <span class="tok-o">}</span>
+
+    <span class="tok-kd">public</span> <span class="tok-kd">static</span> <span class="tok-kt">void</span> <span class="tok-nf">main</span><span class="tok-o">(</span><span class="tok-n">String</span><span class="tok-o">[]</span> <span class="tok-n">args</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+        <span class="tok-n">SpringApplication</span><span class="tok-o">.</span><span class="tok-na">run</span><span class="tok-o">(</span><span class="tok-n">AutowireMuon</span><span class="tok-o">.</span><span class="tok-na">class</span><span class="tok-o">,</span> <span class="tok-n">args</span><span class="tok-o">);</span>
+    <span class="tok-o">}</span>
+<span class="tok-o">}</span>
+</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_extending_muon_java">Extending Muon Java</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In common with all Muon libraries, Muon Java is a restricted implementation of Communicating Sequential Processes.
+Extension then mostly involves creating and exposing various combinations of processes and channels.</p>
+</div>
+<div class="sect2">
+<h3 id="_encoding">Encoding</h3>
+
+</div>
+<div class="sect2">
+<h3 id="_transports">Transports</h3>
+
+</div>
+<div class="sect2">
+<h3 id="_adding_a_new_interaction_protocol">Adding a new interaction protocol</h3>
+<div class="paragraph">
+<p>Before reading on, many systems won&#8217;t need to do this. The baked in protocols (RPC, Streaming etc) are generally good enough
+in most circumstances. If you do have a specific need to control the way your services interact in a more granular way then read on!</p>
+</div>
+<div class="paragraph">
+<p>To implement a new protocol, you need to define the API(s) that you want to provide to your users, define the event interchange
+that will need to happen to communicate that between services, and then create the processes need to bring those events to life.</p>
+</div>
+<div class="paragraph">
+<p>This guide focuses on how to implement this in Muon-Java. For a fuller discussion on event protocols, see the main guide.</p>
+</div>
+<div class="paragraph">
+<p>TODO, link to main guide on protocols</p>
+</div>
+<div class="sect3">
+<h4 id="_designing_a_protocol">Designing a Protocol</h4>
+
+</div>
+<div class="sect3">
+<h4 id="_client_side">Client Side</h4>
+<div class="sect4">
+<h5 id="_designing_building_a_muon_client_process">Designing Building a Muon Client Process</h5>
+
+</div>
+<div class="sect4">
+<h5 id="_designing_the_user_api_and_protocol_stack">Designing the User API and Protocol Stack</h5>
+
+</div>
+</div>
+<div class="sect3">
+<h4 id="_server_side">Server Side</h4>
+<div class="sect4">
+<h5 id="_designing_building_a_muon_server_process">Designing Building a Muon Server Process</h5>
+
+</div>
+<div class="sect4">
+<h5 id="_registering_the_serverstack">Registering the ServerStack</h5>
+
+</div>
+</div>
+</div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2015-12-27 21:25:15 GMT
+Last updated 2016-01-04 23:31:45 GMT
 </div>
 </div>
 </body>
