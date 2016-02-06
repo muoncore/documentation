@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="generator" content="Asciidoctor 0.1.4">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Building a Discovery using AMQP</title>
+<title>Muon Java Configuration Reference</title>
 <style>
 /*!
  * Bootstrap v3.3.6 (http://getbootstrap.com)
@@ -8176,78 +8176,71 @@ span.icon > .fa {
 </head>
 <body class="article">
 <div id="header">
-<h1>Building a Discovery using AMQP</h1>
+<h1>Muon Java Configuration Reference</h1>
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="_specifications">Specifications</h2>
+<h2 id="_sources_of_configuration">Sources of configuration</h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p>The functional tests for this are at</p>
-</div>
-<div class="paragraph">
-<p>They assume that you have an AMQP server running on localhost (or bound to localhost if running in a container or VM) with the user ```muon``` that has the password ```microservices```</p>
-</div>
-<div class="paragraph">
-<p>Like all Protocol Specs, they specify that you will build a service named ```tck``` that implements various capabilities that are then checked by the specs to ensure they are compatible.</p>
-</div>
-<div class="paragraph">
-<p>To use the specs :
-* start your service
-* checkout the muon-protocol-specifications project
-* run ```./runTck.sh discovery amqp```</p>
-</div>
-<div class="paragraph">
-<p>This will execute the appropriate tests against your service, via the local AMQP server.</p>
-</div>
+
 </div>
 </div>
 <div class="sect1">
-<h2 id="_protocol">Protocol</h2>
+<h2 id="_configuration_options">Configuration Options</h2>
 <div class="sectionbody">
+<div class="sect2">
+<h3 id="_core">Core</h3>
+
+</div>
+<div class="sect2">
+<h3 id="_amqp_properties">AMQP Properties</h3>
+<table class="tableblock frame-all grid-all" style="width:100%; ">
+<caption class="title">Table 1. AMQP Properties</caption>
+<colgroup>
+<col style="width:33%;">
+<col style="width:33%;">
+<col style="width:33%;"> 
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Configuration Property</th>
+<th class="tableblock halign-left valign-top">Default Value</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">amqp.discovery.url</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Column 2, row 1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Column 3, row 1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Column 1, row 2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Column 2, row 2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Column 3, row 2</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Column 1, row 3</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Column 2, row 3</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Column 3, row 3</p></td>
+</tr>
+</tbody>
+</table>
+
+<div class="sect3">
+<h4 id="_discovery_amqp_url">Discovery AMQP Url</h4>
 <div class="paragraph">
-<p>AMQP discovery is implemented by a service sending regular announcement broadcasts. These broadcasts contain a full Muon Discovery structure as is.</p>
+<p>The AMQP url is used to configure where the AMQP based discovery will connect to, and what
+credentials it will use.</p>
 </div>
 </div>
 </div>
-<div class="sect1">
-<h2 id="_check_1_your_service_announces_correctly">Check 1 - your service announces correctly.</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>The first check the protocol specs run is that your service correctly announces itself.</p>
+<div class="sect2">
+<h3 id="_amqp_transport">AMQP Transport</h3>
+<div class="sect3">
+<h4 id="_transport_amqp_url">Transport AMQP Url</h4>
+
 </div>
-<div class="paragraph">
-<p>To make this pass, your service should send a message to the ```serviceAnnounce``` AMQP exchange. It should repeat this every 3 seconds (or close to).</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code>{
-  "identifier":"tck",
-  "tags":["my-tag","tck-service"],
-  "resourceConnections":["amqp://localhost:5672", "http://"],
-  "streamConnections":["amqp://localhost:5672"]
-}</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_check_2_your_service_listens_to_other_announcements_correctly_and_caches_the_results">Check 2 - your service listens to other announcements correctly and caches the results</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Muon is generally AP by nature (disregarding the clustered nature of AMQP, this is only one options for Discovery/ transport) and so it is encouraged that local caches of discovery information are built up and maintained over time (with appropriate expiry)</p>
-</div>
-<div class="paragraph">
-<p>The second check requires that your service listens on the ```serviceAnnounce``` exchange and builds a local cache of the messages, permitting fast lookup of active services.</p>
-</div>
-<div class="paragraph">
-<p>This check re-uses the <em>CQ</em> style interaction to allow the protocol specs to interrogate the remote service.</p>
-</div>
-<div class="paragraph">
-<p>It is recommended that you implement this feature, and then begin building the AMQP transport CQ capabilities.</p>
-</div>
-<div class="paragraph">
-<p>To make this pass, you should provide a Query endpoint at ```/discover``` that returns a list of the serviceAnnounce broadcasts that have been received. Additionally, the list should be trimmed down as the broadcast messages go beyond the TTL, which is 3.5 seconds.</p>
 </div>
 </div>
 </div>
