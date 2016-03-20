@@ -1,0 +1,55 @@
+= The MicroserviceUX Toolkit
+
+Microservices have taken the world by storm. There are many ways to build Microservices, however many developers will
+reach for HTTP based systems. We believe that this is very limiting.   _There is another way!_
+
+The group of projects, that we group together as *MicroserviceUX*, contains a set of tools, libraries, templates and frameworks for you to build _event based_, highly scalable Microservices
+using best practice approaches and above all, a great developer and operations experience.
+
+The curently released projects are :-
+
+* <<muon,Muon>> - A new programming model for microservices. Event based, reactive, polyglot and performant.
+* <<photon,Photon>> - A high performance event store with HA, event projections and more.
+
+[[muon]]
+== Muon 
+
+Muon is an opinionated programming model for building Microservice based systems. Many systems today either communicate using HTTP, or some other network transport, or require you to use a framework that binds you to a single language and runtime.
+
+Muon takes the position that adopting a programming model for Microservices should be a positive choice, and that you shouldn't simply adopt the way that HTTP or a particular messaging system expects you to interact.
+
+It is Event Oriented, Reactive and fully polyglot, enabling you to choose the best language for the particular job and easily integrate into your Microservices system.
+
+It supports multiple network transports, and multiple serialisation/ encoding schemes out of the box with excellent interoperability between languages and runtimes.
+
+It is designed to be naturally polyglot, and there are currently implementations for Java and NodeJS with Python, Go and .Net under development.
+
+* link:java/SNAPSHOT/index.html[Muon Java]
+* link:java/SNAPSHOT/index.html[Muon Java]
+* link:clojure/SNAPSHOT/index.html[Muon Clojure]
+* link:node/latest/index.html[Muon Node]
+
+[[photon]]
+== Photon
+
+Photon is a high performance event stream store. It enables Muon Microservices to move beyond simple event based communication to add _event sourcing_ as a core feature.
+
+It also has HA, pluggable persistence and the ability to generate run aggregation/ event projection functions written in a variety of languages.
+
+== Tutorials
+
+Getting started NodeJS - link:Getting_Started.html[Getting Started]
+
+== Contributor
+
+The MicroserviceUX contains components contributed by 
+
+image::img/simplicityitself.jpg[width="500", title="Simplicity Itself"]
+
+image::img/sky.png[width="300", title="Sky CIS Tech Futures"]
+
+== Commercial Support
+
+The MicroserviceUX toolkit is commercially supported by 
+
+image::img/simplicityitself.jpg[width="500", title="Simplicity Itself"]
