@@ -31,7 +31,7 @@
 <loc>/blog-fullwidth/</loc>
 </url>
 <url>
-<loc>/</loc>
+<loc>/newindex.html</loc>
 </url>
 <url>
 <loc>/partners.html</loc>
@@ -41,5 +41,9 @@
 </url>
 <url>
 <loc>/blog/tags.html</loc>
+</url>
+<url>
+<loc>/index.html</loc>
+<lastmod>2016-03-21T11:38:14+00:00</lastmod>
 </url>
 </urlset>
