@@ -7,10 +7,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <title>Muon Java</title>
-  <meta name="description" content="The jekyll-asciidoc gem has now been released and is available for download at RubyGems. Get it now, and add the richness of AsciiDoc markup to your Jekyll s...">
+  <meta name="description" content="">
 
-  <link rel="stylesheet" href="/css/foundation.css">
-  <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/foundation.css">
+
+    <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="/css/fontello.css">
   <link rel="stylesheet" href="/css/font-awesome.css">
   <script src="/javascripts/modernizr.foundation.js" type="text/javascript"></script>
@@ -40,10 +41,29 @@
   <script src="/javascripts/masonry.pkgd.js" type="text/javascript"></script>
   <script src="/javascripts/imagesloaded.pkgd.min.js" type="text/javascript"></script>
   <script src="/javascripts/slick.min.js" type="text/javascript"></script>
-  <link rel="stylesheet" href="/css/asciidoc.css">
+
   <link rel="canonical" href="/java/SNAPSHOT/">
   <link rel="alternate" type="application/rss+xml" title="Muon - Microservice UX" href="/feed.xml" />
+  <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+          <link rel="stylesheet" href="/css/asciidoc.css">
+                  <style>
+  @media only screen and (min-width:768px){#toctitle{font-size:1.375em}
+      body.toc2{padding-left:15em;padding-right:0}
+#toc {margin-top:0!important;background-color:#f8f8f7;position:fixed;width:15em;right:0;top:0;border-right:1px solid #efefed;border-top-width:0!important;border-bottom-width:0!important;z-index:1000;padding:1.25em 1em;height:100%;overflow:auto}
+#toc #toctitle{margin-top:0;margin-bottom:.8rem;font-size:1.2em}
+#toc >ul{font-size:.9em;margin-bottom:0}
+#toc ul ul{margin-left:0;padding-left:1em}
+#toc ul.sectlevel0 ul.sectlevel1{padding-left:0;margin-top:.5em;margin-bottom:.5em}
+  @media only screen and (min-width:1280px){body.toc2{padding-left:20em;padding-right:0}
+#toc {width:20em}
+#toc #toctitle{font-size:1.375em}
+#toc >ul{font-size:.95em}
+#toc ul ul{padding-left:1.25em}
+      body.toc2.toc-right{padding-left:0;padding-right:20em}}
 
+#toc { z-index:20; padding-top:120px;}
+#documentation { padding-left:10px; margin-left:auto; margin-right:auto}
+  </style>
 </head>
 
 
@@ -147,15 +167,31 @@
 </div>
     
 
-
     <div id='main' role='main'>
-      <div id="toc" class="toc">
-<div id="toctitle">Table of Contents</div>
-<ul class="sectlevel1">
+      <div class="documentation">
+<div class='full' style='background: #f5f5f5'>
+  <div class='row'>
+    <div class='large-15 columns'>
+      <div class='mod modBlogPost big'>
+        <div class='images'>
+          
+        </div>
+        <div class='content' style="font-size:1.2rem">
+          <h3><a href="/java/SNAPSHOT/">Muon Java</a></h3>
+
+          <div id="toc" class="toc">
+<div id="toctitle">Muon Java</div>
+<ul class="sectlevel2">
 <li><a href="#a-microservice-based-system-in-5-minutes">A Microservice based system in 5 minutes</a></li>
 <li><a href="#core-features">Core Features</a>
-<ul class="sectlevel2">
-<li><a href="#reactive-rpc">Reactive RPC</a></li>
+<ul class="sectlevel3">
+<li><a href="#reactive-rpc">Reactive RPC</a>
+<ul class="sectlevel4">
+<li><a href="#simple-rpc">Simple RPC</a></li>
+<li><a href="#making-it-reactive">Making it Reactive</a></li>
+<li><a href="#batch-handling-rpc">Batch handling RPC</a></li>
+</ul>
+</li>
 <li><a href="#reactive-streams">Reactive Streams</a></li>
 <li><a href="#event-sourcing">Event Sourcing</a></li>
 <li><a href="#event-based-testing">Event Based Testing</a></li>
@@ -163,7 +199,7 @@
 </ul>
 </li>
 <li><a href="#spring-support">Spring Support</a>
-<ul class="sectlevel2">
+<ul class="sectlevel3">
 <li><a href="#create-an-new-muon-spring-boot-microservice">Create an new Muon Spring Boot Microservice</a></li>
 <li><a href="#provide-an-rpc-endpoint">Provide an RPC endpoint</a></li>
 <li><a href="#create-a-spring-repository">Create a Spring Repository</a></li>
@@ -172,10 +208,26 @@
 </ul>
 </li>
 <li><a href="#extending-muon-java">Extending Muon Java</a>
-<ul class="sectlevel2">
+<ul class="sectlevel3">
 <li><a href="#encoding">Encoding</a></li>
 <li><a href="#transports">Transports</a></li>
-<li><a href="#adding-a-new-interaction-protocol">Adding a new interaction protocol</a></li>
+<li><a href="#adding-a-new-interaction-protocol">Adding a new interaction protocol</a>
+<ul class="sectlevel4">
+<li><a href="#designing-a-protocol">Designing a Protocol</a></li>
+<li><a href="#client-side">Client Side</a>
+<ul class="sectlevel5">
+<li><a href="#designing-building-a-muon-client-process">Designing Building a Muon Client Process</a></li>
+<li><a href="#designing-the-user-api-and-protocol-stack">Designing the User API and Protocol Stack</a></li>
+</ul>
+</li>
+<li><a href="#server-side">Server Side</a>
+<ul class="sectlevel5">
+<li><a href="#designing-building-a-muon-server-process">Designing Building a Muon Server Process</a></li>
+<li><a href="#registering-the-serverstack">Registering the ServerStack</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -183,17 +235,16 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Muon Java is the implementation of the Muon microservices toolkit, for the Java platform. Muon enables you to easily build<br>
-microservices in many languages that have richer, more performant and fully reactive communication semantics and gain access<br>
+<p>Muon Java is the implementation of the Muon microservices toolkit, for the Java platform. Muon enables you to easily build
+microservices in many languages that have richer, more performant and fully reactive communication semantics and gain access
 to Muon compatible services written in other languages without having to sacrifice the rich semantics or performance.</p>
 </div>
 </div>
 </div>
-<div class="sect1">
-<h2 id="a-microservice-based-system-in-5-minutes">A Microservice based system in 5 minutes</h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="a-microservice-based-system-in-5-minutes">A Microservice based system in 5 minutes</h3>
 <div class="paragraph">
-<p>The quickest way to start a new Muon Java Microservice is to use <em>Spring Boot</em> and the <em>Spring CLI</em>. You can see deeper information<br>
+<p>The quickest way to start a new Muon Java Microservice is to use <em>Spring Boot</em> and the <em>Spring CLI</em>. You can see deeper information
 later in this guide.</p>
 </div>
 <div class="paragraph">
@@ -212,51 +263,75 @@ sdk install springboot</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="groovy"><span class="tok-n">Unresolved</span> <span class="tok-n">directive</span> <span class="tok-k">in</span> <span class="tok-o">&lt;</span><span class="tok-n">stdin</span><span class="tok-o">&gt;</span> <span class="tok-o">-</span> <span class="tok-nl">include:</span><span class="tok-o">:</span><span class="tok-n">src</span><span class="tok-s">/main/</span><span class="tok-n">groovy</span><span class="tok-s">/io/</span><span class="tok-n">muoncore</span><span class="tok-s">/example/</span><span class="tok-n">user</span><span class="tok-o">/</span><span class="tok-n">UserService</span><span class="tok-o">.</span><span class="tok-na">groovy</span><span class="tok-o">[</span><span class="tok-n">lines</span><span class="tok-o">=</span><span class="tok-mi">17</span><span class="tok-o">..</span><span class="tok-mi">32</span><span class="tok-o">]</span></code></pre>
+<pre class="pygments highlight"><code data-lang="groovy">Unresolved directive <span style="color: #008000; font-weight: bold">in</span> java<span style="color: #BA2121">/SNAPSHOT/</span>main<span style="color: #666666">.</span><span style="color: #7D9029">adoc</span> <span style="color: #666666">-</span> <span style="color: #A0A000">include:</span><span style="color: #666666">:{</span>javasource<span style="color: #666666">}</span><span style="color: #BA2121">/src/</span>main<span style="color: #BA2121">/groovy/</span>io<span style="color: #BA2121">/muoncore/</span>example<span style="color: #BA2121">/user/</span>UserService<span style="color: #666666">.</span><span style="color: #7D9029">groovy</span><span style="color: #666666">[</span>lines<span style="color: #666666">=17..32]</span></code></pre>
 </div>
 </div>
 <div class="colist arabic">
-<ol>
-<li>
-<p>Use Spring Boot annotations to start up a Muon instance.</p>
-</li>
-<li>
-<p>Declare that this class has Muon operations to discover</p>
-</li>
-<li>
-<p>Declare an RPC endpoint (see RPC).</p>
-</li>
-<li>
-<p>Send data back to the client, in this case including the current process identifier.</p>
-</li>
-</ol>
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Use Spring Boot annotations to start up a Muon instance.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Declare that this class has Muon operations to discover</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Declare an RPC endpoint (see RPC).</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Send data back to the client, in this case including the current process identifier.</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
-<p>Here, we have configured a full muon service that makes available a single endpoint using the RPC <em>protocol</em>.  This protocol gives<br>
-an easy way to make a request and wait until a single response is received. Next, you can create another microservice<br>
+<p>Here, we have configured a full muon service that makes available a single endpoint using the RPC <em>protocol</em>.  This protocol gives
+an easy way to make a request and wait until a single response is received. Next, you can create another microservice
 that exposes this to the outside world.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="groovy"><span class="tok-n">Unresolved</span> <span class="tok-n">directive</span> <span class="tok-k">in</span> <span class="tok-o">&lt;</span><span class="tok-n">stdin</span><span class="tok-o">&gt;</span> <span class="tok-o">-</span> <span class="tok-nl">include:</span><span class="tok-o">:</span><span class="tok-n">src</span><span class="tok-s">/main/</span><span class="tok-n">groovy</span><span class="tok-s">/io/</span><span class="tok-n">muoncore</span><span class="tok-s">/example/</span><span class="tok-n">gateway</span><span class="tok-o">/</span><span class="tok-n">Gateway</span><span class="tok-o">.</span><span class="tok-na">groovy</span><span class="tok-o">[</span><span class="tok-n">lines</span><span class="tok-o">=</span><span class="tok-mi">18</span><span class="tok-o">..</span><span class="tok-mi">36</span><span class="tok-o">]</span></code></pre>
+<pre class="pygments highlight"><code data-lang="groovy"><span style="color: #AA22FF">@SpringBootApplication</span>
+<span style="color: #AA22FF">@Controller</span>
+<span style="color: #AA22FF">@MuonController</span>
+<span style="color: #AA22FF">@EnableMuon</span><span style="color: #666666">(</span>serviceName <span style="color: #666666">=</span> <span style="color: #BA2121">&quot;gateway&quot;</span><span style="color: #666666">)</span>
+<span style="color: #008000; font-weight: bold">class</span> <span style="color: #0000FF; font-weight: bold">Gateway</span> <span style="color: #666666">{</span>
+
+    <span style="color: #AA22FF">@Autowired</span>                     <i class="conum" data-value="1"></i><b>(1)</b>
+    Muon muon
+
+    <span style="color: #AA22FF">@RequestMapping</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;/&quot;</span><span style="color: #666666">)</span>           <i class="conum" data-value="2"></i><b>(2)</b>
+    <span style="color: #AA22FF">@ResponseBody</span>
+    String <span style="color: #0000FF">home</span><span style="color: #666666">()</span> <span style="color: #666666">{</span>
+        muon<span style="color: #666666">.</span><span style="color: #7D9029">request</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;request://users/&quot;</span><span style="color: #666666">,</span> Map<span style="color: #666666">).</span><span style="color: #7D9029">get</span><span style="color: #666666">().</span><span style="color: #7D9029">payload</span>   <i class="conum" data-value="3"></i><b>(3)</b>
+    <span style="color: #666666">}</span>
+    <span style="color: #008000; font-weight: bold">public</span> <span style="color: #008000; font-weight: bold">static</span> <span style="color: #B00040">void</span> <span style="color: #0000FF">main</span><span style="color: #666666">(</span>String<span style="color: #666666">[]</span> args<span style="color: #666666">)</span> <span style="color: #008000; font-weight: bold">throws</span> Exception <span style="color: #666666">{</span>
+        SpringApplication<span style="color: #666666">.</span><span style="color: #7D9029">run</span><span style="color: #666666">(</span>Gateway<span style="color: #666666">,</span> args<span style="color: #666666">);</span>
+    <span style="color: #666666">}</span>
+<span style="color: #666666">}</span></code></pre>
 </div>
 </div>
 <div class="colist arabic">
-<ol>
-<li>
-<p>Gain access to the <em>muon</em> instance that has been created.</p>
-</li>
-<li>
-<p>Configure Spring MVC to listen on an HTTP endpoint</p>
-</li>
-<li>
-<p>Use the muon instance to make an RPC call</p>
-</li>
-</ol>
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Gain access to the <em>muon</em> instance that has been created.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Configure Spring MVC to listen on an HTTP endpoint</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Use the muon instance to make an RPC call</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
-<p>Here, we have used Spring MVC, configured again via Spring Boot. This gives an easy way to start up an HTTP container<br>
-and make it accessible. When you call <a href="http://localhost:8080/" class="bare">http://localhost:8080/</a> you will receive an http response. The body of that response<br>
+<p>Here, we have used Spring MVC, configured again via Spring Boot. This gives an easy way to start up an HTTP container
+and make it accessible. When you call <a href="http://localhost:8080/" class="bare">http://localhost:8080/</a> you will receive an http response. The body of that response
 will be created from the data supplied by the UserService Microservice.</p>
 </div>
 <div class="paragraph">
@@ -266,26 +341,47 @@ will be created from the data supplied by the UserService Microservice.</p>
 <p>These will run in production, as independent services and require no underlying platform or runtime.</p>
 </div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="core-features">Core Features</h2>
-<div class="sectionbody">
 <div class="sect2">
-<h3 id="reactive-rpc">Reactive RPC</h3>
+<h3 id="core-features">Core Features</h3>
+<div class="sect3">
+<h4 id="reactive-rpc">Reactive RPC</h4>
 <div class="paragraph">
 <p>Request/ Response is a well understood communication style where you make a single request and expect to receive a single resonse</p>
 </div>
 <div class="paragraph">
 <p>Muon supports this style of communication, over it&#8217;s naturally scalable reactive and event based channel communication.</p>
 </div>
-<div class="sect3">
-<h4 id="simple-rpc">Simple RPC</h4>
+<div class="sect4">
+<h5 id="simple-rpc">Simple RPC</h5>
 <div class="paragraph">
 <p>Here is the simplest possible Muon RPC endpoint. It accepts any data pushed to it, and responsds with a simple text message</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="java"><span class="tok-n">Unresolved</span> <span class="tok-n">directive</span> <span class="tok-n">in</span> <span class="tok-o">&lt;</span><span class="tok-n">stdin</span><span class="tok-o">&gt;</span> <span class="tok-o">-</span> <span class="tok-nl">include:</span><span class="tok-o">:</span><span class="tok-n">src</span><span class="tok-o">/</span><span class="tok-n">main</span><span class="tok-o">/</span><span class="tok-n">java</span><span class="tok-o">/</span><span class="tok-n">io</span><span class="tok-o">/</span><span class="tok-n">muoncore</span><span class="tok-o">/</span><span class="tok-n">example</span><span class="tok-o">/</span><span class="tok-n">ReactiveRPC</span><span class="tok-o">.</span><span class="tok-na">java</span><span class="tok-o">[]</span></code></pre>
+<pre class="pygments highlight"><code data-lang="java"><span style="color: #008000; font-weight: bold">package</span> io<span style="color: #666666">.</span><span style="color: #7D9029">muoncore</span><span style="color: #666666">.</span><span style="color: #7D9029">example</span><span style="color: #666666">;</span>
+
+<span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">io.muoncore.Muon</span><span style="color: #666666">;</span>
+<span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">io.muoncore.protocol.requestresponse.Response</span><span style="color: #666666">;</span>
+
+<span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">java.util.concurrent.ExecutionException</span><span style="color: #666666">;</span>
+
+<span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">static</span> io<span style="color: #666666">.</span><span style="color: #7D9029">muoncore</span><span style="color: #666666">.</span><span style="color: #7D9029">protocol</span><span style="color: #666666">.</span><span style="color: #7D9029">requestresponse</span><span style="color: #666666">.</span><span style="color: #7D9029">server</span><span style="color: #666666">.</span><span style="color: #7D9029">HandlerPredicates</span><span style="color: #666666">.</span><span style="color: #7D9029">all</span><span style="color: #666666">;</span>
+
+<span style="color: #008000; font-weight: bold">public</span> <span style="color: #008000; font-weight: bold">class</span> <span style="color: #0000FF; font-weight: bold">ReactiveRPC</span> <span style="color: #666666">{</span>
+
+    <span style="color: #008000; font-weight: bold">public</span> <span style="color: #B00040">void</span> <span style="color: #0000FF">exec</span><span style="color: #666666">(</span>Muon muon<span style="color: #666666">)</span> <span style="color: #008000; font-weight: bold">throws</span> ExecutionException<span style="color: #666666">,</span> InterruptedException <span style="color: #666666">{</span>
+
+        <span style="color: #408080; font-style: italic">//request handler</span>
+        muon<span style="color: #666666">.</span><span style="color: #7D9029">handleRequest</span><span style="color: #666666">(</span>all<span style="color: #666666">(),</span> Object<span style="color: #666666">.</span><span style="color: #7D9029">class</span><span style="color: #666666">,</span> request <span style="color: #666666">-&gt;</span> <span style="color: #666666">{</span>
+            request<span style="color: #666666">.</span><span style="color: #7D9029">ok</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;Hi There&quot;</span><span style="color: #666666">);</span>
+        <span style="color: #666666">});</span>
+
+        <span style="color: #408080; font-style: italic">//request client</span>
+        Response<span style="color: #666666">&lt;</span>String<span style="color: #666666">&gt;</span> data <span style="color: #666666">=</span> muon<span style="color: #666666">.</span><span style="color: #7D9029">request</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;request://myservice/&quot;</span><span style="color: #666666">,</span> String<span style="color: #666666">.</span><span style="color: #7D9029">class</span><span style="color: #666666">).</span><span style="color: #7D9029">get</span><span style="color: #666666">();</span>
+
+        System<span style="color: #666666">.</span><span style="color: #7D9029">out</span><span style="color: #666666">.</span><span style="color: #7D9029">println</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;The Data is &quot;</span> <span style="color: #666666">+</span> data<span style="color: #666666">.</span><span style="color: #7D9029">getPayload</span><span style="color: #666666">());</span>
+    <span style="color: #666666">}</span>
+<span style="color: #666666">}</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -293,15 +389,38 @@ will be created from the data supplied by the UserService Microservice.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="java"><span class="tok-n">Unresolved</span> <span class="tok-n">directive</span> <span class="tok-n">in</span> <span class="tok-o">&lt;</span><span class="tok-n">stdin</span><span class="tok-o">&gt;</span> <span class="tok-o">-</span> <span class="tok-nl">include:</span><span class="tok-o">:</span><span class="tok-n">src</span><span class="tok-o">/</span><span class="tok-n">main</span><span class="tok-o">/</span><span class="tok-n">java</span><span class="tok-o">/</span><span class="tok-n">io</span><span class="tok-o">/</span><span class="tok-n">muoncore</span><span class="tok-o">/</span><span class="tok-n">example</span><span class="tok-o">/</span><span class="tok-n">ReactiveRPC</span><span class="tok-o">.</span><span class="tok-na">java</span><span class="tok-o">[]</span></code></pre>
+<pre class="pygments highlight"><code data-lang="java"><span style="color: #008000; font-weight: bold">package</span> io<span style="color: #666666">.</span><span style="color: #7D9029">muoncore</span><span style="color: #666666">.</span><span style="color: #7D9029">example</span><span style="color: #666666">;</span>
+
+<span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">io.muoncore.Muon</span><span style="color: #666666">;</span>
+<span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">io.muoncore.protocol.requestresponse.Response</span><span style="color: #666666">;</span>
+
+<span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">java.util.concurrent.ExecutionException</span><span style="color: #666666">;</span>
+
+<span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">static</span> io<span style="color: #666666">.</span><span style="color: #7D9029">muoncore</span><span style="color: #666666">.</span><span style="color: #7D9029">protocol</span><span style="color: #666666">.</span><span style="color: #7D9029">requestresponse</span><span style="color: #666666">.</span><span style="color: #7D9029">server</span><span style="color: #666666">.</span><span style="color: #7D9029">HandlerPredicates</span><span style="color: #666666">.</span><span style="color: #7D9029">all</span><span style="color: #666666">;</span>
+
+<span style="color: #008000; font-weight: bold">public</span> <span style="color: #008000; font-weight: bold">class</span> <span style="color: #0000FF; font-weight: bold">ReactiveRPC</span> <span style="color: #666666">{</span>
+
+    <span style="color: #008000; font-weight: bold">public</span> <span style="color: #B00040">void</span> <span style="color: #0000FF">exec</span><span style="color: #666666">(</span>Muon muon<span style="color: #666666">)</span> <span style="color: #008000; font-weight: bold">throws</span> ExecutionException<span style="color: #666666">,</span> InterruptedException <span style="color: #666666">{</span>
+
+        <span style="color: #408080; font-style: italic">//request handler</span>
+        muon<span style="color: #666666">.</span><span style="color: #7D9029">handleRequest</span><span style="color: #666666">(</span>all<span style="color: #666666">(),</span> Object<span style="color: #666666">.</span><span style="color: #7D9029">class</span><span style="color: #666666">,</span> request <span style="color: #666666">-&gt;</span> <span style="color: #666666">{</span>
+            request<span style="color: #666666">.</span><span style="color: #7D9029">ok</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;Hi There&quot;</span><span style="color: #666666">);</span>
+        <span style="color: #666666">});</span>
+
+        <span style="color: #408080; font-style: italic">//request client</span>
+        Response<span style="color: #666666">&lt;</span>String<span style="color: #666666">&gt;</span> data <span style="color: #666666">=</span> muon<span style="color: #666666">.</span><span style="color: #7D9029">request</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;request://myservice/&quot;</span><span style="color: #666666">,</span> String<span style="color: #666666">.</span><span style="color: #7D9029">class</span><span style="color: #666666">).</span><span style="color: #7D9029">get</span><span style="color: #666666">();</span>
+
+        System<span style="color: #666666">.</span><span style="color: #7D9029">out</span><span style="color: #666666">.</span><span style="color: #7D9029">println</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;The Data is &quot;</span> <span style="color: #666666">+</span> data<span style="color: #666666">.</span><span style="color: #7D9029">getPayload</span><span style="color: #666666">());</span>
+    <span style="color: #666666">}</span>
+<span style="color: #666666">}</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
 <p>The Response object contains meta data about the reponse, if it succeeded.</p>
 </div>
 </div>
-<div class="sect3">
-<h4 id="making-it-reactive">Making it Reactive</h4>
+<div class="sect4">
+<h5 id="making-it-reactive">Making it Reactive</h5>
 <div class="paragraph">
 <p>The handler does not need to response synchronously as in the above example. The response can be invoked from any context, and by any thread.</p>
 </div>
@@ -313,7 +432,47 @@ will be created from the data supplied by the UserService Microservice.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="java"><span class="tok-n">Unresolved</span> <span class="tok-n">directive</span> <span class="tok-n">in</span> <span class="tok-o">&lt;</span><span class="tok-n">stdin</span><span class="tok-o">&gt;</span> <span class="tok-o">-</span> <span class="tok-nl">include:</span><span class="tok-o">:</span><span class="tok-n">src</span><span class="tok-o">/</span><span class="tok-n">main</span><span class="tok-o">/</span><span class="tok-n">java</span><span class="tok-o">/</span><span class="tok-n">io</span><span class="tok-o">/</span><span class="tok-n">muoncore</span><span class="tok-o">/</span><span class="tok-n">example</span><span class="tok-o">/</span><span class="tok-n">ReactiveRPCAsync</span><span class="tok-o">.</span><span class="tok-na">java</span><span class="tok-o">[]</span></code></pre>
+<pre class="pygments highlight"><code data-lang="java"><span style="color: #008000; font-weight: bold">package</span> io<span style="color: #666666">.</span><span style="color: #7D9029">muoncore</span><span style="color: #666666">.</span><span style="color: #7D9029">example</span><span style="color: #666666">;</span>
+
+<span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">io.muoncore.Muon</span><span style="color: #666666">;</span>
+<span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">io.muoncore.protocol.requestresponse.Response</span><span style="color: #666666">;</span>
+<span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">io.muoncore.protocol.requestresponse.server.RequestWrapper</span><span style="color: #666666">;</span>
+
+<span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">java.util.LinkedList</span><span style="color: #666666">;</span>
+<span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">java.util.Queue</span><span style="color: #666666">;</span>
+<span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">java.util.concurrent.ExecutionException</span><span style="color: #666666">;</span>
+
+<span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">static</span> io<span style="color: #666666">.</span><span style="color: #7D9029">muoncore</span><span style="color: #666666">.</span><span style="color: #7D9029">protocol</span><span style="color: #666666">.</span><span style="color: #7D9029">requestresponse</span><span style="color: #666666">.</span><span style="color: #7D9029">server</span><span style="color: #666666">.</span><span style="color: #7D9029">HandlerPredicates</span><span style="color: #666666">.</span><span style="color: #7D9029">all</span><span style="color: #666666">;</span>
+
+<span style="color: #008000; font-weight: bold">public</span> <span style="color: #008000; font-weight: bold">class</span> <span style="color: #0000FF; font-weight: bold">ReactiveRPCAsync</span> <span style="color: #666666">{</span>
+
+    <span style="color: #008000; font-weight: bold">public</span> <span style="color: #B00040">void</span> <span style="color: #0000FF">exec</span><span style="color: #666666">(</span>Muon muon<span style="color: #666666">)</span> <span style="color: #008000; font-weight: bold">throws</span> ExecutionException<span style="color: #666666">,</span> InterruptedException <span style="color: #666666">{</span>
+
+        Queue<span style="color: #666666">&lt;</span>RequestWrapper<span style="color: #666666">&gt;</span> requestQueue <span style="color: #666666">=</span> <span style="color: #008000; font-weight: bold">new</span> LinkedList<span style="color: #666666">&lt;&gt;();</span>
+
+        <span style="color: #408080; font-style: italic">//request handler</span>
+        muon<span style="color: #666666">.</span><span style="color: #7D9029">handleRequest</span><span style="color: #666666">(</span>all<span style="color: #666666">(),</span> Object<span style="color: #666666">.</span><span style="color: #7D9029">class</span><span style="color: #666666">,</span> <span style="color: #A0A000">requestQueue:</span><span style="color: #666666">:</span>add<span style="color: #666666">);</span>
+
+        <span style="color: #008000; font-weight: bold">new</span> <span style="color: #0000FF">Thread</span><span style="color: #666666">(()</span> <span style="color: #666666">-&gt;</span> <span style="color: #666666">{</span>
+
+            <span style="color: #008000; font-weight: bold">while</span><span style="color: #666666">(</span><span style="color: #008000; font-weight: bold">true</span><span style="color: #666666">)</span> <span style="color: #666666">{</span>
+
+                RequestWrapper wrapper <span style="color: #666666">=</span> requestQueue<span style="color: #666666">.</span><span style="color: #7D9029">poll</span><span style="color: #666666">();</span>
+
+                wrapper<span style="color: #666666">.</span><span style="color: #7D9029">ok</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;Hello&quot;</span><span style="color: #666666">);</span>
+
+                <span style="color: #008000; font-weight: bold">if</span> <span style="color: #666666">(</span>requestQueue<span style="color: #666666">.</span><span style="color: #7D9029">isEmpty</span><span style="color: #666666">())</span> <span style="color: #666666">{</span>
+                    <span style="color: #408080; font-style: italic">// ... wait ....</span>
+                <span style="color: #666666">}</span>
+            <span style="color: #666666">}</span>
+        <span style="color: #666666">});</span>
+
+        <span style="color: #408080; font-style: italic">//request client</span>
+        Response<span style="color: #666666">&lt;</span>String<span style="color: #666666">&gt;</span> data <span style="color: #666666">=</span> muon<span style="color: #666666">.</span><span style="color: #7D9029">request</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;request://myservice/&quot;</span><span style="color: #666666">,</span> String<span style="color: #666666">.</span><span style="color: #7D9029">class</span><span style="color: #666666">).</span><span style="color: #7D9029">get</span><span style="color: #666666">();</span>
+
+        System<span style="color: #666666">.</span><span style="color: #7D9029">out</span><span style="color: #666666">.</span><span style="color: #7D9029">println</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;The Data is &quot;</span> <span style="color: #666666">+</span> data<span style="color: #666666">.</span><span style="color: #7D9029">getPayload</span><span style="color: #666666">());</span>
+    <span style="color: #666666">}</span>
+<span style="color: #666666">}</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -323,10 +482,10 @@ will be created from the data supplied by the UserService Microservice.</p>
 <p>Be aware that the request will time out on both the client and server side, depending on your configuration.</p>
 </div>
 </div>
-<div class="sect3">
-<h4 id="batch-handling-rpc">Batch handling RPC</h4>
+<div class="sect4">
+<h5 id="batch-handling-rpc">Batch handling RPC</h5>
 <div class="paragraph">
-<p>A common failure of RPC based systems is that they attempt to perform too much work in concurrently, and in logical isolation.<br>
+<p>A common failure of RPC based systems is that they attempt to perform too much work in concurrently, and in logical isolation.
 This then ends up causing thread thrashing, overwhelming of the thread pool or overload on some backing data store.</p>
 </div>
 <div class="paragraph">
@@ -334,7 +493,32 @@ This then ends up causing thread thrashing, overwhelming of the thread pool or o
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="java"><span class="tok-n">Unresolved</span> <span class="tok-n">directive</span> <span class="tok-n">in</span> <span class="tok-o">&lt;</span><span class="tok-n">stdin</span><span class="tok-o">&gt;</span> <span class="tok-o">-</span> <span class="tok-nl">include:</span><span class="tok-o">:</span><span class="tok-n">src</span><span class="tok-o">/</span><span class="tok-n">main</span><span class="tok-o">/</span><span class="tok-n">java</span><span class="tok-o">/</span><span class="tok-n">io</span><span class="tok-o">/</span><span class="tok-n">muoncore</span><span class="tok-o">/</span><span class="tok-n">example</span><span class="tok-o">/</span><span class="tok-n">ReactiveRPCBatch</span><span class="tok-o">.</span><span class="tok-na">java</span><span class="tok-o">[]</span></code></pre>
+<pre class="pygments highlight"><code data-lang="java"><span style="color: #008000; font-weight: bold">package</span> io<span style="color: #666666">.</span><span style="color: #7D9029">muoncore</span><span style="color: #666666">.</span><span style="color: #7D9029">example</span><span style="color: #666666">;</span>
+
+<span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">io.muoncore.Muon</span><span style="color: #666666">;</span>
+<span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">io.muoncore.protocol.requestresponse.server.RequestWrapper</span><span style="color: #666666">;</span>
+
+<span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">java.util.LinkedList</span><span style="color: #666666">;</span>
+<span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">java.util.Queue</span><span style="color: #666666">;</span>
+<span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">java.util.concurrent.ExecutionException</span><span style="color: #666666">;</span>
+
+<span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">static</span> io<span style="color: #666666">.</span><span style="color: #7D9029">muoncore</span><span style="color: #666666">.</span><span style="color: #7D9029">protocol</span><span style="color: #666666">.</span><span style="color: #7D9029">requestresponse</span><span style="color: #666666">.</span><span style="color: #7D9029">server</span><span style="color: #666666">.</span><span style="color: #7D9029">HandlerPredicates</span><span style="color: #666666">.</span><span style="color: #7D9029">all</span><span style="color: #666666">;</span>
+
+<span style="color: #008000; font-weight: bold">public</span> <span style="color: #008000; font-weight: bold">class</span> <span style="color: #0000FF; font-weight: bold">ReactiveRPCBatch</span> <span style="color: #666666">{</span>
+
+    <span style="color: #008000; font-weight: bold">public</span> <span style="color: #B00040">void</span> <span style="color: #0000FF">exec</span><span style="color: #666666">(</span>Muon muon<span style="color: #666666">)</span> <span style="color: #008000; font-weight: bold">throws</span> ExecutionException<span style="color: #666666">,</span> InterruptedException <span style="color: #666666">{</span>
+
+        Queue<span style="color: #666666">&lt;</span>RequestWrapper<span style="color: #666666">&gt;</span> requestQueue <span style="color: #666666">=</span> <span style="color: #008000; font-weight: bold">new</span> LinkedList<span style="color: #666666">&lt;&gt;();</span>
+
+        <span style="color: #408080; font-style: italic">//request handler</span>
+        muon<span style="color: #666666">.</span><span style="color: #7D9029">handleRequest</span><span style="color: #666666">(</span>all<span style="color: #666666">(),</span> Object<span style="color: #666666">.</span><span style="color: #7D9029">class</span><span style="color: #666666">,</span> <span style="color: #A0A000">requestQueue:</span><span style="color: #666666">:</span>add<span style="color: #666666">);</span>
+
+
+        <span style="color: #408080; font-style: italic">//TODO, a good eaxmple of the pattern</span>
+
+
+    <span style="color: #666666">}</span>
+<span style="color: #666666">}</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -342,10 +526,10 @@ This then ends up causing thread thrashing, overwhelming of the thread pool or o
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="reactive-streams">Reactive Streams</h3>
+<div class="sect3">
+<h4 id="reactive-streams">Reactive Streams</h4>
 <div class="paragraph">
-<p>Muon is built to enable the creation of streams easily. Internally everything is treated as a <em>channel</em>, a naturally streaming<br>
+<p>Muon is built to enable the creation of streams easily. Internally everything is treated as a <em>channel</em>, a naturally streaming
 construction.</p>
 </div>
 <div class="paragraph">
@@ -356,11 +540,42 @@ construction.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="java"><span class="tok-n">Unresolved</span> <span class="tok-n">directive</span> <span class="tok-n">in</span> <span class="tok-o">&lt;</span><span class="tok-n">stdin</span><span class="tok-o">&gt;</span> <span class="tok-o">-</span> <span class="tok-nl">include:</span><span class="tok-o">:</span><span class="tok-n">src</span><span class="tok-o">/</span><span class="tok-n">main</span><span class="tok-o">/</span><span class="tok-n">java</span><span class="tok-o">/</span><span class="tok-n">io</span><span class="tok-o">/</span><span class="tok-n">muoncore</span><span class="tok-o">/</span><span class="tok-n">example</span><span class="tok-o">/</span><span class="tok-n">ReactiveStreams</span><span class="tok-o">.</span><span class="tok-na">java</span><span class="tok-o">[]</span></code></pre>
+<pre class="pygments highlight"><code data-lang="java"><span style="color: #008000; font-weight: bold">package</span> io<span style="color: #666666">.</span><span style="color: #7D9029">muoncore</span><span style="color: #666666">.</span><span style="color: #7D9029">example</span><span style="color: #666666">;</span>
+
+<span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">io.muoncore.Muon</span><span style="color: #666666">;</span>
+<span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">io.muoncore.protocol.reactivestream.server.PublisherLookup</span><span style="color: #666666">;</span>
+<span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">reactor.rx.broadcast.Broadcaster</span><span style="color: #666666">;</span>
+
+<span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">java.io.UnsupportedEncodingException</span><span style="color: #666666">;</span>
+<span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">java.net.URI</span><span style="color: #666666">;</span>
+<span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">java.net.URISyntaxException</span><span style="color: #666666">;</span>
+<span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">java.util.concurrent.ExecutionException</span><span style="color: #666666">;</span>
+
+<span style="color: #008000; font-weight: bold">public</span> <span style="color: #008000; font-weight: bold">class</span> <span style="color: #0000FF; font-weight: bold">ReactiveStreams</span> <span style="color: #666666">{</span>
+
+    <span style="color: #008000; font-weight: bold">public</span> <span style="color: #B00040">void</span> <span style="color: #0000FF">exec</span><span style="color: #666666">(</span>Muon muon<span style="color: #666666">)</span> <span style="color: #008000; font-weight: bold">throws</span> ExecutionException<span style="color: #666666">,</span> InterruptedException<span style="color: #666666">,</span> URISyntaxException<span style="color: #666666">,</span> UnsupportedEncodingException <span style="color: #666666">{</span>
+
+        Broadcaster<span style="color: #666666">&lt;</span>String<span style="color: #666666">&gt;</span> publisher <span style="color: #666666">=</span> Broadcaster<span style="color: #666666">.</span><span style="color: #7D9029">create</span><span style="color: #666666">();</span>
+
+        muon<span style="color: #666666">.</span><span style="color: #7D9029">publishSource</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;stockTicker&quot;</span><span style="color: #666666">,</span> PublisherLookup<span style="color: #666666">.</span><span style="color: #7D9029">PublisherType</span><span style="color: #666666">.</span><span style="color: #7D9029">HOT</span><span style="color: #666666">,</span> publisher<span style="color: #666666">);</span>
+
+        <span style="color: #408080; font-style: italic">//some time later</span>
+        publisher<span style="color: #666666">.</span><span style="color: #7D9029">accept</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;APPL: 210&quot;</span><span style="color: #666666">);</span>
+        publisher<span style="color: #666666">.</span><span style="color: #7D9029">accept</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;NOKIA: 20&quot;</span><span style="color: #666666">);</span>
+
+
+        Broadcaster<span style="color: #666666">&lt;</span>String<span style="color: #666666">&gt;</span> client <span style="color: #666666">=</span> Broadcaster<span style="color: #666666">.</span><span style="color: #7D9029">create</span><span style="color: #666666">();</span>
+        client<span style="color: #666666">.</span><span style="color: #7D9029">consume</span><span style="color: #666666">(</span> val <span style="color: #666666">-&gt;</span> <span style="color: #666666">{</span>
+            System<span style="color: #666666">.</span><span style="color: #7D9029">out</span><span style="color: #666666">.</span><span style="color: #7D9029">println</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;The value is &quot;</span> <span style="color: #666666">+</span> val<span style="color: #666666">);</span>
+        <span style="color: #666666">});</span>
+
+        muon<span style="color: #666666">.</span><span style="color: #7D9029">subscribe</span><span style="color: #666666">(</span><span style="color: #008000; font-weight: bold">new</span> <span style="color: #0000FF">URI</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;stream://myservice/stockTicker&quot;</span><span style="color: #666666">),</span> String<span style="color: #666666">.</span><span style="color: #7D9029">class</span><span style="color: #666666">,</span> client<span style="color: #666666">);</span>
+    <span style="color: #666666">}</span>
+<span style="color: #666666">}</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Here, we use <em>Spring Reactor</em> to demonstrate the creation of a Publisher, however any Reactive Streams compatible framework or library could<br>
+<p>Here, we use <em>Spring Reactor</em> to demonstrate the creation of a Publisher, however any Reactive Streams compatible framework or library could
 be used.</p>
 </div>
 <div class="paragraph">
@@ -368,139 +583,210 @@ be used.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="java"><span class="tok-n">Unresolved</span> <span class="tok-n">directive</span> <span class="tok-n">in</span> <span class="tok-o">&lt;</span><span class="tok-n">stdin</span><span class="tok-o">&gt;</span> <span class="tok-o">-</span> <span class="tok-nl">include:</span><span class="tok-o">:</span><span class="tok-n">src</span><span class="tok-o">/</span><span class="tok-n">main</span><span class="tok-o">/</span><span class="tok-n">java</span><span class="tok-o">/</span><span class="tok-n">io</span><span class="tok-o">/</span><span class="tok-n">muoncore</span><span class="tok-o">/</span><span class="tok-n">example</span><span class="tok-o">/</span><span class="tok-n">ReactiveStreams</span><span class="tok-o">.</span><span class="tok-na">java</span><span class="tok-o">[]</span></code></pre>
+<pre class="pygments highlight"><code data-lang="java"><span style="color: #008000; font-weight: bold">package</span> io<span style="color: #666666">.</span><span style="color: #7D9029">muoncore</span><span style="color: #666666">.</span><span style="color: #7D9029">example</span><span style="color: #666666">;</span>
+
+<span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">io.muoncore.Muon</span><span style="color: #666666">;</span>
+<span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">io.muoncore.protocol.reactivestream.server.PublisherLookup</span><span style="color: #666666">;</span>
+<span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">reactor.rx.broadcast.Broadcaster</span><span style="color: #666666">;</span>
+
+<span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">java.io.UnsupportedEncodingException</span><span style="color: #666666">;</span>
+<span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">java.net.URI</span><span style="color: #666666">;</span>
+<span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">java.net.URISyntaxException</span><span style="color: #666666">;</span>
+<span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">java.util.concurrent.ExecutionException</span><span style="color: #666666">;</span>
+
+<span style="color: #008000; font-weight: bold">public</span> <span style="color: #008000; font-weight: bold">class</span> <span style="color: #0000FF; font-weight: bold">ReactiveStreams</span> <span style="color: #666666">{</span>
+
+    <span style="color: #008000; font-weight: bold">public</span> <span style="color: #B00040">void</span> <span style="color: #0000FF">exec</span><span style="color: #666666">(</span>Muon muon<span style="color: #666666">)</span> <span style="color: #008000; font-weight: bold">throws</span> ExecutionException<span style="color: #666666">,</span> InterruptedException<span style="color: #666666">,</span> URISyntaxException<span style="color: #666666">,</span> UnsupportedEncodingException <span style="color: #666666">{</span>
+
+        Broadcaster<span style="color: #666666">&lt;</span>String<span style="color: #666666">&gt;</span> publisher <span style="color: #666666">=</span> Broadcaster<span style="color: #666666">.</span><span style="color: #7D9029">create</span><span style="color: #666666">();</span>
+
+        muon<span style="color: #666666">.</span><span style="color: #7D9029">publishSource</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;stockTicker&quot;</span><span style="color: #666666">,</span> PublisherLookup<span style="color: #666666">.</span><span style="color: #7D9029">PublisherType</span><span style="color: #666666">.</span><span style="color: #7D9029">HOT</span><span style="color: #666666">,</span> publisher<span style="color: #666666">);</span>
+
+        <span style="color: #408080; font-style: italic">//some time later</span>
+        publisher<span style="color: #666666">.</span><span style="color: #7D9029">accept</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;APPL: 210&quot;</span><span style="color: #666666">);</span>
+        publisher<span style="color: #666666">.</span><span style="color: #7D9029">accept</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;NOKIA: 20&quot;</span><span style="color: #666666">);</span>
+
+
+        Broadcaster<span style="color: #666666">&lt;</span>String<span style="color: #666666">&gt;</span> client <span style="color: #666666">=</span> Broadcaster<span style="color: #666666">.</span><span style="color: #7D9029">create</span><span style="color: #666666">();</span>
+        client<span style="color: #666666">.</span><span style="color: #7D9029">consume</span><span style="color: #666666">(</span> val <span style="color: #666666">-&gt;</span> <span style="color: #666666">{</span>
+            System<span style="color: #666666">.</span><span style="color: #7D9029">out</span><span style="color: #666666">.</span><span style="color: #7D9029">println</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;The value is &quot;</span> <span style="color: #666666">+</span> val<span style="color: #666666">);</span>
+        <span style="color: #666666">});</span>
+
+        muon<span style="color: #666666">.</span><span style="color: #7D9029">subscribe</span><span style="color: #666666">(</span><span style="color: #008000; font-weight: bold">new</span> <span style="color: #0000FF">URI</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;stream://myservice/stockTicker&quot;</span><span style="color: #666666">),</span> String<span style="color: #666666">.</span><span style="color: #7D9029">class</span><span style="color: #666666">,</span> client<span style="color: #666666">);</span>
+    <span style="color: #666666">}</span>
+<span style="color: #666666">}</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Again, this example uses Java and shows two separate services communicating using a reactive message stream, with back pressure support<br>
+<p>Again, this example uses Java and shows two separate services communicating using a reactive message stream, with back pressure support
 managed by Reactor.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="event-sourcing">Event Sourcing</h3>
+<div class="sect3">
+<h4 id="event-sourcing">Event Sourcing</h4>
 <div class="paragraph">
 <p>TODO, link core event sourcing docs.</p>
 </div>
 <div class="paragraph">
-<p>Apart from the recommended event store, Photon, Muon Java provides an in memory, simplified event store that only implements<br>
+<p>Apart from the recommended event store, Photon, Muon Java provides an in memory, simplified event store that only implements
  the core ingest and stream functionality of a muon compatible event store. You can read more about it <a href="InMemEventStore.html">here</a></p>
 </div>
 <div class="paragraph">
 <p>This is most useful during building tests.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="event-based-testing">Event Based Testing</h3>
+<div class="sect3">
+<h4 id="event-based-testing">Event Based Testing</h4>
 <div class="paragraph">
-<p>If you adopt the Event system (which requires an event store such as <em>Photon</em>), then you will design your system domains<br>
+<p>If you adopt the Event system (which requires an event store such as <em>Photon</em>), then you will design your system domains
 as a set of <em>Events</em>, and your business processes as a set of causal relationships between them.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="wiretap">Wiretap</h3>
+<div class="sect3">
+<h4 id="wiretap">Wiretap</h4>
 <div class="paragraph">
-<p>The transport subsystem of Muon injects a WiretapChannel into every connection that is made. This allows you to optionally<br>
-read the messages moving in and out of the transport and further interpret them. The messages themselves are immutable,<br>
+<p>The transport subsystem of Muon injects a WiretapChannel into every connection that is made. This allows you to optionally
+read the messages moving in and out of the transport and further interpret them. The messages themselves are immutable,
 and so you recieve the message itself for processing.</p>
 </div>
 <div class="paragraph">
-<p>Ordinarily, this is used to record the way a service communicates with the rest of the distributed application. This<br>
+<p>Ordinarily, this is used to record the way a service communicates with the rest of the distributed application. This
 is particularly useful when designing and building a new communication protocol.</p>
 </div>
 <div class="paragraph">
-<p>Image a service with a single RPC endpoint that accepts an undefined object data structure, which represent using a Map.<br>
+<p>Image a service with a single RPC endpoint that accepts an undefined object data structure, which represent using a Map.
  It then responds inline wth the number 42. A very simple service.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="java"><span class="tok-n">Unresolved</span> <span class="tok-n">directive</span> <span class="tok-n">in</span> <span class="tok-o">&lt;</span><span class="tok-n">stdin</span><span class="tok-o">&gt;</span> <span class="tok-o">-</span> <span class="tok-nl">include:</span><span class="tok-o">:</span><span class="tok-n">src</span><span class="tok-o">/</span><span class="tok-n">main</span><span class="tok-o">/</span><span class="tok-n">java</span><span class="tok-o">/</span><span class="tok-n">io</span><span class="tok-o">/</span><span class="tok-n">muoncore</span><span class="tok-o">/</span><span class="tok-n">example</span><span class="tok-o">/</span><span class="tok-n">Wiretap</span><span class="tok-o">.</span><span class="tok-na">java</span><span class="tok-o">[</span><span class="tok-n">tags</span><span class="tok-o">=</span><span class="tok-n">setupRPC</span><span class="tok-o">]</span></code></pre>
+<pre class="pygments highlight"><code data-lang="java">        Broadcaster<span style="color: #666666">&lt;</span>String<span style="color: #666666">&gt;</span> publisher <span style="color: #666666">=</span> Broadcaster<span style="color: #666666">.</span><span style="color: #7D9029">create</span><span style="color: #666666">();</span>
+
+        muon<span style="color: #666666">.</span><span style="color: #7D9029">handleRequest</span><span style="color: #666666">(</span>all<span style="color: #666666">(),</span> Map<span style="color: #666666">.</span><span style="color: #7D9029">class</span><span style="color: #666666">,</span> request <span style="color: #666666">-&gt;</span> <span style="color: #666666">{</span>
+            request<span style="color: #666666">.</span><span style="color: #7D9029">ok</span><span style="color: #666666">(42);</span>
+        <span style="color: #666666">});</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
 <p>We would like to generate a list of all the services that are calling this one, without altering the business method.</p>
 </div>
 <div class="paragraph">
-<p>We could implement this using a wiretap, this will extract a stream of all the requests that match a particular filter.<br>
+<p>We could implement this using a wiretap, this will extract a stream of all the requests that match a particular filter.
 The stream interface provided implements the Reactive Stream interface.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="java"><span class="tok-n">Unresolved</span> <span class="tok-n">directive</span> <span class="tok-n">in</span> <span class="tok-o">&lt;</span><span class="tok-n">stdin</span><span class="tok-o">&gt;</span> <span class="tok-o">-</span> <span class="tok-nl">include:</span><span class="tok-o">:</span><span class="tok-n">src</span><span class="tok-o">/</span><span class="tok-n">main</span><span class="tok-o">/</span><span class="tok-n">java</span><span class="tok-o">/</span><span class="tok-n">io</span><span class="tok-o">/</span><span class="tok-n">muoncore</span><span class="tok-o">/</span><span class="tok-n">example</span><span class="tok-o">/</span><span class="tok-n">Wiretap</span><span class="tok-o">.</span><span class="tok-na">java</span><span class="tok-o">[</span><span class="tok-n">tags</span><span class="tok-o">=</span><span class="tok-n">wiretap</span><span class="tok-o">]</span></code></pre>
+<pre class="pygments highlight"><code data-lang="java">        Set<span style="color: #666666">&lt;</span>String<span style="color: #666666">&gt;</span> remoteServices <span style="color: #666666">=</span> <span style="color: #008000; font-weight: bold">new</span> HashSet<span style="color: #666666">&lt;&gt;();</span>     <i class="conum" data-value="1"></i><b>(1)</b>
+        Broadcaster<span style="color: #666666">&lt;</span>TransportMessage<span style="color: #666666">&gt;</span> requests <span style="color: #666666">=</span> Broadcaster<span style="color: #666666">.</span><span style="color: #7D9029">create</span><span style="color: #666666">();</span>
+
+        requests<span style="color: #666666">.</span><span style="color: #7D9029">consume</span><span style="color: #666666">(</span>msg <span style="color: #666666">-&gt;</span> <span style="color: #666666">{</span>
+            remoteServices<span style="color: #666666">.</span><span style="color: #7D9029">add</span><span style="color: #666666">(</span>msg<span style="color: #666666">.</span><span style="color: #7D9029">getSourceServiceName</span><span style="color: #666666">());</span>  <i class="conum" data-value="2"></i><b>(2)</b>
+        <span style="color: #666666">});</span>
+
+        muon<span style="color: #666666">.</span><span style="color: #7D9029">getTransportControl</span><span style="color: #666666">().</span><span style="color: #7D9029">tap</span><span style="color: #666666">(</span>                      <i class="conum" data-value="3"></i><b>(3)</b>
+                msg <span style="color: #666666">-&gt;</span> msg<span style="color: #666666">.</span><span style="color: #7D9029">getType</span><span style="color: #666666">().</span><span style="color: #7D9029">equals</span><span style="color: #666666">(</span>RRPEvents<span style="color: #666666">.</span><span style="color: #7D9029">REQUEST</span><span style="color: #666666">)).</span><span style="color: #7D9029">subscribe</span><span style="color: #666666">(</span>requests<span style="color: #666666">);</span> <i class="conum" data-value="4"></i><b>(4)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
-<ol>
-<li>
-<p>The services that have connected to this one via the RPC endpont.</p>
-</li>
-<li>
-<p>A Spring Reactor Broadcaster, converting the messages into the list.</p>
-</li>
-<li>
-<p>Adding the tap into the Muon transport subsystem</p>
-</li>
-<li>
-<p>The filter matches for the EventType field on the TransportMessage, picking out particular messages.</p>
-</li>
-</ol>
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The services that have connected to this one via the RPC endpont.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>A Spring Reactor Broadcaster, converting the messages into the list.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Adding the tap into the Muon transport subsystem</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>The filter matches for the EventType field on the TransportMessage, picking out particular messages.</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
-<p>Whenever you then perform an RPC communication, the Request <code><code>TransportMessage</code></code> events will be selected by your wiretap<br>
+<p>Whenever you then perform an RPC communication, the Request <code><code>TransportMessage</code></code> events will be selected by your wiretap
  and passed into the Subscriber, in this case the Reactor Broadcaster.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="java"><span class="tok-n">Unresolved</span> <span class="tok-n">directive</span> <span class="tok-n">in</span> <span class="tok-o">&lt;</span><span class="tok-n">stdin</span><span class="tok-o">&gt;</span> <span class="tok-o">-</span> <span class="tok-nl">include:</span><span class="tok-o">:</span><span class="tok-n">src</span><span class="tok-o">/</span><span class="tok-n">main</span><span class="tok-o">/</span><span class="tok-n">java</span><span class="tok-o">/</span><span class="tok-n">io</span><span class="tok-o">/</span><span class="tok-n">muoncore</span><span class="tok-o">/</span><span class="tok-n">example</span><span class="tok-o">/</span><span class="tok-n">Wiretap</span><span class="tok-o">.</span><span class="tok-na">java</span><span class="tok-o">[</span><span class="tok-n">tags</span><span class="tok-o">=</span><span class="tok-n">fireRPC</span><span class="tok-o">]</span></code></pre>
+<pre class="pygments highlight"><code data-lang="java">        <span style="color: #B00040">int</span> value <span style="color: #666666">=</span> muon<span style="color: #666666">.</span><span style="color: #7D9029">request</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;request://myservice/&quot;</span><span style="color: #666666">,</span> Integer<span style="color: #666666">.</span><span style="color: #7D9029">class</span><span style="color: #666666">).</span><span style="color: #7D9029">get</span><span style="color: #666666">().</span><span style="color: #7D9029">getPayload</span><span style="color: #666666">();</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>As many wiretaps as you like can be active. You may add another Wiretap later on to select the Response messages, and it will then begin<br>
+<p>As many wiretaps as you like can be active. You may add another Wiretap later on to select the Response messages, and it will then begin
 to receive all the messages required.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="java"><span class="tok-n">Unresolved</span> <span class="tok-n">directive</span> <span class="tok-n">in</span> <span class="tok-o">&lt;</span><span class="tok-n">stdin</span><span class="tok-o">&gt;</span> <span class="tok-o">-</span> <span class="tok-nl">include:</span><span class="tok-o">:</span><span class="tok-n">src</span><span class="tok-o">/</span><span class="tok-n">main</span><span class="tok-o">/</span><span class="tok-n">java</span><span class="tok-o">/</span><span class="tok-n">io</span><span class="tok-o">/</span><span class="tok-n">muoncore</span><span class="tok-o">/</span><span class="tok-n">example</span><span class="tok-o">/</span><span class="tok-n">Wiretap</span><span class="tok-o">.</span><span class="tok-na">java</span><span class="tok-o">[</span><span class="tok-n">tags</span><span class="tok-o">=</span><span class="tok-n">wiretap2</span><span class="tok-o">]</span></code></pre>
+<pre class="pygments highlight"><code data-lang="java">        Broadcaster<span style="color: #666666">&lt;</span>TransportMessage<span style="color: #666666">&gt;</span> responses <span style="color: #666666">=</span> Broadcaster<span style="color: #666666">.</span><span style="color: #7D9029">create</span><span style="color: #666666">();</span>
+
+        responses<span style="color: #666666">.</span><span style="color: #7D9029">consume</span><span style="color: #666666">(</span>msg <span style="color: #666666">-&gt;</span> <span style="color: #666666">{</span>
+            System<span style="color: #666666">.</span><span style="color: #7D9029">out</span><span style="color: #666666">.</span><span style="color: #7D9029">println</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;Sent a response to &quot;</span> <span style="color: #666666">+</span> msg<span style="color: #666666">.</span><span style="color: #7D9029">getTargetServiceName</span><span style="color: #666666">());</span>
+        <span style="color: #666666">});</span>
+
+        muon<span style="color: #666666">.</span><span style="color: #7D9029">getTransportControl</span><span style="color: #666666">().</span><span style="color: #7D9029">tap</span><span style="color: #666666">(</span>
+                msg <span style="color: #666666">-&gt;</span> msg<span style="color: #666666">.</span><span style="color: #7D9029">getType</span><span style="color: #666666">().</span><span style="color: #7D9029">equals</span><span style="color: #666666">(</span>RRPEvents<span style="color: #666666">.</span><span style="color: #7D9029">RESPONSE</span><span style="color: #666666">)).</span><span style="color: #7D9029">subscribe</span><span style="color: #666666">(</span>responses<span style="color: #666666">);</span></code></pre>
 </div>
 </div>
 </div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="spring-support">Spring Support</h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="spring-support">Spring Support</h3>
 <div class="paragraph">
 <p>Muon Java does not require Spring Core to run, however it does have a set of integrations for Spring and in particular, Spring Boot.</p>
 </div>
-<div class="sect2">
-<h3 id="create-an-new-muon-spring-boot-microservice">Create an new Muon Spring Boot Microservice</h3>
+<div class="sect3">
+<h4 id="create-an-new-muon-spring-boot-microservice">Create an new Muon Spring Boot Microservice</h4>
 <div class="paragraph">
 <p>To create a new Muon Spring Boot Microservice, you need to</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="java"><span class="tok-n">Unresolved</span> <span class="tok-n">directive</span> <span class="tok-n">in</span> <span class="tok-o">&lt;</span><span class="tok-n">stdin</span><span class="tok-o">&gt;</span> <span class="tok-o">-</span> <span class="tok-nl">include:</span><span class="tok-o">:</span><span class="tok-n">src</span><span class="tok-o">/</span><span class="tok-n">main</span><span class="tok-o">/</span><span class="tok-n">java</span><span class="tok-o">/</span><span class="tok-n">io</span><span class="tok-o">/</span><span class="tok-n">muoncore</span><span class="tok-o">/</span><span class="tok-n">example</span><span class="tok-o">/</span><span class="tok-n">springexample</span><span class="tok-o">/</span><span class="tok-n">AutowireMuon</span><span class="tok-o">.</span><span class="tok-na">java</span><span class="tok-o">[</span><span class="tok-n">tags</span><span class="tok-o">=</span><span class="tok-n">autowire</span><span class="tok-o">]</span></code></pre>
+<pre class="pygments highlight"><code data-lang="java"><span style="color: #AA22FF">@SpringBootApplication</span>
+<span style="color: #AA22FF">@EnableMuon</span><span style="color: #666666">(</span>serviceName <span style="color: #666666">=</span> <span style="color: #BA2121">&quot;myService&quot;</span><span style="color: #666666">)</span>
+<span style="color: #AA22FF">@MuonController</span>
+<span style="color: #008000; font-weight: bold">public</span> <span style="color: #008000; font-weight: bold">class</span> <span style="color: #0000FF; font-weight: bold">AutowireMuon</span> <span style="color: #666666">{</span>
+
+    <span style="color: #AA22FF">@Autowired</span> Muon muon<span style="color: #666666">;</span>
+
+    <span style="color: #AA22FF">@PostConstruct</span>
+    <span style="color: #008000; font-weight: bold">public</span> <span style="color: #B00040">void</span> <span style="color: #0000FF">tapTransport</span><span style="color: #666666">()</span> <span style="color: #666666">{</span>
+        Broadcaster<span style="color: #666666">&lt;</span>TransportMessage<span style="color: #666666">&gt;</span> broadcaster <span style="color: #666666">=</span> Broadcaster<span style="color: #666666">.</span><span style="color: #7D9029">create</span><span style="color: #666666">();</span>
+        broadcaster<span style="color: #666666">.</span><span style="color: #7D9029">consume</span><span style="color: #666666">(</span> msg <span style="color: #666666">-&gt;</span> <span style="color: #666666">{</span>
+            System<span style="color: #666666">.</span><span style="color: #7D9029">out</span><span style="color: #666666">.</span><span style="color: #7D9029">println</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;Message seen from &quot;</span> <span style="color: #666666">+</span> msg<span style="color: #666666">.</span><span style="color: #7D9029">getSourceServiceName</span><span style="color: #666666">());</span>
+        <span style="color: #666666">});</span>
+        muon<span style="color: #666666">.</span><span style="color: #7D9029">getTransportControl</span><span style="color: #666666">().</span><span style="color: #7D9029">tap</span><span style="color: #666666">(</span> msg <span style="color: #666666">-&gt;</span> <span style="color: #008000; font-weight: bold">true</span><span style="color: #666666">).</span><span style="color: #7D9029">subscribe</span><span style="color: #666666">(</span>broadcaster<span style="color: #666666">);</span>
+    <span style="color: #666666">}</span>
+
+    <span style="color: #008000; font-weight: bold">public</span> <span style="color: #008000; font-weight: bold">static</span> <span style="color: #B00040">void</span> <span style="color: #0000FF">main</span><span style="color: #666666">(</span>String<span style="color: #666666">[]</span> args<span style="color: #666666">)</span> <span style="color: #666666">{</span>
+        SpringApplication<span style="color: #666666">.</span><span style="color: #7D9029">run</span><span style="color: #666666">(</span>AutowireMuon<span style="color: #666666">.</span><span style="color: #7D9029">class</span><span style="color: #666666">,</span> args<span style="color: #666666">);</span>
+    <span style="color: #666666">}</span>
+<span style="color: #666666">}</span></code></pre>
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="provide-an-rpc-endpoint">Provide an RPC endpoint</h3>
+<div class="sect3">
+<h4 id="provide-an-rpc-endpoint">Provide an RPC endpoint</h4>
 
 </div>
-<div class="sect2">
-<h3 id="create-a-spring-repository">Create a Spring Repository</h3>
+<div class="sect3">
+<h4 id="create-a-spring-repository">Create a Spring Repository</h4>
 
 </div>
-<div class="sect2">
-<h3 id="subscribe-to-a-remote-stream">Subscribe to a Remote Stream</h3>
+<div class="sect3">
+<h4 id="subscribe-to-a-remote-stream">Subscribe to a Remote Stream</h4>
 
 </div>
-<div class="sect2">
-<h3 id="obtain-the-muon-object">Obtain the Muon object</h3>
+<div class="sect3">
+<h4 id="obtain-the-muon-object">Obtain the Muon object</h4>
 <div class="paragraph">
 <p>Currently, not all features of Muon are fully exposed in the spring support.</p>
 </div>
 <div class="paragraph">
-<p>You can obtain the current Muon instance that has been automatically created via a simple @Autowire and then perform<br>
+<p>You can obtain the current Muon instance that has been automatically created via a simple @Autowire and then perform
 any of the actions you find in the rest of the documentation on it.</p>
 </div>
 <div class="paragraph">
@@ -508,35 +794,52 @@ any of the actions you find in the rest of the documentation on it.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="java"><span class="tok-n">Unresolved</span> <span class="tok-n">directive</span> <span class="tok-n">in</span> <span class="tok-o">&lt;</span><span class="tok-n">stdin</span><span class="tok-o">&gt;</span> <span class="tok-o">-</span> <span class="tok-nl">include:</span><span class="tok-o">:</span><span class="tok-n">src</span><span class="tok-o">/</span><span class="tok-n">main</span><span class="tok-o">/</span><span class="tok-n">java</span><span class="tok-o">/</span><span class="tok-n">io</span><span class="tok-o">/</span><span class="tok-n">muoncore</span><span class="tok-o">/</span><span class="tok-n">example</span><span class="tok-o">/</span><span class="tok-n">springexample</span><span class="tok-o">/</span><span class="tok-n">AutowireMuon</span><span class="tok-o">.</span><span class="tok-na">java</span><span class="tok-o">[</span><span class="tok-n">tags</span><span class="tok-o">=</span><span class="tok-n">autowire</span><span class="tok-o">]</span></code></pre>
+<pre class="pygments highlight"><code data-lang="java"><span style="color: #AA22FF">@SpringBootApplication</span>
+<span style="color: #AA22FF">@EnableMuon</span><span style="color: #666666">(</span>serviceName <span style="color: #666666">=</span> <span style="color: #BA2121">&quot;myService&quot;</span><span style="color: #666666">)</span>
+<span style="color: #AA22FF">@MuonController</span>
+<span style="color: #008000; font-weight: bold">public</span> <span style="color: #008000; font-weight: bold">class</span> <span style="color: #0000FF; font-weight: bold">AutowireMuon</span> <span style="color: #666666">{</span>
+
+    <span style="color: #AA22FF">@Autowired</span> Muon muon<span style="color: #666666">;</span>
+
+    <span style="color: #AA22FF">@PostConstruct</span>
+    <span style="color: #008000; font-weight: bold">public</span> <span style="color: #B00040">void</span> <span style="color: #0000FF">tapTransport</span><span style="color: #666666">()</span> <span style="color: #666666">{</span>
+        Broadcaster<span style="color: #666666">&lt;</span>TransportMessage<span style="color: #666666">&gt;</span> broadcaster <span style="color: #666666">=</span> Broadcaster<span style="color: #666666">.</span><span style="color: #7D9029">create</span><span style="color: #666666">();</span>
+        broadcaster<span style="color: #666666">.</span><span style="color: #7D9029">consume</span><span style="color: #666666">(</span> msg <span style="color: #666666">-&gt;</span> <span style="color: #666666">{</span>
+            System<span style="color: #666666">.</span><span style="color: #7D9029">out</span><span style="color: #666666">.</span><span style="color: #7D9029">println</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;Message seen from &quot;</span> <span style="color: #666666">+</span> msg<span style="color: #666666">.</span><span style="color: #7D9029">getSourceServiceName</span><span style="color: #666666">());</span>
+        <span style="color: #666666">});</span>
+        muon<span style="color: #666666">.</span><span style="color: #7D9029">getTransportControl</span><span style="color: #666666">().</span><span style="color: #7D9029">tap</span><span style="color: #666666">(</span> msg <span style="color: #666666">-&gt;</span> <span style="color: #008000; font-weight: bold">true</span><span style="color: #666666">).</span><span style="color: #7D9029">subscribe</span><span style="color: #666666">(</span>broadcaster<span style="color: #666666">);</span>
+    <span style="color: #666666">}</span>
+
+    <span style="color: #008000; font-weight: bold">public</span> <span style="color: #008000; font-weight: bold">static</span> <span style="color: #B00040">void</span> <span style="color: #0000FF">main</span><span style="color: #666666">(</span>String<span style="color: #666666">[]</span> args<span style="color: #666666">)</span> <span style="color: #666666">{</span>
+        SpringApplication<span style="color: #666666">.</span><span style="color: #7D9029">run</span><span style="color: #666666">(</span>AutowireMuon<span style="color: #666666">.</span><span style="color: #7D9029">class</span><span style="color: #666666">,</span> args<span style="color: #666666">);</span>
+    <span style="color: #666666">}</span>
+<span style="color: #666666">}</span></code></pre>
 </div>
 </div>
 </div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="extending-muon-java">Extending Muon Java</h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="extending-muon-java">Extending Muon Java</h3>
 <div class="paragraph">
-<p>In common with all Muon libraries, Muon Java is a restricted implementation of Communicating Sequential Processes.<br>
+<p>In common with all Muon libraries, Muon Java is a restricted implementation of Communicating Sequential Processes.
 Extension then mostly involves creating and exposing various combinations of processes and channels.</p>
 </div>
-<div class="sect2">
-<h3 id="encoding">Encoding</h3>
+<div class="sect3">
+<h4 id="encoding">Encoding</h4>
 
 </div>
-<div class="sect2">
-<h3 id="transports">Transports</h3>
+<div class="sect3">
+<h4 id="transports">Transports</h4>
 
 </div>
-<div class="sect2">
-<h3 id="adding-a-new-interaction-protocol">Adding a new interaction protocol</h3>
+<div class="sect3">
+<h4 id="adding-a-new-interaction-protocol">Adding a new interaction protocol</h4>
 <div class="paragraph">
-<p>Before reading on, many systems won&#8217;t need to do this. The baked in protocols (RPC, Streaming etc) are generally good enough<br>
+<p>Before reading on, many systems won&#8217;t need to do this. The baked in protocols (RPC, Streaming etc) are generally good enough
 in most circumstances. If you do have a specific need to control the way your services interact in a more granular way then read on!</p>
 </div>
 <div class="paragraph">
-<p>To implement a new protocol, you need to define the API(s) that you want to provide to your users, define the event interchange<br>
+<p>To implement a new protocol, you need to define the API(s) that you want to provide to your users, define the event interchange
 that will need to happen to communicate that between services, and then create the processes need to bring those events to life.</p>
 </div>
 <div class="paragraph">
@@ -545,33 +848,42 @@ that will need to happen to communicate that between services, and then create t
 <div class="paragraph">
 <p>TODO, link to main guide on protocols</p>
 </div>
-<div class="sect3">
-<h4 id="designing-a-protocol">Designing a Protocol</h4>
-
-</div>
-<div class="sect3">
-<h4 id="client-side">Client Side</h4>
 <div class="sect4">
-<h5 id="designing-building-a-muon-client-process">Designing Building a Muon Client Process</h5>
+<h5 id="designing-a-protocol">Designing a Protocol</h5>
 
 </div>
 <div class="sect4">
-<h5 id="designing-the-user-api-and-protocol-stack">Designing the User API and Protocol Stack</h5>
+<h5 id="client-side">Client Side</h5>
+<div class="sect5">
+<h6 id="designing-building-a-muon-client-process">Designing Building a Muon Client Process</h6>
+
+</div>
+<div class="sect5">
+<h6 id="designing-the-user-api-and-protocol-stack">Designing the User API and Protocol Stack</h6>
 
 </div>
 </div>
-<div class="sect3">
-<h4 id="server-side">Server Side</h4>
 <div class="sect4">
-<h5 id="designing-building-a-muon-server-process">Designing Building a Muon Server Process</h5>
+<h5 id="server-side">Server Side</h5>
+<div class="sect5">
+<h6 id="designing-building-a-muon-server-process">Designing Building a Muon Server Process</h6>
 
 </div>
-<div class="sect4">
-<h5 id="registering-the-serverstack">Registering the ServerStack</h5>
+<div class="sect5">
+<h6 id="registering-the-serverstack">Registering the ServerStack</h6>
+<div class="paragraph">
+<p>Unresolved directive in &lt;stdin&gt; - include::java/SNAPSHOT/InMemEventStore.adoc[leveloffset=+1]</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+        </div>
+      </div>
 
-</div>
-</div>
-</div>
+      <div class='four spacing'></div>
+    </div>
+  </div>
 </div>
 </div>
     </div>
