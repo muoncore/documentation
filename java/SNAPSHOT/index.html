@@ -263,7 +263,19 @@ sdk install springboot</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="groovy">Unresolved directive <span style="color: #008000; font-weight: bold">in</span> java<span style="color: #BA2121">/SNAPSHOT/</span>main<span style="color: #666666">.</span><span style="color: #7D9029">adoc</span> <span style="color: #666666">-</span> <span style="color: #A0A000">include:</span><span style="color: #666666">:{</span>javasource<span style="color: #666666">}</span><span style="color: #BA2121">/src/</span>main<span style="color: #BA2121">/groovy/</span>io<span style="color: #BA2121">/muoncore/</span>example<span style="color: #BA2121">/user/</span>UserService<span style="color: #666666">.</span><span style="color: #7D9029">groovy</span><span style="color: #666666">[</span>lines<span style="color: #666666">=17..32]</span></code></pre>
+<pre class="pygments highlight"><code data-lang="groovy"><span style="color: #AA22FF">@SpringBootApplication</span>
+<span style="color: #AA22FF">@EnableMuon</span><span style="color: #666666">(</span>serviceName <span style="color: #666666">=</span> <span style="color: #BA2121">&quot;users&quot;</span><span style="color: #666666">)</span>   <i class="conum" data-value="1"></i><b>(1)</b>
+<span style="color: #AA22FF">@MuonController</span>                      <i class="conum" data-value="2"></i><b>(2)</b>
+<span style="color: #008000; font-weight: bold">class</span> <span style="color: #0000FF; font-weight: bold">UserService</span> <span style="color: #666666">{</span>
+
+    <span style="color: #AA22FF">@MuonRequestListener</span><span style="color: #666666">(</span>path <span style="color: #666666">=</span> <span style="color: #BA2121">&quot;/&quot;</span><span style="color: #666666">)</span>   <i class="conum" data-value="3"></i><b>(3)</b>
+    <span style="color: #B00040">def</span> <span style="color: #0000FF">myRpcEndpoint</span><span style="color: #666666">(</span>Map data<span style="color: #666666">)</span> <span style="color: #666666">{</span>
+        <span style="color: #008000; font-weight: bold">return</span> <span style="color: #666666">[</span><span style="color: #A0A000">message:</span><span style="color: #BA2121">&quot;from uer service ${ManagementFactory.getRuntimeMXBean().getName()}&quot;</span><span style="color: #666666">]</span>  <i class="conum" data-value="4"></i><b>(4)</b>
+    <span style="color: #666666">}</span>
+    <span style="color: #008000; font-weight: bold">public</span> <span style="color: #008000; font-weight: bold">static</span> <span style="color: #B00040">void</span> <span style="color: #0000FF">main</span><span style="color: #666666">(</span>String<span style="color: #666666">[]</span> args<span style="color: #666666">)</span> <span style="color: #008000; font-weight: bold">throws</span> Exception <span style="color: #666666">{</span>
+        SpringApplication<span style="color: #666666">.</span><span style="color: #7D9029">run</span><span style="color: #666666">(</span>UserService<span style="color: #666666">,</span> args<span style="color: #666666">);</span>
+    <span style="color: #666666">}</span>
+<span style="color: #666666">}</span></code></pre>
 </div>
 </div>
 <div class="colist arabic">
