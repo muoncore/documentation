@@ -19,6 +19,12 @@
 <loc>/java/latest/helloworld.html</loc>
 </url>
 <url>
+<loc>/node/SNAPSHOT/</loc>
+</url>
+<url>
+<loc>/node/latest/</loc>
+</url>
+<url>
 <loc>/java/SNAPSHOT/</loc>
 </url>
 <url>
@@ -35,6 +41,12 @@
 </url>
 <url>
 <loc>/</loc>
+</url>
+<url>
+<loc>/node/SNAPSHOT/muonjs.html</loc>
+</url>
+<url>
+<loc>/node/latest/muonjs.html</loc>
 </url>
 <url>
 <loc>/partners.html</loc>
