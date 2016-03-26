@@ -63,18 +63,22 @@
 
 #toc { z-index:20; padding-top:120px;}
 #documentation { padding-left:10px; margin-left:auto; margin-right:auto}
-
+#documentation .row { margin:auto }
       code {
           background:none;
           border:0;
+          display:block;
+          width:100%;
       }
-      code span { border: 0 }
+
+      code span { border: 0; width:100% }
       .listingblock {
          background: #eee;
          border-radius:5px;
           border:1px solid #ccc
       }
   }
+
   </style>
 </head>
 
@@ -157,7 +161,7 @@
                   </li>
                 
                   <li>
-                    <a href="/implementmuon.html">&#x2B; your Language</a>
+                    <a href="/implementmuon/index.html">&#x2B; your Language</a>
                   </li>
                 
               </ul>
@@ -182,8 +186,8 @@
     <div id='main' role='main'>
       <div class="documentation">
 <div class='full' style='background: #f5f5f5'>
-  <div class='row'>
-    <div class='large-15 columns large-offset-3 '>
+  <div class='row' style="margin-left:auto; margin-right:auto; max-width:90rem">
+    <div class='large-12 columns'>
       <div class='mod modBlogPost big'>
         <div class='images'>
           
@@ -195,6 +199,8 @@
 <div id="toctitle">Muon Java</div>
 <ul class="sectlevel2">
 <li><a href="#a-microservice-based-system-in-5-minutes">A Microservice based system in 5 minutes</a></li>
+<li><a href="#muon-java">Muon Java</a>
+<ul class="sectlevel2">
 <li><a href="#core-features">Core Features</a>
 <ul class="sectlevel3">
 <li><a href="#reactive-rpc">Reactive RPC</a>
@@ -208,10 +214,24 @@
 <li><a href="#wiretap">Wiretap</a></li>
 </ul>
 </li>
+<li><a href="#event-data">Event Data</a>
+<ul class="sectlevel3">
+<li><a href="#event-sourcing">Event Sourcing</a></li>
+<li><a href="#event-based-testing">Event Based Testing</a></li>
+<li><a href="#spring-support">Spring Support</a>
+<ul class="sectlevel3">
+<li><a href="#create-an-new-muon-spring-boot-microservice">Create an new Muon Spring Boot Microservice</a></li>
+<li><a href="#provide-an-rpc-endpoint">Provide an RPC endpoint</a></li>
+<li><a href="#create-a-spring-repository">Create a Spring Repository</a></li>
+<li><a href="#subscribe-to-a-remote-stream">Subscribe to a Remote Stream</a></li>
+<li><a href="#obtain-the-muon-object">Obtain the Muon object</a></li>
+</ul>
+</li>
 <li><a href="#extending-muon-java">Extending Muon Java</a>
 <ul class="sectlevel3">
 <li><a href="#encoding">Encoding</a></li>
 <li><a href="#transports">Transports</a></li>
+<li><a href="#discovery">Discovery</a></li>
 <li><a href="#adding-a-new-interaction-protocol">Adding a new interaction protocol</a>
 <ul class="sectlevel4">
 <li><a href="#designing-a-protocol">Designing a Protocol</a></li>
@@ -229,38 +249,18 @@
 </li>
 </ul>
 </li>
-<li><a href="#event-sourcing">Event Sourcing</a></li>
-<li><a href="#event-based-testing">Event Based Testing</a></li>
-</ul>
-</li>
-<li><a href="#spring-support">Spring Support</a>
-<ul class="sectlevel3">
-<li><a href="#create-an-new-muon-spring-boot-microservice">Create an new Muon Spring Boot Microservice</a></li>
-<li><a href="#provide-an-rpc-endpoint">Provide an RPC endpoint</a></li>
-<li><a href="#create-a-spring-repository">Create a Spring Repository</a></li>
-<li><a href="#subscribe-to-a-remote-stream">Subscribe to a Remote Stream</a></li>
-<li><a href="#obtain-the-muon-object">Obtain the Muon object</a></li>
 </ul>
 </li>
 </ul>
-</div>
-<div id="preamble">
-<div class="sectionbody">
-<div class="sidebarblock">
-<div class="content">
-<div class="title">Contributing</div>
-<div class="paragraph">
-<p>Muon and the ecosystem services are open source.
-Contribute to Muon Java and this documentation at <a href="http://github.com/microserviceux/muon-java" class="bare">http://github.com/microserviceux/muon-java</a></p>
-</div>
-</div>
+</li>
+</ul>
+</li>
+</ul>
 </div>
 <div class="paragraph">
 <p>Muon Java is the implementation of the Muon microservices toolkit, for the Java platform. Muon enables you to easily build
 microservices in many languages that have richer, more performant and fully reactive communication semantics and gain access
 to Muon compatible services written in other languages without having to sacrifice the rich semantics or performance.</p>
-</div>
-</div>
 </div>
 <div class="sect2">
 <h3 id="a-microservice-based-system-in-5-minutes">A Microservice based system in 5 minutes</h3>
@@ -372,6 +372,16 @@ will be created from the data supplied by the UserService Microservice.</p>
 </div>
 <div class="paragraph">
 <p>These will run in production, as independent services and require no underlying platform or runtime.</p>
+</div>
+</div>
+<h1 id="muon-java" class="sect0">Muon Java</h1>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Contributing</div>
+<div class="paragraph">
+<p>Muon and the ecosystem services are open source.
+Contribute to Muon Java and this documentation at <a href="http://github.com/microserviceux/muon-java" class="bare">http://github.com/microserviceux/muon-java</a></p>
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -746,63 +756,9 @@ to receive all the messages required.</p>
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="extending-muon-java">Extending Muon Java</h3>
-<div class="paragraph">
-<p>In common with all Muon libraries, Muon Java is a restricted implementation of Communicating Sequential Processes.
-Extension then mostly involves creating and exposing various combinations of processes and channels.</p>
-</div>
-<div class="sect3">
-<h4 id="encoding">Encoding</h4>
-
-</div>
-<div class="sect3">
-<h4 id="transports">Transports</h4>
-
-</div>
-<div class="sect3">
-<h4 id="adding-a-new-interaction-protocol">Adding a new interaction protocol</h4>
-<div class="paragraph">
-<p>Before reading on, many systems won&#8217;t need to do this. The baked in protocols (RPC, Streaming etc) are generally good enough
-in most circumstances. If you do have a specific need to control the way your services interact in a more granular way then read on!</p>
-</div>
-<div class="paragraph">
-<p>To implement a new protocol, you need to define the API(s) that you want to provide to your users, define the event interchange
-that will need to happen to communicate that between services, and then create the processes need to bring those events to life.</p>
-</div>
-<div class="paragraph">
-<p>This guide focuses on how to implement this in Muon-Java. For a fuller discussion on event protocols, see the main guide.</p>
-</div>
-<div class="paragraph">
-<p>TODO, link to main guide on protocols</p>
-</div>
-<div class="sect4">
-<h5 id="designing-a-protocol">Designing a Protocol</h5>
-
-</div>
-<div class="sect4">
-<h5 id="client-side">Client Side</h5>
-<div class="sect5">
-<h6 id="designing-building-a-muon-client-process">Designing Building a Muon Client Process</h6>
-
-</div>
-<div class="sect5">
-<h6 id="designing-the-user-api-and-protocol-stack">Designing the User API and Protocol Stack</h6>
-
-</div>
-</div>
-<div class="sect4">
-<h5 id="server-side">Server Side</h5>
-<div class="sect5">
-<h6 id="designing-building-a-muon-server-process">Designing Building a Muon Server Process</h6>
-
-</div>
-<div class="sect5">
-<h6 id="registering-the-serverstack">Registering the ServerStack</h6>
-
-</div>
-</div>
-</div>
+<div class="sect1">
+<h2 id="event-data">Event Data</h2>
+<div class="sectionbody">
 <div class="sect3">
 <h4 id="event-sourcing">Event Sourcing</h4>
 <div class="paragraph">
@@ -821,7 +777,6 @@ that will need to happen to communicate that between services, and then create t
 <div class="paragraph">
 <p>If you adopt the Event system (which requires an event store such as <em>Photon</em>), then you will design your system domains
 as a set of <em>Events</em>, and your business processes as a set of causal relationships between them.</p>
-</div>
 </div>
 </div>
 <div class="sect2">
@@ -905,6 +860,70 @@ any of the actions you find in the rest of the documentation on it.</p>
         SpringApplication<span style="color: #666666">.</span><span style="color: #7D9029">run</span><span style="color: #666666">(</span>AutowireMuon<span style="color: #666666">.</span><span style="color: #7D9029">class</span><span style="color: #666666">,</span> args<span style="color: #666666">);</span>
     <span style="color: #666666">}</span>
 <span style="color: #666666">}</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="extending-muon-java">Extending Muon Java</h3>
+<div class="paragraph">
+<p>In common with all Muon libraries, Muon Java is a restricted implementation of Communicating Sequential Processes.
+Extension then mostly involves creating and exposing various combinations of processes and channels.</p>
+</div>
+<div class="sect3">
+<h4 id="encoding">Encoding</h4>
+
+</div>
+<div class="sect3">
+<h4 id="transports">Transports</h4>
+
+</div>
+<div class="sect3">
+<h4 id="discovery">Discovery</h4>
+
+</div>
+<div class="sect3">
+<h4 id="adding-a-new-interaction-protocol">Adding a new interaction protocol</h4>
+<div class="paragraph">
+<p>Before reading on, many systems won&#8217;t need to do this. The baked in protocols (RPC, Streaming etc) are generally good enough
+in most circumstances. If you do have a specific need to control the way your services interact in a more granular way then read on!</p>
+</div>
+<div class="paragraph">
+<p>To implement a new protocol, you need to define the API(s) that you want to provide to your users, define the event interchange
+that will need to happen to communicate that between services, and then create the processes need to bring those events to life.</p>
+</div>
+<div class="paragraph">
+<p>This guide focuses on how to implement this in Muon-Java. For a fuller discussion on event protocols, see the main guide.</p>
+</div>
+<div class="paragraph">
+<p>TODO, link to main guide on protocols</p>
+</div>
+<div class="sect4">
+<h5 id="designing-a-protocol">Designing a Protocol</h5>
+
+</div>
+<div class="sect4">
+<h5 id="client-side">Client Side</h5>
+<div class="sect5">
+<h6 id="designing-building-a-muon-client-process">Designing Building a Muon Client Process</h6>
+
+</div>
+<div class="sect5">
+<h6 id="designing-the-user-api-and-protocol-stack">Designing the User API and Protocol Stack</h6>
+
+</div>
+</div>
+<div class="sect4">
+<h5 id="server-side">Server Side</h5>
+<div class="sect5">
+<h6 id="designing-building-a-muon-server-process">Designing Building a Muon Server Process</h6>
+
+</div>
+<div class="sect5">
+<h6 id="registering-the-serverstack">Registering the ServerStack</h6>
+
+</div>
+</div>
 </div>
 </div>
 </div>
