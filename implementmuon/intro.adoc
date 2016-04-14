@@ -1,11 +1,40 @@
 
-This is a section on implementing muon in a new language.
+= Implementing Muon
+This is a section on implementing muon in a new language or platform.
 
 ## Getting Started
 
+Building a new implementation of Muon is TODO
 
 ## CSP, of Channels and Processes
 
+Muon is designed as a restricted and modified form of Communication Sequential Processes. Communication between muon services is in
+the form of bidirectional channels, with messages passed in serial in either direction.
+
+Internally, all of the Muon components are also designed this way, persistent autonomous processes that are generally event based,
+with defined bidirectional channels between them that they used to pass messages serially in either direction.
+
+This architecture can be confusing if you have never come across this design before.
+
+This was selected as it gives an excellent basis for building a reactive, distributed system that emphasises autonomy and availability
+as defined in CAP Theorum. If you are building a microservice based system, you _must_ choose Availability over Consistency.
+
+### Terminology
+
+Muon CSP naturally arranges into a pipeline like sturcture. It is possible at the transport layer for this to branch, however that
+is fairly rare in practice.
+
+To aid in visualisation and to reduce ambiguity, this structure is defined using the terms _left_ and _right_.
+
+[graphviz, dot-example, svg]
+----
+digraph g {
+    a -> b
+    b -> c
+    c -> d
+    d -> a
+}
+----
 
 ## Discovery
 

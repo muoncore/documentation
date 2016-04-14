@@ -1,0 +1,131 @@
+:date: 2015-01-05 11:40
+:source-highlighter: pygments
+:toc: right
+:toc-title: Event Microservices
+:toclevels: 6
+
+Learning how to use event data in Muon.
+
+## Setup
+
+MicroserviceUX provides specific facilities for managing event based, stream oriented data. As in all things, this is available
+as a set of distinct microservices. When running, they provide a data platform for building event based systems.
+
+TODO - MENTION PHOTON, OTHERS?
+
+## Understanding Events
+
+Understanding your data, how it moves, what it means, is one of the most useful and powerful things that you as a software developer
+can do. Too often the pressure is on to understand your data in terms of how it should be _presented_. By it's very nature this means
+that you take a snapshot in time of your data, and fold it into the shap you want. Often, you will do this ahead of time in the form
+of a normalised database schema.
+
+Imagine if you didn't do this. Imagine instead that you looked on your data as it changes, on what _happens_ to make it.
+
+This is the nature of event based systems, they are described in terms of _what happens_ rather than what questions you want to answer later on.
+
+THe MicroserviceUX toolkit has this baked in deeply, and via the Photon project and event client libraries, can give you a rich, simple event
+model that focuses on *events*, *streams* and queries across projections that we refer to as *projections*.
+
+The Microservice architecture is intented to enable change, primarily by generating isolation between services, often using a network,
+sometimes using some other common interface.
+
+Adding events into the mix, specifically event sourcing, allows decoupling in time. Many times your services are truly connected in time
+(_what is the current basket state_), however many things truly aren't connected in time (_eg, send an email_).
+
+Event architectures give you this option.
+
+The rest of this guide will show you how to build an event based system using MicroserviceUX technologies.
+
+We will be implementing a user registration system.
+
+## Design Your Events
+
+When building an event based system, the first thing you need to figure out is _what should happen_. These actions, happenings,
+are your events. Next, you can figure out how to convert the data in your events into something you can query.
+
+For our user registration system, the following things will happen :-
+
+* User registers
+* User updates their record
+* User removes their record
+
+We will want to show a list of the current users, and to be able to see the full, current, state of a particular user.
+
+## Emitting an Event
+
+To get started, we need to be able to emit an event.
+
+Using Muon, this is easy, you obtain the _Event Client_, and then call emit.
+
+[source,{language},indent=0]
+----
+include::{emitevent}[]
+----
+
+This is all!  Your event is now persisted, and available for replay or analysis.
+
+It is possible to react to events as they are emitted by _subscribing_ to the appropriate event stream.
+Your code will then receive a push notification whenever an event is emitted.
+
+You can also, after the fact, replay all of the events and do some analysis. You may also combine these, replay the historical events
+and then once they have been consumed, continue to process new events, live, as they are emitted.
+
+## Subscribing and acting on Events
+
+All events in MicroserviceUX are arranged into _streams_. These are ordered, serial lists of events, stored in the order
+that they were persisted in.
+
+[NOTE]
+====
+Try doing this part in another language to your emitting code and see how they work together.
+====
+
+Your microservices can subscribe to a stream to be notified whenever a new event occurs, so they can react to it, use it, or discard it.
+
+[source,{language},indent=0]
+----
+include::{subscribeevent}[]
+----
+
+
+
+## Replaying an Event Stream
+
+
+
+[source,{language},indent=0]
+----
+include::{replayevent}[]
+----
+
+
+## Building an Event Sourced Aggregation from an Event Stream
+
+[source,{language},indent=0]
+----
+include::{buildaggregation}[]
+----
+
+## Using an Event Projection in place of an Aggregation
+
+
+[source,{language},indent=0]
+----
+include::{projection}[]
+----
+
+
+[source,{language},indent=0]
+----
+include::{installprojection}[]
+----
+
+
+[source,{language},indent=0]
+----
+include::{useprojection}[]
+----
+
+
+Building an aggregation is a useful technique, and will give you a data structure in locall memory that you can 

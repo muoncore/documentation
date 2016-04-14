@@ -1,0 +1,34 @@
+:title: Microservices Guide
+:date: 2015-01-05 11:40
+:source-highlighter: pygments
+:toc: right
+:toc-title: Guide
+:toclevels: 6
+
+# Microservice UX Guides
+
+Learning how to use event data in Muon.
+
+
+
+## Patterns
+
+circuit breaker. when, where and how.
+event chains
+projections.
+
+REST interfaces, when, where, how
+back end for front end/ BFF.
+front router (zuul)
+green/ blue deploy in various parts of the system
+transactional behaviour with no roll back.
+CEP (esper?)
+debugging and visualisation with muonjs/ D3
+monitoring
+
+
+
+[source,{language},indent=0]
+----
+include::{exampleroot}[]
+----

@@ -145,6 +145,10 @@
               <ul class='dropdown'>
                 
                   <li>
+                    <a href="/guide/index.html">MicroserviceUX Guides</a>
+                  </li>
+                
+                  <li>
                     <a href="/java/SNAPSHOT/">Muon - Java</a>
                   </li>
                 
@@ -198,6 +202,7 @@
           <div id="toc" class="toc">
 <div id="toctitle">Muon Java</div>
 <ul class="sectlevel2">
+<li><a href="#muon-for-java">Muon for Java</a></li>
 <li><a href="#a-microservice-based-system-in-5-minutes">A Microservice based system in 5 minutes</a></li>
 <li><a href="#muon-java">Muon Java</a>
 <ul class="sectlevel2">
@@ -214,12 +219,18 @@
 <li><a href="#wiretap">Wiretap</a></li>
 </ul>
 </li>
-<li><a href="#event-data">Event Data</a>
+<li><a href="#event-based-systems">Event Based Systems</a>
 <ul class="sectlevel3">
+<li><a href="#running-an-event-store">Running an Event Store</a></li>
+<li><a href="#setting-up-the-event-client">Setting up the event client</a></li>
+<li><a href="#emitting-events">Emitting Events</a></li>
+<li><a href="#replaying-events">Replaying Events</a></li>
 <li><a href="#event-sourcing">Event Sourcing</a></li>
-<li><a href="#event-based-testing">Event Based Testing</a></li>
+<li><a href="#using-event-projections">Using Event Projections</a></li>
+</ul>
+</li>
 <li><a href="#spring-support">Spring Support</a>
-<ul class="sectlevel3">
+<ul class="sectlevel2">
 <li><a href="#create-an-new-muon-spring-boot-microservice">Create an new Muon Spring Boot Microservice</a></li>
 <li><a href="#provide-an-rpc-endpoint">Provide an RPC endpoint</a></li>
 <li><a href="#create-a-spring-repository">Create a Spring Repository</a></li>
@@ -228,21 +239,21 @@
 </ul>
 </li>
 <li><a href="#extending-muon-java">Extending Muon Java</a>
-<ul class="sectlevel3">
+<ul class="sectlevel2">
 <li><a href="#encoding">Encoding</a></li>
 <li><a href="#transports">Transports</a></li>
 <li><a href="#discovery">Discovery</a></li>
 <li><a href="#adding-a-new-interaction-protocol">Adding a new interaction protocol</a>
-<ul class="sectlevel4">
+<ul class="sectlevel3">
 <li><a href="#designing-a-protocol">Designing a Protocol</a></li>
 <li><a href="#client-side">Client Side</a>
-<ul class="sectlevel5">
+<ul class="sectlevel4">
 <li><a href="#designing-building-a-muon-client-process">Designing Building a Muon Client Process</a></li>
 <li><a href="#designing-the-user-api-and-protocol-stack">Designing the User API and Protocol Stack</a></li>
 </ul>
 </li>
 <li><a href="#server-side">Server Side</a>
-<ul class="sectlevel5">
+<ul class="sectlevel4">
 <li><a href="#designing-building-a-muon-server-process">Designing Building a Muon Server Process</a></li>
 <li><a href="#registering-the-serverstack">Registering the ServerStack</a></li>
 </ul>
@@ -254,13 +265,14 @@
 </ul>
 </li>
 </ul>
-</li>
-</ul>
 </div>
+<div class="sect2">
+<h3 id="muon-for-java">Muon for Java</h3>
 <div class="paragraph">
 <p>Muon Java is the implementation of the Muon microservices toolkit, for the Java platform. Muon enables you to easily build
 microservices in many languages that have richer, more performant and fully reactive communication semantics and gain access
 to Muon compatible services written in other languages without having to sacrifice the rich semantics or performance.</p>
+</div>
 </div>
 <div class="sect2">
 <h3 id="a-microservice-based-system-in-5-minutes">A Microservice based system in 5 minutes</h3>
@@ -273,8 +285,7 @@ later in this guide.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code>curl -s get.sdkman.io | bash
-source "$HOME/.sdkman/bin/sdkman-init.sh"
+<pre class="pygments highlight"><code>curl -s get.sdkman.io | bash source "$HOME/.sdkman/bin/sdkman-init.sh"
 
 sdk install springboot</code></pre>
 </div>
@@ -326,7 +337,7 @@ that exposes this to the outside world.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="groovy"><span style="color: #AA22FF">@SpringBootApplication</span>
+<pre class="pygments highlight"><code data-lang="java"><span style="color: #AA22FF">@SpringBootApplication</span>
 <span style="color: #AA22FF">@Controller</span>
 <span style="color: #AA22FF">@MuonController</span>
 <span style="color: #AA22FF">@EnableMuon</span><span style="color: #666666">(</span>serviceName <span style="color: #666666">=</span> <span style="color: #BA2121">&quot;gateway&quot;</span><span style="color: #666666">)</span>
@@ -682,11 +693,11 @@ is particularly useful when designing and building a new communication protocol.
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="java">        Broadcaster<span style="color: #666666">&lt;</span>String<span style="color: #666666">&gt;</span> publisher <span style="color: #666666">=</span> Broadcaster<span style="color: #666666">.</span><span style="color: #7D9029">create</span><span style="color: #666666">();</span>
+<pre class="pygments highlight"><code data-lang="java">Broadcaster<span style="color: #666666">&lt;</span>String<span style="color: #666666">&gt;</span> publisher <span style="color: #666666">=</span> Broadcaster<span style="color: #666666">.</span><span style="color: #7D9029">create</span><span style="color: #666666">();</span>
 
-        muon<span style="color: #666666">.</span><span style="color: #7D9029">handleRequest</span><span style="color: #666666">(</span>all<span style="color: #666666">(),</span> Map<span style="color: #666666">.</span><span style="color: #7D9029">class</span><span style="color: #666666">,</span> request <span style="color: #666666">-&gt;</span> <span style="color: #666666">{</span>
-            request<span style="color: #666666">.</span><span style="color: #7D9029">ok</span><span style="color: #666666">(42);</span>
-        <span style="color: #666666">});</span></code></pre>
+muon<span style="color: #666666">.</span><span style="color: #7D9029">handleRequest</span><span style="color: #666666">(</span>all<span style="color: #666666">(),</span> Map<span style="color: #666666">.</span><span style="color: #7D9029">class</span><span style="color: #666666">,</span> request <span style="color: #666666">-&gt;</span> <span style="color: #666666">{</span>
+    request<span style="color: #666666">.</span><span style="color: #7D9029">ok</span><span style="color: #666666">(42);</span>
+<span style="color: #666666">});</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -698,15 +709,15 @@ The stream interface provided implements the Reactive Stream interface.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="java">        Set<span style="color: #666666">&lt;</span>String<span style="color: #666666">&gt;</span> remoteServices <span style="color: #666666">=</span> <span style="color: #008000; font-weight: bold">new</span> HashSet<span style="color: #666666">&lt;&gt;();</span>     <i class="conum" data-value="1"></i><b>(1)</b>
-        Broadcaster<span style="color: #666666">&lt;</span>TransportMessage<span style="color: #666666">&gt;</span> requests <span style="color: #666666">=</span> Broadcaster<span style="color: #666666">.</span><span style="color: #7D9029">create</span><span style="color: #666666">();</span>
+<pre class="pygments highlight"><code data-lang="java">Set<span style="color: #666666">&lt;</span>String<span style="color: #666666">&gt;</span> remoteServices <span style="color: #666666">=</span> <span style="color: #008000; font-weight: bold">new</span> HashSet<span style="color: #666666">&lt;&gt;();</span>     <i class="conum" data-value="1"></i><b>(1)</b>
+Broadcaster<span style="color: #666666">&lt;</span>TransportMessage<span style="color: #666666">&gt;</span> requests <span style="color: #666666">=</span> Broadcaster<span style="color: #666666">.</span><span style="color: #7D9029">create</span><span style="color: #666666">();</span>
 
-        requests<span style="color: #666666">.</span><span style="color: #7D9029">consume</span><span style="color: #666666">(</span>msg <span style="color: #666666">-&gt;</span> <span style="color: #666666">{</span>
-            remoteServices<span style="color: #666666">.</span><span style="color: #7D9029">add</span><span style="color: #666666">(</span>msg<span style="color: #666666">.</span><span style="color: #7D9029">getSourceServiceName</span><span style="color: #666666">());</span>  <i class="conum" data-value="2"></i><b>(2)</b>
-        <span style="color: #666666">});</span>
+requests<span style="color: #666666">.</span><span style="color: #7D9029">consume</span><span style="color: #666666">(</span>msg <span style="color: #666666">-&gt;</span> <span style="color: #666666">{</span>
+    remoteServices<span style="color: #666666">.</span><span style="color: #7D9029">add</span><span style="color: #666666">(</span>msg<span style="color: #666666">.</span><span style="color: #7D9029">getSourceServiceName</span><span style="color: #666666">());</span>  <i class="conum" data-value="2"></i><b>(2)</b>
+<span style="color: #666666">});</span>
 
-        muon<span style="color: #666666">.</span><span style="color: #7D9029">getTransportControl</span><span style="color: #666666">().</span><span style="color: #7D9029">tap</span><span style="color: #666666">(</span>                      <i class="conum" data-value="3"></i><b>(3)</b>
-                msg <span style="color: #666666">-&gt;</span> msg<span style="color: #666666">.</span><span style="color: #7D9029">getType</span><span style="color: #666666">().</span><span style="color: #7D9029">equals</span><span style="color: #666666">(</span>RRPEvents<span style="color: #666666">.</span><span style="color: #7D9029">REQUEST</span><span style="color: #666666">)).</span><span style="color: #7D9029">subscribe</span><span style="color: #666666">(</span>requests<span style="color: #666666">);</span> <i class="conum" data-value="4"></i><b>(4)</b></code></pre>
+muon<span style="color: #666666">.</span><span style="color: #7D9029">getTransportControl</span><span style="color: #666666">().</span><span style="color: #7D9029">tap</span><span style="color: #666666">(</span>                      <i class="conum" data-value="3"></i><b>(3)</b>
+        msg <span style="color: #666666">-&gt;</span> msg<span style="color: #666666">.</span><span style="color: #7D9029">getType</span><span style="color: #666666">().</span><span style="color: #7D9029">equals</span><span style="color: #666666">(</span>RRPEvents<span style="color: #666666">.</span><span style="color: #7D9029">REQUEST</span><span style="color: #666666">)).</span><span style="color: #7D9029">subscribe</span><span style="color: #666666">(</span>requests<span style="color: #666666">);</span> <i class="conum" data-value="4"></i><b>(4)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -735,7 +746,7 @@ The stream interface provided implements the Reactive Stream interface.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="java">        <span style="color: #B00040">int</span> value <span style="color: #666666">=</span> muon<span style="color: #666666">.</span><span style="color: #7D9029">request</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;request://myservice/&quot;</span><span style="color: #666666">,</span> Integer<span style="color: #666666">.</span><span style="color: #7D9029">class</span><span style="color: #666666">).</span><span style="color: #7D9029">get</span><span style="color: #666666">().</span><span style="color: #7D9029">getPayload</span><span style="color: #666666">();</span></code></pre>
+<pre class="pygments highlight"><code data-lang="java"><span style="color: #B00040">int</span> value <span style="color: #666666">=</span> muon<span style="color: #666666">.</span><span style="color: #7D9029">request</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;request://myservice/&quot;</span><span style="color: #666666">,</span> Integer<span style="color: #666666">.</span><span style="color: #7D9029">class</span><span style="color: #666666">).</span><span style="color: #7D9029">get</span><span style="color: #666666">().</span><span style="color: #7D9029">getPayload</span><span style="color: #666666">();</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -744,23 +755,86 @@ to receive all the messages required.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="java">        Broadcaster<span style="color: #666666">&lt;</span>TransportMessage<span style="color: #666666">&gt;</span> responses <span style="color: #666666">=</span> Broadcaster<span style="color: #666666">.</span><span style="color: #7D9029">create</span><span style="color: #666666">();</span>
+<pre class="pygments highlight"><code data-lang="java">Broadcaster<span style="color: #666666">&lt;</span>TransportMessage<span style="color: #666666">&gt;</span> responses <span style="color: #666666">=</span> Broadcaster<span style="color: #666666">.</span><span style="color: #7D9029">create</span><span style="color: #666666">();</span>
 
-        responses<span style="color: #666666">.</span><span style="color: #7D9029">consume</span><span style="color: #666666">(</span>msg <span style="color: #666666">-&gt;</span> <span style="color: #666666">{</span>
-            System<span style="color: #666666">.</span><span style="color: #7D9029">out</span><span style="color: #666666">.</span><span style="color: #7D9029">println</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;Sent a response to &quot;</span> <span style="color: #666666">+</span> msg<span style="color: #666666">.</span><span style="color: #7D9029">getTargetServiceName</span><span style="color: #666666">());</span>
+responses<span style="color: #666666">.</span><span style="color: #7D9029">consume</span><span style="color: #666666">(</span>msg <span style="color: #666666">-&gt;</span> <span style="color: #666666">{</span>
+    System<span style="color: #666666">.</span><span style="color: #7D9029">out</span><span style="color: #666666">.</span><span style="color: #7D9029">println</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;Sent a response to &quot;</span> <span style="color: #666666">+</span> msg<span style="color: #666666">.</span><span style="color: #7D9029">getTargetServiceName</span><span style="color: #666666">());</span>
+<span style="color: #666666">});</span>
+
+muon<span style="color: #666666">.</span><span style="color: #7D9029">getTransportControl</span><span style="color: #666666">().</span><span style="color: #7D9029">tap</span><span style="color: #666666">(</span>
+        msg <span style="color: #666666">-&gt;</span> msg<span style="color: #666666">.</span><span style="color: #7D9029">getType</span><span style="color: #666666">().</span><span style="color: #7D9029">equals</span><span style="color: #666666">(</span>RRPEvents<span style="color: #666666">.</span><span style="color: #7D9029">RESPONSE</span><span style="color: #666666">)).</span><span style="color: #7D9029">subscribe</span><span style="color: #666666">(</span>responses<span style="color: #666666">);</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="event-based-systems">Event Based Systems</h3>
+<div class="paragraph">
+<p>Event based architectures have many powerful and useful properties when building distributed and scalable
+systems. The MicroserviceUX ecosystem provides special support for building event based systems, in the form of :=</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Microservices providing optimised event storage, transformation and query.</p>
+</li>
+<li>
+<p>Muon protocols and APIs to interact with event based data.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Eventing in MicroserviceUX is taken to mean persisted event architectures, where the streams of events are stored
+and used at future points. This is often called <em>event sourcing</em>.</p>
+</div>
+<div class="sect3">
+<h4 id="running-an-event-store">Running an Event Store</h4>
+<div class="paragraph">
+<p>To get started with</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="setting-up-the-event-client">Setting up the event client</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java">EventClient evclient <span style="color: #666666">=</span> <span style="color: #008000; font-weight: bold">new</span> <span style="color: #0000FF">DefaultEventClient</span><span style="color: #666666">(</span>muon<span style="color: #666666">);</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="emitting-events">Emitting Events</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java">evclient<span style="color: #666666">.</span><span style="color: #7D9029">event</span><span style="color: #666666">(</span>
+        <span style="color: #008000; font-weight: bold">new</span> ClientEvent<span style="color: #666666">&lt;&gt;(</span>
+                <span style="color: #BA2121">&quot;UserRegistered&quot;</span><span style="color: #666666">,</span>
+                <span style="color: #BA2121">&quot;users&quot;</span><span style="color: #666666">,</span>
+                <span style="color: #008000; font-weight: bold">null</span><span style="color: #666666">,</span>
+                <span style="color: #008000; font-weight: bold">null</span><span style="color: #666666">,</span>
+                <span style="color: #008000; font-weight: bold">null</span><span style="color: #666666">,</span>
+                <span style="color: #008000; font-weight: bold">new</span> <span style="color: #0000FF">MyDataPayload</span><span style="color: #666666">()));</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="replaying-events">Replaying Events</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java">        Broadcaster<span style="color: #666666">&lt;</span>Event<span style="color: #666666">&gt;</span> sub <span style="color: #666666">=</span> Broadcaster<span style="color: #666666">.</span><span style="color: #7D9029">create</span><span style="color: #666666">();</span>
+        sub<span style="color: #666666">.</span><span style="color: #7D9029">consume</span><span style="color: #666666">(</span> msg <span style="color: #666666">-&gt;</span> <span style="color: #666666">{</span>
+<span style="color: #408080; font-style: italic">//            println &quot;EVENT = ${it}&quot;</span>
+
         <span style="color: #666666">});</span>
 
-        muon<span style="color: #666666">.</span><span style="color: #7D9029">getTransportControl</span><span style="color: #666666">().</span><span style="color: #7D9029">tap</span><span style="color: #666666">(</span>
-                msg <span style="color: #666666">-&gt;</span> msg<span style="color: #666666">.</span><span style="color: #7D9029">getType</span><span style="color: #666666">().</span><span style="color: #7D9029">equals</span><span style="color: #666666">(</span>RRPEvents<span style="color: #666666">.</span><span style="color: #7D9029">RESPONSE</span><span style="color: #666666">)).</span><span style="color: #7D9029">subscribe</span><span style="color: #666666">(</span>responses<span style="color: #666666">);</span></code></pre>
+        evclient<span style="color: #666666">.</span><span style="color: #7D9029">replay</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;users&quot;</span><span style="color: #666666">,</span> EventReplayMode<span style="color: #666666">.</span><span style="color: #7D9029">REPLAY_THEN_LIVE</span><span style="color: #666666">,</span> sub<span style="color: #666666">);</span></code></pre>
 </div>
 </div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="event-data">Event Data</h2>
-<div class="sectionbody">
 <div class="sect3">
 <h4 id="event-sourcing">Event Sourcing</h4>
+<div class="paragraph">
+<p>talk about replaying data and ingesting it into some internal model for awesomeness to ensure.</p>
+</div>
 <div class="paragraph">
 <p>TODO, link core event sourcing docs.</p>
 </div>
@@ -773,19 +847,18 @@ to receive all the messages required.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="event-based-testing">Event Based Testing</h4>
-<div class="paragraph">
-<p>If you adopt the Event system (which requires an event store such as <em>Photon</em>), then you will design your system domains
-as a set of <em>Events</em>, and your business processes as a set of causal relationships between them.</p>
+<h4 id="using-event-projections">Using Event Projections</h4>
+
 </div>
 </div>
-<div class="sect2">
-<h3 id="spring-support">Spring Support</h3>
+<div class="sect1">
+<h2 id="spring-support">Spring Support</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>Muon Java does not require Spring Core to run, however it does have a set of integrations for Spring and in particular, Spring Boot.</p>
 </div>
-<div class="sect3">
-<h4 id="create-an-new-muon-spring-boot-microservice">Create an new Muon Spring Boot Microservice</h4>
+<div class="sect2">
+<h3 id="create-an-new-muon-spring-boot-microservice">Create an new Muon Spring Boot Microservice</h3>
 <div class="paragraph">
 <p>To create a new Muon Spring Boot Microservice, you need to</p>
 </div>
@@ -814,20 +887,20 @@ as a set of <em>Events</em>, and your business processes as a set of causal rela
 </div>
 </div>
 </div>
-<div class="sect3">
-<h4 id="provide-an-rpc-endpoint">Provide an RPC endpoint</h4>
+<div class="sect2">
+<h3 id="provide-an-rpc-endpoint">Provide an RPC endpoint</h3>
 
 </div>
-<div class="sect3">
-<h4 id="create-a-spring-repository">Create a Spring Repository</h4>
+<div class="sect2">
+<h3 id="create-a-spring-repository">Create a Spring Repository</h3>
 
 </div>
-<div class="sect3">
-<h4 id="subscribe-to-a-remote-stream">Subscribe to a Remote Stream</h4>
+<div class="sect2">
+<h3 id="subscribe-to-a-remote-stream">Subscribe to a Remote Stream</h3>
 
 </div>
-<div class="sect3">
-<h4 id="obtain-the-muon-object">Obtain the Muon object</h4>
+<div class="sect2">
+<h3 id="obtain-the-muon-object">Obtain the Muon object</h3>
 <div class="paragraph">
 <p>Currently, not all features of Muon are fully exposed in the spring support.</p>
 </div>
@@ -864,26 +937,28 @@ any of the actions you find in the rest of the documentation on it.</p>
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="extending-muon-java">Extending Muon Java</h3>
+</div>
+<div class="sect1">
+<h2 id="extending-muon-java">Extending Muon Java</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>In common with all Muon libraries, Muon Java is a restricted implementation of Communicating Sequential Processes.
 Extension then mostly involves creating and exposing various combinations of processes and channels.</p>
 </div>
-<div class="sect3">
-<h4 id="encoding">Encoding</h4>
+<div class="sect2">
+<h3 id="encoding">Encoding</h3>
 
 </div>
-<div class="sect3">
-<h4 id="transports">Transports</h4>
+<div class="sect2">
+<h3 id="transports">Transports</h3>
 
 </div>
-<div class="sect3">
-<h4 id="discovery">Discovery</h4>
+<div class="sect2">
+<h3 id="discovery">Discovery</h3>
 
 </div>
-<div class="sect3">
-<h4 id="adding-a-new-interaction-protocol">Adding a new interaction protocol</h4>
+<div class="sect2">
+<h3 id="adding-a-new-interaction-protocol">Adding a new interaction protocol</h3>
 <div class="paragraph">
 <p>Before reading on, many systems won&#8217;t need to do this. The baked in protocols (RPC, Streaming etc) are generally good enough
 in most circumstances. If you do have a specific need to control the way your services interact in a more granular way then read on!</p>
@@ -898,31 +973,30 @@ that will need to happen to communicate that between services, and then create t
 <div class="paragraph">
 <p>TODO, link to main guide on protocols</p>
 </div>
+<div class="sect3">
+<h4 id="designing-a-protocol">Designing a Protocol</h4>
+
+</div>
+<div class="sect3">
+<h4 id="client-side">Client Side</h4>
 <div class="sect4">
-<h5 id="designing-a-protocol">Designing a Protocol</h5>
+<h5 id="designing-building-a-muon-client-process">Designing Building a Muon Client Process</h5>
 
-</div>
-<div class="sect4">
-<h5 id="client-side">Client Side</h5>
-<div class="sect5">
-<h6 id="designing-building-a-muon-client-process">Designing Building a Muon Client Process</h6>
-
-</div>
-<div class="sect5">
-<h6 id="designing-the-user-api-and-protocol-stack">Designing the User API and Protocol Stack</h6>
-
-</div>
 </div>
 <div class="sect4">
-<h5 id="server-side">Server Side</h5>
-<div class="sect5">
-<h6 id="designing-building-a-muon-server-process">Designing Building a Muon Server Process</h6>
+<h5 id="designing-the-user-api-and-protocol-stack">Designing the User API and Protocol Stack</h5>
 
 </div>
-<div class="sect5">
-<h6 id="registering-the-serverstack">Registering the ServerStack</h6>
+</div>
+<div class="sect3">
+<h4 id="server-side">Server Side</h4>
+<div class="sect4">
+<h5 id="designing-building-a-muon-server-process">Designing Building a Muon Server Process</h5>
 
 </div>
+<div class="sect4">
+<h5 id="registering-the-serverstack">Registering the ServerStack</h5>
+
 </div>
 </div>
 </div>
@@ -942,7 +1016,7 @@ that will need to happen to communicate that between services, and then create t
   <div class='two spacing'></div>
   <div class='row'>
     <div class='large-12 columns' style="color:white;">
-      <p>©2016 Muon - Microservice UX. All rights reserved.</p>
+      <p>©2016 Muon Core Ltd. All rights reserved.</p>
     </div>
   </div>
   <div class='spacing'></div>

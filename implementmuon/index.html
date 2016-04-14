@@ -145,6 +145,10 @@
               <ul class='dropdown'>
                 
                   <li>
+                    <a href="/guide/index.html">MicroserviceUX Guides</a>
+                  </li>
+                
+                  <li>
                     <a href="/java/SNAPSHOT/">Muon - Java</a>
                   </li>
                 
@@ -199,7 +203,11 @@
 <div id="toctitle">Implement Muon</div>
 <ul class="sectlevel2">
 <li><a href="#getting-started">Getting Started</a></li>
-<li><a href="#csp-of-channels-and-processes">CSP, of Channels and Processes</a></li>
+<li><a href="#csp-of-channels-and-processes">CSP, of Channels and Processes</a>
+<ul class="sectlevel3">
+<li><a href="#terminology">Terminology</a></li>
+</ul>
+</li>
 <li><a href="#discovery">Discovery</a></li>
 <li><a href="#transports">Transports</a></li>
 <li><a href="#client-protocols">Client Protocols</a></li>
@@ -214,18 +222,51 @@
 <li><a href="#wiretap">Wiretap</a></li>
 </ul>
 </li>
+<li><a href="#optional-features-2">Optional Features</a>
+<ul class="sectlevel3">
+<li><a href="#wiretap-2">Wiretap</a></li>
 </ul>
-</div>
-<div class="paragraph">
-<p>This is a section on implementing muon in a new language.</p>
+</li>
+</ul>
 </div>
 <div class="sect2">
 <h3 id="getting-started">Getting Started</h3>
-
+<div class="paragraph">
+<p>Building a new implementation of Muon is TODO</p>
+</div>
 </div>
 <div class="sect2">
 <h3 id="csp-of-channels-and-processes">CSP, of Channels and Processes</h3>
-
+<div class="paragraph">
+<p>Muon is designed as a restricted and modified form of Communication Sequential Processes. Communication between muon services is in
+the form of bidirectional channels, with messages passed in serial in either direction.</p>
+</div>
+<div class="paragraph">
+<p>Internally, all of the Muon components are also designed this way, persistent autonomous processes that are generally event based,
+with defined bidirectional channels between them that they used to pass messages serially in either direction.</p>
+</div>
+<div class="paragraph">
+<p>This architecture can be confusing if you have never come across this design before.</p>
+</div>
+<div class="paragraph">
+<p>This was selected as it gives an excellent basis for building a reactive, distributed system that emphasises autonomy and availability
+as defined in CAP Theorum. If you are building a microservice based system, you <em>must</em> choose Availability over Consistency.</p>
+</div>
+<div class="sect3">
+<h4 id="terminology">Terminology</h4>
+<div class="paragraph">
+<p>Muon CSP naturally arranges into a pipeline like sturcture. It is possible at the transport layer for this to branch, however that
+is fairly rare in practice.</p>
+</div>
+<div class="paragraph">
+<p>To aid in visualisation and to reduce ambiguity, this structure is defined using the terms <em>left</em> and <em>right</em>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/images/dot-example.svg" alt="dot example" width="118" height="345">
+</div>
+</div>
+</div>
 </div>
 <div class="sect2">
 <h3 id="discovery">Discovery</h3>
@@ -257,6 +298,15 @@
 
 </div>
 </div>
+<div class="sect1">
+<h2 id="optional-features-2">Optional Features</h2>
+<div class="sectionbody">
+<div class="sect3">
+<h4 id="wiretap-2">Wiretap</h4>
+
+</div>
+</div>
+</div>
         </div>
       </div>
 
@@ -271,7 +321,7 @@
   <div class='two spacing'></div>
   <div class='row'>
     <div class='large-12 columns' style="color:white;">
-      <p>©2016 Muon - Microservice UX. All rights reserved.</p>
+      <p>©2016 Muon Core Ltd. All rights reserved.</p>
     </div>
   </div>
   <div class='spacing'></div>
