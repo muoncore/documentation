@@ -1,0 +1,24 @@
+:title: Event Projections v1
+:date: 2015-01-05 11:40
+:comments: true
+:sharing: true
+:source-highlighter: pygments
+:toc: right
+:toc-title: Event Projections v1
+:toclevels: 6
+
+
+## Event Projections - v1
+
+Event projections are active queries running against event streams. They are updated as the stream is updated.
+
+Projections are created from an initial state and a reducer function that operates against the events and current state.
+
+
+## Creating a projection
+
+## Deleting a projection
+
+## Projection list schema
+
+## Projection Content Schema
