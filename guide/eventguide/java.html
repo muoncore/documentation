@@ -207,8 +207,7 @@
 <li><a href="#design-your-events">Design Your Events</a></li>
 <li><a href="#emitting-an-event">Emitting an Event</a></li>
 <li><a href="#subscribing-and-acting-on-events">Subscribing and acting on Events</a></li>
-<li><a href="#replaying-an-event-stream">Replaying an Event Stream</a></li>
-<li><a href="#building-an-event-sourced-aggregation-from-an-event-stream">Building an Event Sourced Aggregation from an Event Stream</a></li>
+<li><a href="#replaying-an-event-stream-building-an-event-sourced-aggregation-from-an-event-stream">Replaying an Event Stream - Building an Event Sourced Aggregation from an Event Stream</a></li>
 <li><a href="#using-an-event-projection-in-place-of-an-aggregation">Using an Event Projection in place of an Aggregation</a></li>
 </ul>
 </div>
@@ -261,7 +260,7 @@ sometimes using some other common interface.</p>
 <p>The rest of this guide will show you how to build an event based system using MicroserviceUX technologies.</p>
 </div>
 <div class="paragraph">
-<p>We will be implementing a user registration system.</p>
+<p>We will be implementing a user registration system, allowing the creation of user accounts and loading / using a user account.</p>
 </div>
 </div>
 </div>
@@ -269,8 +268,8 @@ sometimes using some other common interface.</p>
 <h2 id="design-your-events">Design Your Events</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>When building an event based system, the first thing you need to figure out is <em>what should happen</em>. These actions, happenings,
-are your events. Next, you can figure out how to convert the data in your events into something you can query.</p>
+<p>When building an event based system, the first thing you need to figure out is <em>what should happen</em>, a series of things that you expect to occur, along with the data that goes with that.
+These actions, happenings, are your events. Next, you can figure out how to convert the data in your events into something you can query.</p>
 </div>
 <div class="paragraph">
 <p>For our user registration system, the following things will happen :-</p>
@@ -289,7 +288,17 @@ are your events. Next, you can figure out how to convert the data in your events
 </ul>
 </div>
 <div class="paragraph">
-<p>We will want to show a list of the current users, and to be able to see the full, current, state of a particular user.</p>
+<p>We will want to show :-</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>a list of the current users</p>
+</li>
+<li>
+<p>a single user account</p>
+</li>
+</ul>
 </div>
 </div>
 </div>
@@ -297,36 +306,126 @@ are your events. Next, you can figure out how to convert the data in your events
 <h2 id="emitting-an-event">Emitting an Event</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>To get started, we need to be able to emit an event.</p>
+<p>To get started, we need to be able to emit an event. We will have two events in the system to start with, <code><code>UserRegistered</code></code> and <code><code>UserRemoved</code></code></p>
+</div>
+<div class="paragraph">
+<p>UserRegistered will look like this</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code> username: &lt;string&gt;
+ firstname: &lt;string&gt;
+ lastname: &lt;string&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>UserRemoved will look like this</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code> username: &lt;string&gt;</code></pre>
+</div>
 </div>
 <div class="paragraph">
 <p>Using Muon, this is easy, you obtain the <em>Event Client</em>, and then call emit.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="java"><span style="color: #008000; font-weight: bold">package</span> io<span style="color: #666666">.</span><span style="color: #7D9029">muoncore</span><span style="color: #666666">.</span><span style="color: #7D9029">example</span><span style="color: #666666">;</span>
+<pre class="pygments highlight"><code data-lang="java"><span style="color: #008000; font-weight: bold">package</span> io<span style="color: #666666">.</span><span style="color: #7D9029">muoncore</span><span style="color: #666666">.</span><span style="color: #7D9029">example</span><span style="color: #666666">.</span><span style="color: #7D9029">event</span><span style="color: #666666">.</span><span style="color: #7D9029">guide</span><span style="color: #666666">;</span>
 
 <span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">io.muoncore.Muon</span><span style="color: #666666">;</span>
-<span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">io.muoncore.protocol.requestresponse.Response</span><span style="color: #666666">;</span>
+<span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">io.muoncore.MuonBuilder</span><span style="color: #666666">;</span>
+<span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">io.muoncore.config.AutoConfiguration</span><span style="color: #666666">;</span>
+<span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">io.muoncore.config.MuonConfigBuilder</span><span style="color: #666666">;</span>
+<span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">io.muoncore.protocol.event.ClientEvent</span><span style="color: #666666">;</span>
+<span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">io.muoncore.protocol.event.client.DefaultEventClient</span><span style="color: #666666">;</span>
+<span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">io.muoncore.protocol.event.client.EventClient</span><span style="color: #666666">;</span>
 
-<span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">java.util.concurrent.ExecutionException</span><span style="color: #666666">;</span>
+<span style="color: #008000; font-weight: bold">public</span> <span style="color: #008000; font-weight: bold">class</span> <span style="color: #0000FF; font-weight: bold">EmitEvent</span> <span style="color: #666666">{</span>
 
-<span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">static</span> io<span style="color: #666666">.</span><span style="color: #7D9029">muoncore</span><span style="color: #666666">.</span><span style="color: #7D9029">protocol</span><span style="color: #666666">.</span><span style="color: #7D9029">requestresponse</span><span style="color: #666666">.</span><span style="color: #7D9029">server</span><span style="color: #666666">.</span><span style="color: #7D9029">HandlerPredicates</span><span style="color: #666666">.</span><span style="color: #7D9029">all</span><span style="color: #666666">;</span>
+    <span style="color: #008000; font-weight: bold">public</span> <span style="color: #008000; font-weight: bold">static</span> <span style="color: #B00040">void</span> <span style="color: #0000FF">main</span><span style="color: #666666">(</span>String<span style="color: #666666">[]</span> args<span style="color: #666666">)</span> <span style="color: #666666">{</span>
 
-<span style="color: #008000; font-weight: bold">public</span> <span style="color: #008000; font-weight: bold">class</span> <span style="color: #0000FF; font-weight: bold">ReactiveRPC</span> <span style="color: #666666">{</span>
+        AutoConfiguration config <span style="color: #666666">=</span> MuonConfigBuilder<span style="color: #666666">.</span><span style="color: #7D9029">withServiceIdentifier</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;client&quot;</span><span style="color: #666666">).</span><span style="color: #7D9029">build</span><span style="color: #666666">();</span>
 
-    <span style="color: #008000; font-weight: bold">public</span> <span style="color: #B00040">void</span> <span style="color: #0000FF">exec</span><span style="color: #666666">(</span>Muon muon<span style="color: #666666">)</span> <span style="color: #008000; font-weight: bold">throws</span> ExecutionException<span style="color: #666666">,</span> InterruptedException <span style="color: #666666">{</span>
+        Muon muon <span style="color: #666666">=</span> MuonBuilder<span style="color: #666666">.</span><span style="color: #7D9029">withConfig</span><span style="color: #666666">(</span>config<span style="color: #666666">).</span><span style="color: #7D9029">build</span><span style="color: #666666">();</span>
 
-        <span style="color: #408080; font-style: italic">//request handler</span>
-        muon<span style="color: #666666">.</span><span style="color: #7D9029">handleRequest</span><span style="color: #666666">(</span>all<span style="color: #666666">(),</span> Object<span style="color: #666666">.</span><span style="color: #7D9029">class</span><span style="color: #666666">,</span> request <span style="color: #666666">-&gt;</span> <span style="color: #666666">{</span>
-            request<span style="color: #666666">.</span><span style="color: #7D9029">ok</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;Hi There&quot;</span><span style="color: #666666">);</span>
-        <span style="color: #666666">});</span>
+        muon<span style="color: #666666">.</span><span style="color: #7D9029">getDiscovery</span><span style="color: #666666">().</span><span style="color: #7D9029">blockUntilReady</span><span style="color: #666666">();</span>
 
-        <span style="color: #408080; font-style: italic">//request client</span>
-        Response<span style="color: #666666">&lt;</span>String<span style="color: #666666">&gt;</span> data <span style="color: #666666">=</span> muon<span style="color: #666666">.</span><span style="color: #7D9029">request</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;request://myservice/&quot;</span><span style="color: #666666">,</span> String<span style="color: #666666">.</span><span style="color: #7D9029">class</span><span style="color: #666666">).</span><span style="color: #7D9029">get</span><span style="color: #666666">();</span>
+        EventClient eventClient <span style="color: #666666">=</span> <span style="color: #008000; font-weight: bold">new</span> <span style="color: #0000FF">DefaultEventClient</span><span style="color: #666666">(</span>muon<span style="color: #666666">);</span>
 
-        System<span style="color: #666666">.</span><span style="color: #7D9029">out</span><span style="color: #666666">.</span><span style="color: #7D9029">println</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;The Data is &quot;</span> <span style="color: #666666">+</span> data<span style="color: #666666">.</span><span style="color: #7D9029">getPayload</span><span style="color: #666666">());</span>
+        eventClient<span style="color: #666666">.</span><span style="color: #7D9029">event</span><span style="color: #666666">(</span><span style="color: #008000; font-weight: bold">new</span> ClientEvent<span style="color: #666666">&lt;&gt;(</span>
+                <span style="color: #BA2121">&quot;UserRegistered&quot;</span><span style="color: #666666">,</span>
+                <span style="color: #BA2121">&quot;users&quot;</span><span style="color: #666666">,</span>
+                <span style="color: #008000; font-weight: bold">null</span><span style="color: #666666">,</span>
+                <span style="color: #008000; font-weight: bold">null</span><span style="color: #666666">,</span>
+                <span style="color: #008000; font-weight: bold">null</span><span style="color: #666666">,</span>
+                <span style="color: #008000; font-weight: bold">new</span> <span style="color: #0000FF">UserRegisteredEvent</span><span style="color: #666666">(</span>
+                        <span style="color: #BA2121">&quot;regsanders&quot;</span><span style="color: #666666">,</span>
+                        <span style="color: #BA2121">&quot;Reginald&quot;</span><span style="color: #666666">,</span>
+                        <span style="color: #BA2121">&quot;Sanders&quot;</span><span style="color: #666666">)</span>
+        <span style="color: #666666">));</span>
+
+        eventClient<span style="color: #666666">.</span><span style="color: #7D9029">event</span><span style="color: #666666">(</span><span style="color: #008000; font-weight: bold">new</span> ClientEvent<span style="color: #666666">&lt;&gt;(</span>
+                <span style="color: #BA2121">&quot;UserRegistered&quot;</span><span style="color: #666666">,</span>
+                <span style="color: #BA2121">&quot;users&quot;</span><span style="color: #666666">,</span>
+                <span style="color: #008000; font-weight: bold">null</span><span style="color: #666666">,</span>
+                <span style="color: #008000; font-weight: bold">null</span><span style="color: #666666">,</span>
+                <span style="color: #008000; font-weight: bold">null</span><span style="color: #666666">,</span>
+                <span style="color: #008000; font-weight: bold">new</span> <span style="color: #0000FF">UserRegisteredEvent</span><span style="color: #666666">(</span>
+                        <span style="color: #BA2121">&quot;derek&quot;</span><span style="color: #666666">,</span>
+                        <span style="color: #BA2121">&quot;Derek&quot;</span><span style="color: #666666">,</span>
+                        <span style="color: #BA2121">&quot;Blimby&quot;</span><span style="color: #666666">)</span>
+        <span style="color: #666666">));</span>
+
+        eventClient<span style="color: #666666">.</span><span style="color: #7D9029">event</span><span style="color: #666666">(</span><span style="color: #008000; font-weight: bold">new</span> ClientEvent<span style="color: #666666">&lt;&gt;(</span>
+                <span style="color: #BA2121">&quot;UserDeleted&quot;</span><span style="color: #666666">,</span>
+                <span style="color: #BA2121">&quot;users&quot;</span><span style="color: #666666">,</span>
+                <span style="color: #008000; font-weight: bold">null</span><span style="color: #666666">,</span>
+                <span style="color: #008000; font-weight: bold">null</span><span style="color: #666666">,</span>
+                <span style="color: #008000; font-weight: bold">null</span><span style="color: #666666">,</span>
+                <span style="color: #008000; font-weight: bold">new</span> <span style="color: #0000FF">UserDeletedEvent</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;regsanders&quot;</span><span style="color: #666666">)</span>
+        <span style="color: #666666">));</span>
+
+        System<span style="color: #666666">.</span><span style="color: #7D9029">out</span><span style="color: #666666">.</span><span style="color: #7D9029">println</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;User data updated&quot;</span><span style="color: #666666">);</span>
+        muon<span style="color: #666666">.</span><span style="color: #7D9029">shutdown</span><span style="color: #666666">();</span>
     <span style="color: #666666">}</span>
+
+    <span style="color: #008000; font-weight: bold">static</span> <span style="color: #008000; font-weight: bold">class</span> <span style="color: #0000FF; font-weight: bold">UserRegisteredEvent</span> <span style="color: #666666">{</span>
+        <span style="color: #008000; font-weight: bold">private</span> String username<span style="color: #666666">;</span>
+        <span style="color: #008000; font-weight: bold">private</span> String firstname<span style="color: #666666">;</span>
+        <span style="color: #008000; font-weight: bold">private</span> String lastname<span style="color: #666666">;</span>
+
+        <span style="color: #008000; font-weight: bold">public</span> <span style="color: #0000FF">UserRegisteredEvent</span><span style="color: #666666">(</span>String username<span style="color: #666666">,</span> String firstname<span style="color: #666666">,</span> String lastname<span style="color: #666666">)</span> <span style="color: #666666">{</span>
+            <span style="color: #008000; font-weight: bold">this</span><span style="color: #666666">.</span><span style="color: #7D9029">username</span> <span style="color: #666666">=</span> username<span style="color: #666666">;</span>
+            <span style="color: #008000; font-weight: bold">this</span><span style="color: #666666">.</span><span style="color: #7D9029">firstname</span> <span style="color: #666666">=</span> firstname<span style="color: #666666">;</span>
+            <span style="color: #008000; font-weight: bold">this</span><span style="color: #666666">.</span><span style="color: #7D9029">lastname</span> <span style="color: #666666">=</span> lastname<span style="color: #666666">;</span>
+        <span style="color: #666666">}</span>
+
+        <span style="color: #008000; font-weight: bold">public</span> String <span style="color: #0000FF">getUsername</span><span style="color: #666666">()</span> <span style="color: #666666">{</span>
+            <span style="color: #008000; font-weight: bold">return</span> username<span style="color: #666666">;</span>
+        <span style="color: #666666">}</span>
+
+        <span style="color: #008000; font-weight: bold">public</span> String <span style="color: #0000FF">getFirstname</span><span style="color: #666666">()</span> <span style="color: #666666">{</span>
+            <span style="color: #008000; font-weight: bold">return</span> firstname<span style="color: #666666">;</span>
+        <span style="color: #666666">}</span>
+
+        <span style="color: #008000; font-weight: bold">public</span> String <span style="color: #0000FF">getLastname</span><span style="color: #666666">()</span> <span style="color: #666666">{</span>
+            <span style="color: #008000; font-weight: bold">return</span> lastname<span style="color: #666666">;</span>
+        <span style="color: #666666">}</span>
+    <span style="color: #666666">}</span>
+
+    <span style="color: #008000; font-weight: bold">static</span> <span style="color: #008000; font-weight: bold">class</span> <span style="color: #0000FF; font-weight: bold">UserDeletedEvent</span> <span style="color: #666666">{</span>
+        <span style="color: #008000; font-weight: bold">private</span> String username<span style="color: #666666">;</span>
+
+        <span style="color: #008000; font-weight: bold">public</span> <span style="color: #0000FF">UserDeletedEvent</span><span style="color: #666666">(</span>String username<span style="color: #666666">)</span> <span style="color: #666666">{</span>
+            <span style="color: #008000; font-weight: bold">this</span><span style="color: #666666">.</span><span style="color: #7D9029">username</span> <span style="color: #666666">=</span> username<span style="color: #666666">;</span>
+        <span style="color: #666666">}</span>
+
+        <span style="color: #008000; font-weight: bold">public</span> String <span style="color: #0000FF">getUsername</span><span style="color: #666666">()</span> <span style="color: #666666">{</span>
+            <span style="color: #008000; font-weight: bold">return</span> username<span style="color: #666666">;</span>
+        <span style="color: #666666">}</span>
+    <span style="color: #666666">}</span>
+
 <span style="color: #666666">}</span></code></pre>
 </div>
 </div>
@@ -367,6 +466,10 @@ that they were persisted in.</p>
 <div class="paragraph">
 <p>Your microservices can subscribe to a stream to be notified whenever a new event occurs, so they can react to it, use it, or discard it.</p>
 </div>
+<div class="paragraph">
+<p>Subscribe a service to the user stream using the event client. This will notify your service of the user events as they occur. You can act on these to take further
+ actions, sending an email, validating an account etc.</p>
+</div>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code data-lang="java"><span style="color: #008000; font-weight: bold">package</span> io<span style="color: #666666">.</span><span style="color: #7D9029">muoncore</span><span style="color: #666666">.</span><span style="color: #7D9029">example</span><span style="color: #666666">;</span>
@@ -398,129 +501,159 @@ that they were persisted in.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="replaying-an-event-stream">Replaying an Event Stream</h2>
+<h2 id="replaying-an-event-stream-building-an-event-sourced-aggregation-from-an-event-stream">Replaying an Event Stream - Building an Event Sourced Aggregation from an Event Stream</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>We want to build a list of users. To do that, we have to transform the events as they come into our service to generate an aggregation of the events.</p>
+</div>
+<div class="paragraph">
+<p>To do this, we build a simple data sturcture, a list, and then for every event that we are notified of, we change the list. If we take all the events that have ever occurred,
+we can rebuild our current state at any time.</p>
+</div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="java"><span style="color: #008000; font-weight: bold">package</span> io<span style="color: #666666">.</span><span style="color: #7D9029">muoncore</span><span style="color: #666666">.</span><span style="color: #7D9029">example</span><span style="color: #666666">;</span>
+<pre class="pygments highlight"><code data-lang="java"><span style="color: #008000; font-weight: bold">package</span> io<span style="color: #666666">.</span><span style="color: #7D9029">muoncore</span><span style="color: #666666">.</span><span style="color: #7D9029">example</span><span style="color: #666666">.</span><span style="color: #7D9029">event</span><span style="color: #666666">.</span><span style="color: #7D9029">guide</span><span style="color: #666666">;</span>
 
 <span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">io.muoncore.Muon</span><span style="color: #666666">;</span>
-<span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">io.muoncore.protocol.requestresponse.Response</span><span style="color: #666666">;</span>
+<span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">io.muoncore.MuonBuilder</span><span style="color: #666666">;</span>
+<span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">io.muoncore.config.AutoConfiguration</span><span style="color: #666666">;</span>
+<span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">io.muoncore.config.MuonConfigBuilder</span><span style="color: #666666">;</span>
+<span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">io.muoncore.protocol.event.Event</span><span style="color: #666666">;</span>
+<span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">io.muoncore.protocol.event.client.DefaultEventClient</span><span style="color: #666666">;</span>
+<span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">io.muoncore.protocol.event.client.EventClient</span><span style="color: #666666">;</span>
+<span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">io.muoncore.protocol.event.client.EventReplayMode</span><span style="color: #666666">;</span>
+<span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">reactor.rx.broadcast.Broadcaster</span><span style="color: #666666">;</span>
 
-<span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">java.util.concurrent.ExecutionException</span><span style="color: #666666">;</span>
+<span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">java.util.HashSet</span><span style="color: #666666">;</span>
+<span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">java.util.Map</span><span style="color: #666666">;</span>
+<span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">java.util.Set</span><span style="color: #666666">;</span>
 
-<span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">static</span> io<span style="color: #666666">.</span><span style="color: #7D9029">muoncore</span><span style="color: #666666">.</span><span style="color: #7D9029">protocol</span><span style="color: #666666">.</span><span style="color: #7D9029">requestresponse</span><span style="color: #666666">.</span><span style="color: #7D9029">server</span><span style="color: #666666">.</span><span style="color: #7D9029">HandlerPredicates</span><span style="color: #666666">.</span><span style="color: #7D9029">all</span><span style="color: #666666">;</span>
+<span style="color: #408080; font-style: italic">/**</span>
+<span style="color: #408080; font-style: italic"> * Created by david on 14/04/16.</span>
+<span style="color: #408080; font-style: italic"> */</span>
+<span style="color: #008000; font-weight: bold">public</span> <span style="color: #008000; font-weight: bold">class</span> <span style="color: #0000FF; font-weight: bold">UserAggregationService</span> <span style="color: #666666">{</span>
 
-<span style="color: #008000; font-weight: bold">public</span> <span style="color: #008000; font-weight: bold">class</span> <span style="color: #0000FF; font-weight: bold">ReactiveRPC</span> <span style="color: #666666">{</span>
+    <span style="color: #408080; font-style: italic">//subscribe to the user stream</span>
+    <span style="color: #408080; font-style: italic">// fold into a user account</span>
 
-    <span style="color: #008000; font-weight: bold">public</span> <span style="color: #B00040">void</span> <span style="color: #0000FF">exec</span><span style="color: #666666">(</span>Muon muon<span style="color: #666666">)</span> <span style="color: #008000; font-weight: bold">throws</span> ExecutionException<span style="color: #666666">,</span> InterruptedException <span style="color: #666666">{</span>
+    <span style="color: #008000; font-weight: bold">public</span> <span style="color: #008000; font-weight: bold">static</span> <span style="color: #B00040">void</span> <span style="color: #0000FF">main</span><span style="color: #666666">(</span>String<span style="color: #666666">[]</span> args<span style="color: #666666">)</span> <span style="color: #666666">{</span>
 
-        <span style="color: #408080; font-style: italic">//request handler</span>
-        muon<span style="color: #666666">.</span><span style="color: #7D9029">handleRequest</span><span style="color: #666666">(</span>all<span style="color: #666666">(),</span> Object<span style="color: #666666">.</span><span style="color: #7D9029">class</span><span style="color: #666666">,</span> request <span style="color: #666666">-&gt;</span> <span style="color: #666666">{</span>
-            request<span style="color: #666666">.</span><span style="color: #7D9029">ok</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;Hi There&quot;</span><span style="color: #666666">);</span>
+        AutoConfiguration config <span style="color: #666666">=</span> MuonConfigBuilder<span style="color: #666666">.</span><span style="color: #7D9029">withServiceIdentifier</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;user-service&quot;</span><span style="color: #666666">).</span><span style="color: #7D9029">build</span><span style="color: #666666">();</span>
+
+        Muon muon <span style="color: #666666">=</span> MuonBuilder<span style="color: #666666">.</span><span style="color: #7D9029">withConfig</span><span style="color: #666666">(</span>config<span style="color: #666666">).</span><span style="color: #7D9029">build</span><span style="color: #666666">();</span>
+
+        muon<span style="color: #666666">.</span><span style="color: #7D9029">getDiscovery</span><span style="color: #666666">().</span><span style="color: #7D9029">blockUntilReady</span><span style="color: #666666">();</span>
+
+        EventClient evclient <span style="color: #666666">=</span> <span style="color: #008000; font-weight: bold">new</span> <span style="color: #0000FF">DefaultEventClient</span><span style="color: #666666">(</span>muon<span style="color: #666666">);</span>
+
+        Set<span style="color: #666666">&lt;</span>String<span style="color: #666666">&gt;</span> usernames <span style="color: #666666">=</span> <span style="color: #008000; font-weight: bold">new</span> HashSet<span style="color: #666666">&lt;&gt;();</span>
+
+        Broadcaster<span style="color: #666666">&lt;</span>Event<span style="color: #666666">&lt;</span>Map<span style="color: #666666">&gt;&gt;</span> sub <span style="color: #666666">=</span> Broadcaster<span style="color: #666666">.</span><span style="color: #7D9029">create</span><span style="color: #666666">();</span>
+        sub<span style="color: #666666">.</span><span style="color: #7D9029">consume</span><span style="color: #666666">(</span>msg <span style="color: #666666">-&gt;</span> <span style="color: #666666">{</span>
+            <span style="color: #008000; font-weight: bold">try</span> <span style="color: #666666">{</span>
+                <span style="color: #008000; font-weight: bold">if</span> <span style="color: #666666">(</span>msg<span style="color: #666666">.</span><span style="color: #7D9029">getEventType</span><span style="color: #666666">().</span><span style="color: #7D9029">equals</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;UserRegistered&quot;</span><span style="color: #666666">))</span> <span style="color: #666666">{</span>
+                    usernames<span style="color: #666666">.</span><span style="color: #7D9029">add</span><span style="color: #666666">((</span>String<span style="color: #666666">)</span> msg<span style="color: #666666">.</span><span style="color: #7D9029">getPayload</span><span style="color: #666666">().</span><span style="color: #7D9029">get</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;username&quot;</span><span style="color: #666666">));</span>
+                <span style="color: #666666">}</span> <span style="color: #008000; font-weight: bold">else</span> <span style="color: #666666">{</span>
+                    usernames<span style="color: #666666">.</span><span style="color: #7D9029">remove</span><span style="color: #666666">(</span>msg<span style="color: #666666">.</span><span style="color: #7D9029">getPayload</span><span style="color: #666666">().</span><span style="color: #7D9029">get</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;username&quot;</span><span style="color: #666666">));</span>
+                <span style="color: #666666">}</span>
+            <span style="color: #666666">}</span> <span style="color: #008000; font-weight: bold">catch</span> <span style="color: #666666">(</span>Exception ex<span style="color: #666666">)</span> <span style="color: #666666">{</span>
+                ex<span style="color: #666666">.</span><span style="color: #7D9029">printStackTrace</span><span style="color: #666666">();</span>
+            <span style="color: #666666">}</span>
+            System<span style="color: #666666">.</span><span style="color: #7D9029">out</span><span style="color: #666666">.</span><span style="color: #7D9029">println</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;Processed event, user list is now : &quot;</span> <span style="color: #666666">+</span> usernames<span style="color: #666666">);</span>
         <span style="color: #666666">});</span>
 
-        <span style="color: #408080; font-style: italic">//request client</span>
-        Response<span style="color: #666666">&lt;</span>String<span style="color: #666666">&gt;</span> data <span style="color: #666666">=</span> muon<span style="color: #666666">.</span><span style="color: #7D9029">request</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;request://myservice/&quot;</span><span style="color: #666666">,</span> String<span style="color: #666666">.</span><span style="color: #7D9029">class</span><span style="color: #666666">).</span><span style="color: #7D9029">get</span><span style="color: #666666">();</span>
+        evclient<span style="color: #666666">.</span><span style="color: #7D9029">replay</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;users&quot;</span><span style="color: #666666">,</span> EventReplayMode<span style="color: #666666">.</span><span style="color: #7D9029">REPLAY_THEN_LIVE</span><span style="color: #666666">,</span> Map<span style="color: #666666">.</span><span style="color: #7D9029">class</span><span style="color: #666666">,</span> sub<span style="color: #666666">);</span>
 
-        System<span style="color: #666666">.</span><span style="color: #7D9029">out</span><span style="color: #666666">.</span><span style="color: #7D9029">println</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;The Data is &quot;</span> <span style="color: #666666">+</span> data<span style="color: #666666">.</span><span style="color: #7D9029">getPayload</span><span style="color: #666666">());</span>
+    <span style="color: #666666">}</span>
+
+    <span style="color: #008000; font-weight: bold">static</span> <span style="color: #008000; font-weight: bold">class</span> <span style="color: #0000FF; font-weight: bold">UserRegisteredEvent</span> <span style="color: #666666">{</span>
+        <span style="color: #008000; font-weight: bold">private</span> String username<span style="color: #666666">;</span>
+        <span style="color: #008000; font-weight: bold">private</span> String firstname<span style="color: #666666">;</span>
+        <span style="color: #008000; font-weight: bold">private</span> String lastname<span style="color: #666666">;</span>
+
+        <span style="color: #008000; font-weight: bold">public</span> <span style="color: #0000FF">UserRegisteredEvent</span><span style="color: #666666">(</span>String username<span style="color: #666666">,</span> String firstname<span style="color: #666666">,</span> String lastname<span style="color: #666666">)</span> <span style="color: #666666">{</span>
+            <span style="color: #008000; font-weight: bold">this</span><span style="color: #666666">.</span><span style="color: #7D9029">username</span> <span style="color: #666666">=</span> username<span style="color: #666666">;</span>
+            <span style="color: #008000; font-weight: bold">this</span><span style="color: #666666">.</span><span style="color: #7D9029">firstname</span> <span style="color: #666666">=</span> firstname<span style="color: #666666">;</span>
+            <span style="color: #008000; font-weight: bold">this</span><span style="color: #666666">.</span><span style="color: #7D9029">lastname</span> <span style="color: #666666">=</span> lastname<span style="color: #666666">;</span>
+        <span style="color: #666666">}</span>
+
+        <span style="color: #008000; font-weight: bold">public</span> String <span style="color: #0000FF">getUsername</span><span style="color: #666666">()</span> <span style="color: #666666">{</span>
+            <span style="color: #008000; font-weight: bold">return</span> username<span style="color: #666666">;</span>
+        <span style="color: #666666">}</span>
+
+        <span style="color: #008000; font-weight: bold">public</span> String <span style="color: #0000FF">getFirstname</span><span style="color: #666666">()</span> <span style="color: #666666">{</span>
+            <span style="color: #008000; font-weight: bold">return</span> firstname<span style="color: #666666">;</span>
+        <span style="color: #666666">}</span>
+
+        <span style="color: #008000; font-weight: bold">public</span> String <span style="color: #0000FF">getLastname</span><span style="color: #666666">()</span> <span style="color: #666666">{</span>
+            <span style="color: #008000; font-weight: bold">return</span> lastname<span style="color: #666666">;</span>
+        <span style="color: #666666">}</span>
+    <span style="color: #666666">}</span>
+
+    <span style="color: #008000; font-weight: bold">static</span> <span style="color: #008000; font-weight: bold">class</span> <span style="color: #0000FF; font-weight: bold">UserDeletedEvent</span> <span style="color: #666666">{</span>
+        <span style="color: #008000; font-weight: bold">private</span> String username<span style="color: #666666">;</span>
+
+        <span style="color: #008000; font-weight: bold">public</span> <span style="color: #0000FF">UserDeletedEvent</span><span style="color: #666666">(</span>String username<span style="color: #666666">)</span> <span style="color: #666666">{</span>
+            <span style="color: #008000; font-weight: bold">this</span><span style="color: #666666">.</span><span style="color: #7D9029">username</span> <span style="color: #666666">=</span> username<span style="color: #666666">;</span>
+        <span style="color: #666666">}</span>
+
+        <span style="color: #008000; font-weight: bold">public</span> String <span style="color: #0000FF">getUsername</span><span style="color: #666666">()</span> <span style="color: #666666">{</span>
+            <span style="color: #008000; font-weight: bold">return</span> username<span style="color: #666666">;</span>
+        <span style="color: #666666">}</span>
     <span style="color: #666666">}</span>
 <span style="color: #666666">}</span></code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p>This maintains the list of users in memory, for the fastest possible access. Rebuilding the list of users is natural, if potentially involved, by
+replaying the users stream on demand. In the case of the user service crashing, the user list will be recreated from the event stream.</p>
 </div>
+<div class="paragraph">
+<p>The user data is in a very convenient representation, a queryable list, but it is <strong>mastered</strong> elsewhere, in the event store.</p>
 </div>
-<div class="sect1">
-<h2 id="building-an-event-sourced-aggregation-from-an-event-stream">Building an Event Sourced Aggregation from an Event Stream</h2>
-<div class="sectionbody">
-<div class="listingblock">
-<div class="content">
-<pre class="pygments highlight"><code data-lang="java"><span style="color: #008000; font-weight: bold">package</span> io<span style="color: #666666">.</span><span style="color: #7D9029">muoncore</span><span style="color: #666666">.</span><span style="color: #7D9029">example</span><span style="color: #666666">;</span>
-
-<span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">io.muoncore.Muon</span><span style="color: #666666">;</span>
-<span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">io.muoncore.protocol.requestresponse.Response</span><span style="color: #666666">;</span>
-
-<span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">java.util.concurrent.ExecutionException</span><span style="color: #666666">;</span>
-
-<span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">static</span> io<span style="color: #666666">.</span><span style="color: #7D9029">muoncore</span><span style="color: #666666">.</span><span style="color: #7D9029">protocol</span><span style="color: #666666">.</span><span style="color: #7D9029">requestresponse</span><span style="color: #666666">.</span><span style="color: #7D9029">server</span><span style="color: #666666">.</span><span style="color: #7D9029">HandlerPredicates</span><span style="color: #666666">.</span><span style="color: #7D9029">all</span><span style="color: #666666">;</span>
-
-<span style="color: #008000; font-weight: bold">public</span> <span style="color: #008000; font-weight: bold">class</span> <span style="color: #0000FF; font-weight: bold">ReactiveRPC</span> <span style="color: #666666">{</span>
-
-    <span style="color: #008000; font-weight: bold">public</span> <span style="color: #B00040">void</span> <span style="color: #0000FF">exec</span><span style="color: #666666">(</span>Muon muon<span style="color: #666666">)</span> <span style="color: #008000; font-weight: bold">throws</span> ExecutionException<span style="color: #666666">,</span> InterruptedException <span style="color: #666666">{</span>
-
-        <span style="color: #408080; font-style: italic">//request handler</span>
-        muon<span style="color: #666666">.</span><span style="color: #7D9029">handleRequest</span><span style="color: #666666">(</span>all<span style="color: #666666">(),</span> Object<span style="color: #666666">.</span><span style="color: #7D9029">class</span><span style="color: #666666">,</span> request <span style="color: #666666">-&gt;</span> <span style="color: #666666">{</span>
-            request<span style="color: #666666">.</span><span style="color: #7D9029">ok</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;Hi There&quot;</span><span style="color: #666666">);</span>
-        <span style="color: #666666">});</span>
-
-        <span style="color: #408080; font-style: italic">//request client</span>
-        Response<span style="color: #666666">&lt;</span>String<span style="color: #666666">&gt;</span> data <span style="color: #666666">=</span> muon<span style="color: #666666">.</span><span style="color: #7D9029">request</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;request://myservice/&quot;</span><span style="color: #666666">,</span> String<span style="color: #666666">.</span><span style="color: #7D9029">class</span><span style="color: #666666">).</span><span style="color: #7D9029">get</span><span style="color: #666666">();</span>
-
-        System<span style="color: #666666">.</span><span style="color: #7D9029">out</span><span style="color: #666666">.</span><span style="color: #7D9029">println</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;The Data is &quot;</span> <span style="color: #666666">+</span> data<span style="color: #666666">.</span><span style="color: #7D9029">getPayload</span><span style="color: #666666">());</span>
-    <span style="color: #666666">}</span>
-<span style="color: #666666">}</span></code></pre>
-</div>
+<div class="paragraph">
+<p>This pattern of generating an aggregation across an event stream is very common, and so we have created a special <em>Projection</em> service
+in the event system of MicroserviceUX.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="using-an-event-projection-in-place-of-an-aggregation">Using an Event Projection in place of an Aggregation</h2>
 <div class="sectionbody">
-<div class="listingblock">
-<div class="content">
-<pre class="pygments highlight"><code data-lang="java"><span style="color: #008000; font-weight: bold">package</span> io<span style="color: #666666">.</span><span style="color: #7D9029">muoncore</span><span style="color: #666666">.</span><span style="color: #7D9029">example</span><span style="color: #666666">;</span>
-
-<span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">io.muoncore.Muon</span><span style="color: #666666">;</span>
-<span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">io.muoncore.protocol.requestresponse.Response</span><span style="color: #666666">;</span>
-
-<span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">java.util.concurrent.ExecutionException</span><span style="color: #666666">;</span>
-
-<span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">static</span> io<span style="color: #666666">.</span><span style="color: #7D9029">muoncore</span><span style="color: #666666">.</span><span style="color: #7D9029">protocol</span><span style="color: #666666">.</span><span style="color: #7D9029">requestresponse</span><span style="color: #666666">.</span><span style="color: #7D9029">server</span><span style="color: #666666">.</span><span style="color: #7D9029">HandlerPredicates</span><span style="color: #666666">.</span><span style="color: #7D9029">all</span><span style="color: #666666">;</span>
-
-<span style="color: #008000; font-weight: bold">public</span> <span style="color: #008000; font-weight: bold">class</span> <span style="color: #0000FF; font-weight: bold">ReactiveRPC</span> <span style="color: #666666">{</span>
-
-    <span style="color: #008000; font-weight: bold">public</span> <span style="color: #B00040">void</span> <span style="color: #0000FF">exec</span><span style="color: #666666">(</span>Muon muon<span style="color: #666666">)</span> <span style="color: #008000; font-weight: bold">throws</span> ExecutionException<span style="color: #666666">,</span> InterruptedException <span style="color: #666666">{</span>
-
-        <span style="color: #408080; font-style: italic">//request handler</span>
-        muon<span style="color: #666666">.</span><span style="color: #7D9029">handleRequest</span><span style="color: #666666">(</span>all<span style="color: #666666">(),</span> Object<span style="color: #666666">.</span><span style="color: #7D9029">class</span><span style="color: #666666">,</span> request <span style="color: #666666">-&gt;</span> <span style="color: #666666">{</span>
-            request<span style="color: #666666">.</span><span style="color: #7D9029">ok</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;Hi There&quot;</span><span style="color: #666666">);</span>
-        <span style="color: #666666">});</span>
-
-        <span style="color: #408080; font-style: italic">//request client</span>
-        Response<span style="color: #666666">&lt;</span>String<span style="color: #666666">&gt;</span> data <span style="color: #666666">=</span> muon<span style="color: #666666">.</span><span style="color: #7D9029">request</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;request://myservice/&quot;</span><span style="color: #666666">,</span> String<span style="color: #666666">.</span><span style="color: #7D9029">class</span><span style="color: #666666">).</span><span style="color: #7D9029">get</span><span style="color: #666666">();</span>
-
-        System<span style="color: #666666">.</span><span style="color: #7D9029">out</span><span style="color: #666666">.</span><span style="color: #7D9029">println</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;The Data is &quot;</span> <span style="color: #666666">+</span> data<span style="color: #666666">.</span><span style="color: #7D9029">getPayload</span><span style="color: #666666">());</span>
-    <span style="color: #666666">}</span>
-<span style="color: #666666">}</span></code></pre>
+<div class="paragraph">
+<p>To build an event projection, you need to understand the algorithm that you have just written. This is a general purpose computation known as a
+<em>reducer</em>. It takes an initial state and for a stream of data items applies a mutation to the state before moving on to process the next item
+in the list. It is fairly simple, general purpose and able to be parallelised.</p>
 </div>
+<div class="paragraph">
+<p>The Photon store or Collider projection host can take a reducer function and associated metadata and generate an event projection on a stream.</p>
+</div>
+<div class="paragraph">
+<p>This allows you to do the work you did in your service and push it back into the MicroserviceUX data tier.</p>
+</div>
+<div class="paragraph">
+<p>To do this, you first need to insert a projection. This can be written in a variety of languages, here it is in javascript</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="java"><span style="color: #008000; font-weight: bold">package</span> io<span style="color: #666666">.</span><span style="color: #7D9029">muoncore</span><span style="color: #666666">.</span><span style="color: #7D9029">example</span><span style="color: #666666">;</span>
-
-<span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">io.muoncore.Muon</span><span style="color: #666666">;</span>
-<span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">io.muoncore.protocol.requestresponse.Response</span><span style="color: #666666">;</span>
-
-<span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">java.util.concurrent.ExecutionException</span><span style="color: #666666">;</span>
-
-<span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">static</span> io<span style="color: #666666">.</span><span style="color: #7D9029">muoncore</span><span style="color: #666666">.</span><span style="color: #7D9029">protocol</span><span style="color: #666666">.</span><span style="color: #7D9029">requestresponse</span><span style="color: #666666">.</span><span style="color: #7D9029">server</span><span style="color: #666666">.</span><span style="color: #7D9029">HandlerPredicates</span><span style="color: #666666">.</span><span style="color: #7D9029">all</span><span style="color: #666666">;</span>
-
-<span style="color: #008000; font-weight: bold">public</span> <span style="color: #008000; font-weight: bold">class</span> <span style="color: #0000FF; font-weight: bold">ReactiveRPC</span> <span style="color: #666666">{</span>
-
-    <span style="color: #008000; font-weight: bold">public</span> <span style="color: #B00040">void</span> <span style="color: #0000FF">exec</span><span style="color: #666666">(</span>Muon muon<span style="color: #666666">)</span> <span style="color: #008000; font-weight: bold">throws</span> ExecutionException<span style="color: #666666">,</span> InterruptedException <span style="color: #666666">{</span>
-
-        <span style="color: #408080; font-style: italic">//request handler</span>
-        muon<span style="color: #666666">.</span><span style="color: #7D9029">handleRequest</span><span style="color: #666666">(</span>all<span style="color: #666666">(),</span> Object<span style="color: #666666">.</span><span style="color: #7D9029">class</span><span style="color: #666666">,</span> request <span style="color: #666666">-&gt;</span> <span style="color: #666666">{</span>
-            request<span style="color: #666666">.</span><span style="color: #7D9029">ok</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;Hi There&quot;</span><span style="color: #666666">);</span>
-        <span style="color: #666666">});</span>
-
-        <span style="color: #408080; font-style: italic">//request client</span>
-        Response<span style="color: #666666">&lt;</span>String<span style="color: #666666">&gt;</span> data <span style="color: #666666">=</span> muon<span style="color: #666666">.</span><span style="color: #7D9029">request</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;request://myservice/&quot;</span><span style="color: #666666">,</span> String<span style="color: #666666">.</span><span style="color: #7D9029">class</span><span style="color: #666666">).</span><span style="color: #7D9029">get</span><span style="color: #666666">();</span>
-
-        System<span style="color: #666666">.</span><span style="color: #7D9029">out</span><span style="color: #666666">.</span><span style="color: #7D9029">println</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;The Data is &quot;</span> <span style="color: #666666">+</span> data<span style="color: #666666">.</span><span style="color: #7D9029">getPayload</span><span style="color: #666666">());</span>
-    <span style="color: #666666">}</span>
-<span style="color: #666666">}</span></code></pre>
+<pre class="pygments highlight"><code data-lang="javascript"><span style="color: #408080; font-style: italic">/**</span>
+<span style="color: #408080; font-style: italic"> JS reducer that generates an object containing the active users.</span>
+<span style="color: #408080; font-style: italic"> **/</span>
+<span style="color: #008000; font-weight: bold">function</span>(prev, next) {
+    <span style="color: #008000; font-weight: bold">if</span> (next[<span style="color: #BA2121">&#39;event-type&#39;</span>] <span style="color: #666666">==</span> <span style="color: #BA2121">&quot;UserRegistered&quot;</span>) {
+        prev[next.payload.username]<span style="color: #666666">=</span><span style="color: #008000; font-weight: bold">true</span>;
+    } <span style="color: #008000; font-weight: bold">else</span> {
+        <span style="color: #008000; font-weight: bold">delete</span> prev[next.payload.username]
+    }
+    <span style="color: #008000; font-weight: bold">return</span> prev;
+}</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>This simply folds the stream data into a list. Every UserRegistered event acts as an insert, every UserRemoved acts as a delete.</p>
+</div>
+<div class="paragraph">
+<p>You may register this using the event client like so</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -551,7 +684,56 @@ that they were persisted in.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>Building an aggregation is a useful technique, and will give you a data structure in locall memory that you can</p>
+<p>This will run against the event stream, and maintain an up to date list representation of your users. You can query the state of the projection
+as below.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"><span style="color: #008000; font-weight: bold">package</span> io<span style="color: #666666">.</span><span style="color: #7D9029">muoncore</span><span style="color: #666666">.</span><span style="color: #7D9029">example</span><span style="color: #666666">.</span><span style="color: #7D9029">event</span><span style="color: #666666">.</span><span style="color: #7D9029">guide</span><span style="color: #666666">;</span>
+
+<span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">io.muoncore.Muon</span><span style="color: #666666">;</span>
+<span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">io.muoncore.MuonBuilder</span><span style="color: #666666">;</span>
+<span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">io.muoncore.config.AutoConfiguration</span><span style="color: #666666">;</span>
+<span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">io.muoncore.config.MuonConfigBuilder</span><span style="color: #666666">;</span>
+<span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">io.muoncore.protocol.event.client.DefaultEventClient</span><span style="color: #666666">;</span>
+<span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">io.muoncore.protocol.event.client.EventClient</span><span style="color: #666666">;</span>
+<span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">io.muoncore.protocol.event.client.EventProjectionControl</span><span style="color: #666666">;</span>
+
+<span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">java.util.Map</span><span style="color: #666666">;</span>
+<span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">java.util.Set</span><span style="color: #666666">;</span>
+<span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">java.util.concurrent.ExecutionException</span><span style="color: #666666">;</span>
+
+<span style="color: #008000; font-weight: bold">public</span> <span style="color: #008000; font-weight: bold">class</span> <span style="color: #0000FF; font-weight: bold">UserProjectionService</span> <span style="color: #666666">{</span>
+
+    <span style="color: #408080; font-style: italic">//add the projection into photon</span>
+
+    <span style="color: #408080; font-style: italic">//read the projection on demand</span>
+
+    <span style="color: #408080; font-style: italic">//read part of the projection for a single account?</span>
+
+    <span style="color: #008000; font-weight: bold">public</span> <span style="color: #008000; font-weight: bold">static</span> <span style="color: #B00040">void</span> <span style="color: #0000FF">main</span><span style="color: #666666">(</span>String<span style="color: #666666">[]</span> args<span style="color: #666666">)</span> <span style="color: #008000; font-weight: bold">throws</span> ExecutionException<span style="color: #666666">,</span> InterruptedException <span style="color: #666666">{</span>
+
+        AutoConfiguration config <span style="color: #666666">=</span> MuonConfigBuilder<span style="color: #666666">.</span><span style="color: #7D9029">withServiceIdentifier</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;user-service-projection&quot;</span><span style="color: #666666">).</span><span style="color: #7D9029">build</span><span style="color: #666666">();</span>
+
+        Muon muon <span style="color: #666666">=</span> MuonBuilder<span style="color: #666666">.</span><span style="color: #7D9029">withConfig</span><span style="color: #666666">(</span>config<span style="color: #666666">).</span><span style="color: #7D9029">build</span><span style="color: #666666">();</span>
+
+        muon<span style="color: #666666">.</span><span style="color: #7D9029">getDiscovery</span><span style="color: #666666">().</span><span style="color: #7D9029">blockUntilReady</span><span style="color: #666666">();</span>
+
+        EventClient evclient <span style="color: #666666">=</span> <span style="color: #008000; font-weight: bold">new</span> <span style="color: #0000FF">DefaultEventClient</span><span style="color: #666666">(</span>muon<span style="color: #666666">);</span>
+
+        EventProjectionControl<span style="color: #666666">&lt;</span>Map<span style="color: #666666">&gt;</span> userList <span style="color: #666666">=</span> evclient<span style="color: #666666">.</span><span style="color: #7D9029">getProjection</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;user-list&quot;</span><span style="color: #666666">,</span> Map<span style="color: #666666">.</span><span style="color: #7D9029">class</span><span style="color: #666666">).</span><span style="color: #7D9029">get</span><span style="color: #666666">();</span>
+
+        Set users <span style="color: #666666">=</span> <span style="color: #666666">((</span>Map<span style="color: #666666">)</span> userList<span style="color: #666666">.</span><span style="color: #7D9029">getCurrentState</span><span style="color: #666666">().</span><span style="color: #7D9029">get</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;current-value&quot;</span><span style="color: #666666">)).</span><span style="color: #7D9029">keySet</span><span style="color: #666666">();</span>
+
+        System<span style="color: #666666">.</span><span style="color: #7D9029">out</span><span style="color: #666666">.</span><span style="color: #7D9029">println</span> <span style="color: #666666">(</span><span style="color: #BA2121">&quot;Users are &quot;</span> <span style="color: #666666">+</span> users<span style="color: #666666">);</span>
+
+        muon<span style="color: #666666">.</span><span style="color: #7D9029">shutdown</span><span style="color: #666666">();</span>
+    <span style="color: #666666">}</span>
+<span style="color: #666666">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Your user service can now become a much simpler system, delivering a user friendly API on top of an event projection.</p>
 </div>
 </div>
 </div>

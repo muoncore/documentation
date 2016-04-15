@@ -29,13 +29,13 @@ public class EventClientExample {
         // end::createclient[]
 
         // tag::replay[]
-        Broadcaster<Event> sub = Broadcaster.create();
+        Broadcaster<Event<MyDataPayload>> sub = Broadcaster.create();
         sub.consume( msg -> {
 //            println "EVENT = ${it}"
 
         });
 
-        evclient.replay("users", EventReplayMode.REPLAY_THEN_LIVE, sub);
+        evclient.replay("users", EventReplayMode.REPLAY_THEN_LIVE, MyDataPayload.class, sub);
         // end::replay[]
 
 
@@ -55,20 +55,19 @@ public class EventClientExample {
 
         Set<String> userList = new HashSet<>();
 
-        Broadcaster<Event> eventsourceSubscriber = Broadcaster.create();
-        sub.consume( event -> {
-
+        Broadcaster<Event<MyDataPayload>> eventsourceSubscriber = Broadcaster.create();
+        eventsourceSubscriber.consume( event -> {
+            event.getPayload();  // (1)
 
         });
 
-        evclient.replay("users", EventReplayMode.REPLAY_THEN_LIVE, sub);
+        evclient.replay("users", EventReplayMode.REPLAY_THEN_LIVE, MyDataPayload.class, eventsourceSubscriber);
 
         // end::eventsource[]
-
 
     }
 
     static class MyDataPayload {
-
+//        private String
     }
 }

@@ -37,12 +37,12 @@ Event architectures give you this option.
 
 The rest of this guide will show you how to build an event based system using MicroserviceUX technologies.
 
-We will be implementing a user registration system.
+We will be implementing a user registration system, allowing the creation of user accounts and loading / using a user account.
 
 ## Design Your Events
 
-When building an event based system, the first thing you need to figure out is _what should happen_. These actions, happenings,
-are your events. Next, you can figure out how to convert the data in your events into something you can query.
+When building an event based system, the first thing you need to figure out is _what should happen_, a series of things that you expect to occur, along with the data that goes with that.
+These actions, happenings, are your events. Next, you can figure out how to convert the data in your events into something you can query.
 
 For our user registration system, the following things will happen :-
 
@@ -50,11 +50,28 @@ For our user registration system, the following things will happen :-
 * User updates their record
 * User removes their record
 
-We will want to show a list of the current users, and to be able to see the full, current, state of a particular user.
+We will want to show :-
+
+* a list of the current users
+* a single user account
 
 ## Emitting an Event
 
-To get started, we need to be able to emit an event.
+To get started, we need to be able to emit an event. We will have two events in the system to start with, ```UserRegistered``` and ```UserRemoved```
+
+UserRegistered will look like this
+
+```
+ username: <string>
+ firstname: <string>
+ lastname: <string>
+```
+
+UserRemoved will look like this
+
+```
+ username: <string>
+```
 
 Using Muon, this is easy, you obtain the _Event Client_, and then call emit.
 
@@ -83,49 +100,66 @@ Try doing this part in another language to your emitting code and see how they w
 
 Your microservices can subscribe to a stream to be notified whenever a new event occurs, so they can react to it, use it, or discard it.
 
+Subscribe a service to the user stream using the event client. This will notify your service of the user events as they occur. You can act on these to take further
+ actions, sending an email, validating an account etc.
+
 [source,{language},indent=0]
 ----
 include::{subscribeevent}[]
 ----
 
+## Replaying an Event Stream - Building an Event Sourced Aggregation from an Event Stream
 
+We want to build a list of users. To do that, we have to transform the events as they come into our service to generate an aggregation of the events.
 
-## Replaying an Event Stream
-
-
-
-[source,{language},indent=0]
-----
-include::{replayevent}[]
-----
-
-
-## Building an Event Sourced Aggregation from an Event Stream
+To do this, we build a simple data sturcture, a list, and then for every event that we are notified of, we change the list. If we take all the events that have ever occurred,
+we can rebuild our current state at any time.
 
 [source,{language},indent=0]
 ----
 include::{buildaggregation}[]
 ----
 
+This maintains the list of users in memory, for the fastest possible access. Rebuilding the list of users is natural, if potentially involved, by
+replaying the users stream on demand. In the case of the user service crashing, the user list will be recreated from the event stream.
+
+The user data is in a very convenient representation, a queryable list, but it is *mastered* elsewhere, in the event store.
+
+This pattern of generating an aggregation across an event stream is very common, and so we have created a special _Projection_ service
+in the event system of MicroserviceUX.
+
 ## Using an Event Projection in place of an Aggregation
 
+To build an event projection, you need to understand the algorithm that you have just written. This is a general purpose computation known as a
+_reducer_. It takes an initial state and for a stream of data items applies a mutation to the state before moving on to process the next item
+in the list. It is fairly simple, general purpose and able to be parallelised.
 
-[source,{language},indent=0]
+The Photon store or Collider projection host can take a reducer function and associated metadata and generate an event projection on a stream.
+
+This allows you to do the work you did in your service and push it back into the MicroserviceUX data tier.
+
+To do this, you first need to insert a projection. This can be written in a variety of languages, here it is in {projectionlanguage}
+
+[source,{projectionlanguage},indent=0]
 ----
-include::{projection}[]
+include::{userlistprojection}[]
 ----
 
+This simply folds the stream data into a list. Every UserRegistered event acts as an insert, every UserRemoved acts as a delete.
+
+You may register this using the event client like so
 
 [source,{language},indent=0]
 ----
 include::{installprojection}[]
 ----
 
+This will run against the event stream, and maintain an up to date list representation of your users. You can query the state of the projection
+as below.
 
 [source,{language},indent=0]
 ----
 include::{useprojection}[]
 ----
 
-
-Building an aggregation is a useful technique, and will give you a data structure in locall memory that you can 
+Your user service can now become a much simpler system, delivering a user friendly API on top of an event projection.

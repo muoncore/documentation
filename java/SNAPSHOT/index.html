@@ -202,7 +202,6 @@
           <div id="toc" class="toc">
 <div id="toctitle">Muon Java</div>
 <ul class="sectlevel2">
-<li><a href="#muon-for-java">Muon for Java</a></li>
 <li><a href="#a-microservice-based-system-in-5-minutes">A Microservice based system in 5 minutes</a></li>
 <li><a href="#muon-java">Muon Java</a>
 <ul class="sectlevel2">
@@ -266,13 +265,10 @@
 </li>
 </ul>
 </div>
-<div class="sect2">
-<h3 id="muon-for-java">Muon for Java</h3>
 <div class="paragraph">
 <p>Muon Java is the implementation of the Muon microservices toolkit, for the Java platform. Muon enables you to easily build
 microservices in many languages that have richer, more performant and fully reactive communication semantics and gain access
 to Muon compatible services written in other languages without having to sacrifice the rich semantics or performance.</p>
-</div>
 </div>
 <div class="sect2">
 <h3 id="a-microservice-based-system-in-5-minutes">A Microservice based system in 5 minutes</h3>
@@ -337,7 +333,7 @@ that exposes this to the outside world.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="java"><span style="color: #AA22FF">@SpringBootApplication</span>
+<pre class="pygments highlight"><code data-lang="groovy"><span style="color: #AA22FF">@SpringBootApplication</span>
 <span style="color: #AA22FF">@Controller</span>
 <span style="color: #AA22FF">@MuonController</span>
 <span style="color: #AA22FF">@EnableMuon</span><span style="color: #666666">(</span>serviceName <span style="color: #666666">=</span> <span style="color: #BA2121">&quot;gateway&quot;</span><span style="color: #666666">)</span>
@@ -765,6 +761,13 @@ muon<span style="color: #666666">.</span><span style="color: #7D9029">getTranspo
         msg <span style="color: #666666">-&gt;</span> msg<span style="color: #666666">.</span><span style="color: #7D9029">getType</span><span style="color: #666666">().</span><span style="color: #7D9029">equals</span><span style="color: #666666">(</span>RRPEvents<span style="color: #666666">.</span><span style="color: #7D9029">RESPONSE</span><span style="color: #666666">)).</span><span style="color: #7D9029">subscribe</span><span style="color: #666666">(</span>responses<span style="color: #666666">);</span></code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p>Finish this event guide.
+Write up the event guide with a concrete example</p>
+</div>
+<div class="paragraph">
+<p>Users. regsitering, removing. Simple streaming aggregation. THen with a projection instead.</p>
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -820,13 +823,13 @@ and used at future points. This is often called <em>event sourcing</em>.</p>
 <h4 id="replaying-events">Replaying Events</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="java">        Broadcaster<span style="color: #666666">&lt;</span>Event<span style="color: #666666">&gt;</span> sub <span style="color: #666666">=</span> Broadcaster<span style="color: #666666">.</span><span style="color: #7D9029">create</span><span style="color: #666666">();</span>
+<pre class="pygments highlight"><code data-lang="java">        Broadcaster<span style="color: #666666">&lt;</span>Event<span style="color: #666666">&lt;</span>MyDataPayload<span style="color: #666666">&gt;&gt;</span> sub <span style="color: #666666">=</span> Broadcaster<span style="color: #666666">.</span><span style="color: #7D9029">create</span><span style="color: #666666">();</span>
         sub<span style="color: #666666">.</span><span style="color: #7D9029">consume</span><span style="color: #666666">(</span> msg <span style="color: #666666">-&gt;</span> <span style="color: #666666">{</span>
 <span style="color: #408080; font-style: italic">//            println &quot;EVENT = ${it}&quot;</span>
 
         <span style="color: #666666">});</span>
 
-        evclient<span style="color: #666666">.</span><span style="color: #7D9029">replay</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;users&quot;</span><span style="color: #666666">,</span> EventReplayMode<span style="color: #666666">.</span><span style="color: #7D9029">REPLAY_THEN_LIVE</span><span style="color: #666666">,</span> sub<span style="color: #666666">);</span></code></pre>
+        evclient<span style="color: #666666">.</span><span style="color: #7D9029">replay</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;users&quot;</span><span style="color: #666666">,</span> EventReplayMode<span style="color: #666666">.</span><span style="color: #7D9029">REPLAY_THEN_LIVE</span><span style="color: #666666">,</span> MyDataPayload<span style="color: #666666">.</span><span style="color: #7D9029">class</span><span style="color: #666666">,</span> sub<span style="color: #666666">);</span></code></pre>
 </div>
 </div>
 </div>
