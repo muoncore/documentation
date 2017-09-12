@@ -368,7 +368,7 @@ to see what it is capable of doing for you.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="java"><span style="color: #008000; font-weight: bold">package</span> <span style="color: #0000FF; font-weight: bold">pieshop</span><span style="color: #666666">;</span>
+<pre class="pygments highlight"><code data-lang="java"><span style="color: #008000; font-weight: bold">package</span> pieshop<span style="color: #666666">;</span>
 
 <span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">java.util.*</span><span style="color: #666666">;</span>
 
@@ -401,7 +401,7 @@ to see what it is capable of doing for you.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="java"><span style="color: #008000; font-weight: bold">package</span> <span style="color: #0000FF; font-weight: bold">pieshop</span><span style="color: #666666">;</span>
+<pre class="pygments highlight"><code data-lang="java"><span style="color: #008000; font-weight: bold">package</span> pieshop<span style="color: #666666">;</span>
 
 <span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">java.util.List</span><span style="color: #666666">;</span>
 
@@ -443,16 +443,16 @@ to see what it is capable of doing for you.</p>
   <span style="color: #666666">}</span>
 
   <span style="color: #008000; font-weight: bold">private</span> CurrentMenu <span style="color: #0000FF">standardMenu</span><span style="color: #666666">()</span> <span style="color: #666666">{</span>
-    <span style="color: #008000; font-weight: bold">return</span> <span style="color: #008000; font-weight: bold">new</span> CurrentMenu<span style="color: #666666">(</span>Arrays<span style="color: #666666">.</span><span style="color: #7D9029">asList</span><span style="color: #666666">(</span>
-      <span style="color: #008000; font-weight: bold">new</span> MenuItem<span style="color: #666666">(</span><span style="color: #BA2121">&quot;Pork Pie&quot;</span><span style="color: #666666">,</span> <span style="color: #666666">2.50),</span>
-      <span style="color: #008000; font-weight: bold">new</span> MenuItem<span style="color: #666666">(</span><span style="color: #BA2121">&quot;Blueberry Pie&quot;</span><span style="color: #666666">,</span> <span style="color: #666666">2.50),</span>
-      <span style="color: #008000; font-weight: bold">new</span> MenuItem<span style="color: #666666">(</span><span style="color: #BA2121">&quot;Radish Pie&quot;</span><span style="color: #666666">,</span> <span style="color: #666666">2.50),</span>
-      <span style="color: #008000; font-weight: bold">new</span> MenuItem<span style="color: #666666">(</span><span style="color: #BA2121">&quot;Apple Pie&quot;</span><span style="color: #666666">,</span> <span style="color: #666666">2.50)</span>
+    <span style="color: #008000; font-weight: bold">return</span> <span style="color: #008000; font-weight: bold">new</span> <span style="color: #0000FF">CurrentMenu</span><span style="color: #666666">(</span>Arrays<span style="color: #666666">.</span><span style="color: #7D9029">asList</span><span style="color: #666666">(</span>
+      <span style="color: #008000; font-weight: bold">new</span> <span style="color: #0000FF">MenuItem</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;Pork Pie&quot;</span><span style="color: #666666">,</span> <span style="color: #666666">2.50),</span>
+      <span style="color: #008000; font-weight: bold">new</span> <span style="color: #0000FF">MenuItem</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;Blueberry Pie&quot;</span><span style="color: #666666">,</span> <span style="color: #666666">2.50),</span>
+      <span style="color: #008000; font-weight: bold">new</span> <span style="color: #0000FF">MenuItem</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;Radish Pie&quot;</span><span style="color: #666666">,</span> <span style="color: #666666">2.50),</span>
+      <span style="color: #008000; font-weight: bold">new</span> <span style="color: #0000FF">MenuItem</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;Apple Pie&quot;</span><span style="color: #666666">,</span> <span style="color: #666666">2.50)</span>
     <span style="color: #666666">));</span>
   <span style="color: #666666">}</span>
 
   <span style="color: #008000; font-weight: bold">public</span> <span style="color: #008000; font-weight: bold">static</span> <span style="color: #B00040">void</span> <span style="color: #0000FF">main</span><span style="color: #666666">(</span>String<span style="color: #666666">[]</span> args<span style="color: #666666">)</span> <span style="color: #666666">{</span>
-    <span style="color: #008000; font-weight: bold">new</span> Menu<span style="color: #666666">();</span>
+    <span style="color: #008000; font-weight: bold">new</span> <span style="color: #0000FF">Menu</span><span style="color: #666666">();</span>
   <span style="color: #666666">}</span>
 <span style="color: #666666">}</span></code></pre>
 </div>
@@ -532,7 +532,7 @@ that periodically updates the state and pushes the new data out. We will fix thi
       publishSubject<span style="color: #666666">.</span><span style="color: #7D9029">toFlowable</span><span style="color: #666666">(</span>BackpressureStrategy<span style="color: #666666">.</span><span style="color: #7D9029">BUFFER</span><span style="color: #666666">));</span>
 
     <span style="color: #408080; font-style: italic">//Simulate menu updates for this episode of the Guide!</span>
-    <span style="color: #008000; font-weight: bold">new</span> Thread<span style="color: #666666">(()</span> <span style="color: #666666">-&gt;</span> <span style="color: #666666">{</span>
+    <span style="color: #008000; font-weight: bold">new</span> <span style="color: #0000FF">Thread</span><span style="color: #666666">(()</span> <span style="color: #666666">-&gt;</span> <span style="color: #666666">{</span>
       <span style="color: #008000; font-weight: bold">while</span><span style="color: #666666">(</span><span style="color: #008000; font-weight: bold">true</span><span style="color: #666666">)</span> <span style="color: #666666">{</span>
         <span style="color: #008000; font-weight: bold">try</span> <span style="color: #666666">{</span>
           Thread<span style="color: #666666">.</span><span style="color: #7D9029">sleep</span><span style="color: #666666">(1000);</span>

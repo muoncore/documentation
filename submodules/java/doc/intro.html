@@ -264,7 +264,7 @@ language.</p>
 
         muon<span style="color: #666666">.</span><span style="color: #7D9029">handleRequest</span><span style="color: #666666">(</span>all<span style="color: #666666">(),</span> request <span style="color: #666666">-&gt;</span> <span style="color: #666666">{</span>                           <i class="conum" data-value="3"></i><b>(3)</b>
             System<span style="color: #666666">.</span><span style="color: #7D9029">out</span><span style="color: #666666">.</span><span style="color: #7D9029">println</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;A request has been made &quot;</span><span style="color: #666666">);</span>
-            Map data <span style="color: #666666">=</span> <span style="color: #008000; font-weight: bold">new</span> HashMap<span style="color: #666666">();</span>
+            Map data <span style="color: #666666">=</span> <span style="color: #008000; font-weight: bold">new</span> <span style="color: #0000FF">HashMap</span><span style="color: #666666">();</span>
             data<span style="color: #666666">.</span><span style="color: #7D9029">put</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;Hello&quot;</span><span style="color: #666666">,</span> <span style="color: #BA2121">&quot;world &quot;</span> <span style="color: #666666">+</span> System<span style="color: #666666">.</span><span style="color: #7D9029">currentTimeMillis</span><span style="color: #666666">());</span>
             request<span style="color: #666666">.</span><span style="color: #7D9029">ok</span><span style="color: #666666">(</span>data<span style="color: #666666">);</span>                                            <i class="conum" data-value="4"></i><b>(4)</b>
         <span style="color: #666666">});</span>
@@ -314,7 +314,7 @@ language.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="bash">david@patmos:~/$ muon rpc rpc://example-service/hello
+<pre class="pygments highlight"><code data-lang="bash">david@patmos:~/<span style="color: #19177C">$ </span>muon rpc rpc://example-service/hello
 
 ┌────────────┬──────────────────────────────┬───────────────────────────────────────────────┐
 │ STATUS     │ CONTENT/TYPE                 │ BODY                                          │

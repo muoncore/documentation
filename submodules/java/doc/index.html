@@ -362,7 +362,7 @@ language.</p>
 
         muon<span style="color: #666666">.</span><span style="color: #7D9029">handleRequest</span><span style="color: #666666">(</span>all<span style="color: #666666">(),</span> request <span style="color: #666666">-&gt;</span> <span style="color: #666666">{</span>                           <i class="conum" data-value="3"></i><b>(3)</b>
             System<span style="color: #666666">.</span><span style="color: #7D9029">out</span><span style="color: #666666">.</span><span style="color: #7D9029">println</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;A request has been made &quot;</span><span style="color: #666666">);</span>
-            Map data <span style="color: #666666">=</span> <span style="color: #008000; font-weight: bold">new</span> HashMap<span style="color: #666666">();</span>
+            Map data <span style="color: #666666">=</span> <span style="color: #008000; font-weight: bold">new</span> <span style="color: #0000FF">HashMap</span><span style="color: #666666">();</span>
             data<span style="color: #666666">.</span><span style="color: #7D9029">put</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;Hello&quot;</span><span style="color: #666666">,</span> <span style="color: #BA2121">&quot;world &quot;</span> <span style="color: #666666">+</span> System<span style="color: #666666">.</span><span style="color: #7D9029">currentTimeMillis</span><span style="color: #666666">());</span>
             request<span style="color: #666666">.</span><span style="color: #7D9029">ok</span><span style="color: #666666">(</span>data<span style="color: #666666">);</span>                                            <i class="conum" data-value="4"></i><b>(4)</b>
         <span style="color: #666666">});</span>
@@ -412,7 +412,7 @@ language.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="bash">david@patmos:~/$ muon rpc rpc://example-service/hello
+<pre class="pygments highlight"><code data-lang="bash">david@patmos:~/<span style="color: #19177C">$ </span>muon rpc rpc://example-service/hello
 
 ┌────────────┬──────────────────────────────┬───────────────────────────────────────────────┐
 │ STATUS     │ CONTENT/TYPE                 │ BODY                                          │
@@ -446,7 +446,7 @@ language.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="java"><span style="color: #008000; font-weight: bold">package</span> <span style="color: #0000FF; font-weight: bold">io.muoncore.example</span><span style="color: #666666">;</span>
+<pre class="pygments highlight"><code data-lang="java"><span style="color: #008000; font-weight: bold">package</span> io<span style="color: #666666">.</span><span style="color: #7D9029">muoncore</span><span style="color: #666666">.</span><span style="color: #7D9029">example</span><span style="color: #666666">;</span>
 
 <span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">io.muoncore.Muon</span><span style="color: #666666">;</span>
 
@@ -475,7 +475,7 @@ language.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="java"><span style="color: #008000; font-weight: bold">package</span> <span style="color: #0000FF; font-weight: bold">io.muoncore.example</span><span style="color: #666666">;</span>
+<pre class="pygments highlight"><code data-lang="java"><span style="color: #008000; font-weight: bold">package</span> io<span style="color: #666666">.</span><span style="color: #7D9029">muoncore</span><span style="color: #666666">.</span><span style="color: #7D9029">example</span><span style="color: #666666">;</span>
 
 <span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">io.muoncore.Muon</span><span style="color: #666666">;</span>
 
@@ -516,7 +516,7 @@ language.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="java"><span style="color: #008000; font-weight: bold">package</span> <span style="color: #0000FF; font-weight: bold">io.muoncore.example</span><span style="color: #666666">;</span>
+<pre class="pygments highlight"><code data-lang="java"><span style="color: #008000; font-weight: bold">package</span> io<span style="color: #666666">.</span><span style="color: #7D9029">muoncore</span><span style="color: #666666">.</span><span style="color: #7D9029">example</span><span style="color: #666666">;</span>
 
 <span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">io.muoncore.Muon</span><span style="color: #666666">;</span>
 
@@ -572,7 +572,7 @@ This then ends up causing thread thrashing, overwhelming of the thread pool or o
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="java"><span style="color: #008000; font-weight: bold">package</span> <span style="color: #0000FF; font-weight: bold">io.muoncore.example</span><span style="color: #666666">;</span>
+<pre class="pygments highlight"><code data-lang="java"><span style="color: #008000; font-weight: bold">package</span> io<span style="color: #666666">.</span><span style="color: #7D9029">muoncore</span><span style="color: #666666">.</span><span style="color: #7D9029">example</span><span style="color: #666666">;</span>
 
 <span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">io.muoncore.Muon</span><span style="color: #666666">;</span>
 
@@ -617,7 +617,7 @@ construction.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="java">Unresolved directive in submodules<span style="color: #666666">/</span>java<span style="color: #666666">/</span>doc<span style="color: #666666">/</span>core<span style="color: #666666">.</span><span style="color: #7D9029">adoc</span> <span style="color: #666666">-</span> include<span style="color: #666666">::</span>src<span style="color: #666666">/</span>main<span style="color: #666666">/</span>java<span style="color: #666666">/</span>io<span style="color: #666666">/</span>muoncore<span style="color: #666666">/</span>example<span style="color: #666666">/</span>ReactiveStreams<span style="color: #666666">.</span><span style="color: #7D9029">java</span><span style="color: #666666">[]</span></code></pre>
+<pre class="pygments highlight"><code data-lang="java">Unresolved directive in submodules<span style="color: #666666">/</span>java<span style="color: #666666">/</span>doc<span style="color: #666666">/</span>core<span style="color: #666666">.</span><span style="color: #7D9029">adoc</span> <span style="color: #666666">-</span> <span style="color: #A0A000">include:</span><span style="color: #666666">:</span>src<span style="color: #666666">/</span>main<span style="color: #666666">/</span>java<span style="color: #666666">/</span>io<span style="color: #666666">/</span>muoncore<span style="color: #666666">/</span>example<span style="color: #666666">/</span>ReactiveStreams<span style="color: #666666">.</span><span style="color: #7D9029">java</span><span style="color: #666666">[]</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -629,7 +629,7 @@ be used.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="java">Unresolved directive in submodules<span style="color: #666666">/</span>java<span style="color: #666666">/</span>doc<span style="color: #666666">/</span>core<span style="color: #666666">.</span><span style="color: #7D9029">adoc</span> <span style="color: #666666">-</span> include<span style="color: #666666">::</span>src<span style="color: #666666">/</span>main<span style="color: #666666">/</span>java<span style="color: #666666">/</span>io<span style="color: #666666">/</span>muoncore<span style="color: #666666">/</span>example<span style="color: #666666">/</span>ReactiveStreams<span style="color: #666666">.</span><span style="color: #7D9029">java</span><span style="color: #666666">[]</span></code></pre>
+<pre class="pygments highlight"><code data-lang="java">Unresolved directive in submodules<span style="color: #666666">/</span>java<span style="color: #666666">/</span>doc<span style="color: #666666">/</span>core<span style="color: #666666">.</span><span style="color: #7D9029">adoc</span> <span style="color: #666666">-</span> <span style="color: #A0A000">include:</span><span style="color: #666666">:</span>src<span style="color: #666666">/</span>main<span style="color: #666666">/</span>java<span style="color: #666666">/</span>io<span style="color: #666666">/</span>muoncore<span style="color: #666666">/</span>example<span style="color: #666666">/</span>ReactiveStreams<span style="color: #666666">.</span><span style="color: #7D9029">java</span><span style="color: #666666">[]</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -765,7 +765,7 @@ and used at future points. This is often called <em>event sourcing</em>.</p>
 <h4 id="setting-up-the-event-client">Setting up the event client</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="java">Unresolved directive in submodules<span style="color: #666666">/</span>java<span style="color: #666666">/</span>doc<span style="color: #666666">/</span>eventsystem<span style="color: #666666">.</span><span style="color: #7D9029">adoc</span> <span style="color: #666666">-</span> include<span style="color: #666666">::</span>src<span style="color: #666666">/</span>main<span style="color: #666666">/</span>java<span style="color: #666666">/</span>io<span style="color: #666666">/</span>muoncore<span style="color: #666666">/</span>example<span style="color: #666666">/</span>event<span style="color: #666666">/</span>EventClientExample<span style="color: #666666">.</span><span style="color: #7D9029">java</span><span style="color: #666666">[</span>tags<span style="color: #666666">=</span>createclient<span style="color: #666666">]</span></code></pre>
+<pre class="pygments highlight"><code data-lang="java">Unresolved directive in submodules<span style="color: #666666">/</span>java<span style="color: #666666">/</span>doc<span style="color: #666666">/</span>eventsystem<span style="color: #666666">.</span><span style="color: #7D9029">adoc</span> <span style="color: #666666">-</span> <span style="color: #A0A000">include:</span><span style="color: #666666">:</span>src<span style="color: #666666">/</span>main<span style="color: #666666">/</span>java<span style="color: #666666">/</span>io<span style="color: #666666">/</span>muoncore<span style="color: #666666">/</span>example<span style="color: #666666">/</span>event<span style="color: #666666">/</span>EventClientExample<span style="color: #666666">.</span><span style="color: #7D9029">java</span><span style="color: #666666">[</span>tags<span style="color: #666666">=</span>createclient<span style="color: #666666">]</span></code></pre>
 </div>
 </div>
 </div>
@@ -773,7 +773,7 @@ and used at future points. This is often called <em>event sourcing</em>.</p>
 <h4 id="emitting-events">Emitting Events</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="java">Unresolved directive in submodules<span style="color: #666666">/</span>java<span style="color: #666666">/</span>doc<span style="color: #666666">/</span>eventsystem<span style="color: #666666">.</span><span style="color: #7D9029">adoc</span> <span style="color: #666666">-</span> include<span style="color: #666666">::</span>src<span style="color: #666666">/</span>main<span style="color: #666666">/</span>java<span style="color: #666666">/</span>io<span style="color: #666666">/</span>muoncore<span style="color: #666666">/</span>example<span style="color: #666666">/</span>event<span style="color: #666666">/</span>EventClientExample<span style="color: #666666">.</span><span style="color: #7D9029">java</span><span style="color: #666666">[</span>tags<span style="color: #666666">=</span>emitevent<span style="color: #666666">]</span></code></pre>
+<pre class="pygments highlight"><code data-lang="java">Unresolved directive in submodules<span style="color: #666666">/</span>java<span style="color: #666666">/</span>doc<span style="color: #666666">/</span>eventsystem<span style="color: #666666">.</span><span style="color: #7D9029">adoc</span> <span style="color: #666666">-</span> <span style="color: #A0A000">include:</span><span style="color: #666666">:</span>src<span style="color: #666666">/</span>main<span style="color: #666666">/</span>java<span style="color: #666666">/</span>io<span style="color: #666666">/</span>muoncore<span style="color: #666666">/</span>example<span style="color: #666666">/</span>event<span style="color: #666666">/</span>EventClientExample<span style="color: #666666">.</span><span style="color: #7D9029">java</span><span style="color: #666666">[</span>tags<span style="color: #666666">=</span>emitevent<span style="color: #666666">]</span></code></pre>
 </div>
 </div>
 </div>
@@ -781,7 +781,7 @@ and used at future points. This is often called <em>event sourcing</em>.</p>
 <h4 id="replaying-events">Replaying Events</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="java">Unresolved directive in submodules<span style="color: #666666">/</span>java<span style="color: #666666">/</span>doc<span style="color: #666666">/</span>eventsystem<span style="color: #666666">.</span><span style="color: #7D9029">adoc</span> <span style="color: #666666">-</span> include<span style="color: #666666">::</span>src<span style="color: #666666">/</span>main<span style="color: #666666">/</span>java<span style="color: #666666">/</span>io<span style="color: #666666">/</span>muoncore<span style="color: #666666">/</span>example<span style="color: #666666">/</span>event<span style="color: #666666">/</span>EventClientExample<span style="color: #666666">.</span><span style="color: #7D9029">java</span><span style="color: #666666">[</span>tags<span style="color: #666666">=</span>replay<span style="color: #666666">]</span></code></pre>
+<pre class="pygments highlight"><code data-lang="java">Unresolved directive in submodules<span style="color: #666666">/</span>java<span style="color: #666666">/</span>doc<span style="color: #666666">/</span>eventsystem<span style="color: #666666">.</span><span style="color: #7D9029">adoc</span> <span style="color: #666666">-</span> <span style="color: #A0A000">include:</span><span style="color: #666666">:</span>src<span style="color: #666666">/</span>main<span style="color: #666666">/</span>java<span style="color: #666666">/</span>io<span style="color: #666666">/</span>muoncore<span style="color: #666666">/</span>example<span style="color: #666666">/</span>event<span style="color: #666666">/</span>EventClientExample<span style="color: #666666">.</span><span style="color: #7D9029">java</span><span style="color: #666666">[</span>tags<span style="color: #666666">=</span>replay<span style="color: #666666">]</span></code></pre>
 </div>
 </div>
 </div>

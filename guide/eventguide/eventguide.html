@@ -42,7 +42,7 @@
   <script src="/javascripts/imagesloaded.pkgd.min.js" type="text/javascript"></script>
   <script src="/javascripts/slick.min.js" type="text/javascript"></script>
 
-  <link rel="canonical" href="/guide/eventguide/java.html">
+  <link rel="canonical" href="/guide/eventguide/eventguide.html">
   <link rel="alternate" type="application/rss+xml" title="Muon - Reactive APIs" href="/feed.xml" />
   <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
           <link rel="stylesheet" href="/css/asciidoc.css">
@@ -234,16 +234,7 @@
     
 
     <div id='main' role='main'>
-      <div class="documentation">
-<div class='full' style='background: #000'>
-  <div class='row' style="margin-left:0; margin-right:0; max-width:100%">
-    <div class='large-12 columns'>
-      <div class='mod modBlogPost big'>
-        <div class='images'>
-          
-        </div>
-        <div class='content' style="font-size:1.2rem; max-width:80%">
-          <div id="toc" class="toc">
+      <div id="toc" class="toc">
 <div id="toctitle">Event Microservices</div>
 <ul class="sectlevel1">
 <li><a href="#setup">Setup</a></li>
@@ -375,7 +366,7 @@ These actions, happenings, are your events. Next, you can figure out how to conv
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="java">Unresolved directive in guide<span style="color: #666666">/</span>eventguide<span style="color: #666666">/</span>eventguide<span style="color: #666666">.</span><span style="color: #7D9029">adoc</span> <span style="color: #666666">-</span> <span style="color: #A0A000">include:</span><span style="color: #666666">:../../</span>java<span style="color: #666666">/</span>SNAPSHOT<span style="color: #666666">/</span>src<span style="color: #666666">/</span>main<span style="color: #666666">/</span>java<span style="color: #666666">/</span>io<span style="color: #666666">/</span>muoncore<span style="color: #666666">/</span>example<span style="color: #666666">/</span>event<span style="color: #666666">/</span>guide<span style="color: #666666">/</span>EmitEvent<span style="color: #666666">.</span><span style="color: #7D9029">java</span><span style="color: #666666">[]</span></code></pre>
+<pre class="pygments highlight"><code data-lang="{language}">Unresolved directive in eventguide.adoc - include::{emitevent}[]</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -421,7 +412,7 @@ that they were persisted in.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="java">Unresolved directive in guide<span style="color: #666666">/</span>eventguide<span style="color: #666666">/</span>eventguide<span style="color: #666666">.</span><span style="color: #7D9029">adoc</span> <span style="color: #666666">-</span> <span style="color: #A0A000">include:</span><span style="color: #666666">:../../</span>java<span style="color: #666666">/</span>SNAPSHOT<span style="color: #666666">/</span>src<span style="color: #666666">/</span>main<span style="color: #666666">/</span>java<span style="color: #666666">/</span>io<span style="color: #666666">/</span>muoncore<span style="color: #666666">/</span>example<span style="color: #666666">/</span>ReactiveRPC<span style="color: #666666">.</span><span style="color: #7D9029">java</span><span style="color: #666666">[]</span></code></pre>
+<pre class="pygments highlight"><code data-lang="{language}">Unresolved directive in eventguide.adoc - include::{subscribeevent}[]</code></pre>
 </div>
 </div>
 </div>
@@ -438,7 +429,7 @@ we can rebuild our current state at any time.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="java">Unresolved directive in guide<span style="color: #666666">/</span>eventguide<span style="color: #666666">/</span>eventguide<span style="color: #666666">.</span><span style="color: #7D9029">adoc</span> <span style="color: #666666">-</span> <span style="color: #A0A000">include:</span><span style="color: #666666">:../../</span>java<span style="color: #666666">/</span>SNAPSHOT<span style="color: #666666">/</span>src<span style="color: #666666">/</span>main<span style="color: #666666">/</span>java<span style="color: #666666">/</span>io<span style="color: #666666">/</span>muoncore<span style="color: #666666">/</span>example<span style="color: #666666">/</span>event<span style="color: #666666">/</span>guide<span style="color: #666666">/</span>UserAggregationService<span style="color: #666666">.</span><span style="color: #7D9029">java</span><span style="color: #666666">[]</span></code></pre>
+<pre class="pygments highlight"><code data-lang="{language}">Unresolved directive in eventguide.adoc - include::{buildaggregation}[]</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -469,11 +460,11 @@ in the list. It is fairly simple, general purpose and able to be parallelised.</
 <p>This allows you to do the work you did in your service and push it back into the MicroserviceUX data tier.</p>
 </div>
 <div class="paragraph">
-<p>To do this, you first need to insert a projection. This can be written in a variety of languages, here it is in javascript</p>
+<p>To do this, you first need to insert a projection. This can be written in a variety of languages, here it is in {projectionlanguage}</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="javascript">Unresolved directive <span style="color: #008000; font-weight: bold">in</span> guide<span style="color: #666666">/</span>eventguide<span style="color: #666666">/</span>eventguide.adoc <span style="color: #666666">-</span> include<span style="color: #666666">::</span>..<span style="color: #666666">/</span>..<span style="color: #666666">/</span>java<span style="color: #666666">/</span>SNAPSHOT<span style="color: #666666">/</span>src<span style="color: #666666">/</span>main<span style="color: #666666">/</span>java<span style="color: #666666">/</span>io<span style="color: #666666">/</span>muoncore<span style="color: #666666">/</span>example<span style="color: #666666">/</span>event<span style="color: #666666">/</span>guide<span style="color: #666666">/</span>userlistprojection.js[]</code></pre>
+<pre class="pygments highlight"><code data-lang="{projectionlanguage}">Unresolved directive in eventguide.adoc - include::{userlistprojection}[]</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -484,7 +475,7 @@ in the list. It is fairly simple, general purpose and able to be parallelised.</
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="java">Unresolved directive in guide<span style="color: #666666">/</span>eventguide<span style="color: #666666">/</span>eventguide<span style="color: #666666">.</span><span style="color: #7D9029">adoc</span> <span style="color: #666666">-</span> <span style="color: #A0A000">include:</span><span style="color: #666666">:../../</span>java<span style="color: #666666">/</span>SNAPSHOT<span style="color: #666666">/</span>src<span style="color: #666666">/</span>main<span style="color: #666666">/</span>java<span style="color: #666666">/</span>io<span style="color: #666666">/</span>muoncore<span style="color: #666666">/</span>example<span style="color: #666666">/</span>ReactiveRPC<span style="color: #666666">.</span><span style="color: #7D9029">java</span><span style="color: #666666">[]</span></code></pre>
+<pre class="pygments highlight"><code data-lang="{language}">Unresolved directive in eventguide.adoc - include::{installprojection}[]</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -493,7 +484,7 @@ as below.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="java">Unresolved directive in guide<span style="color: #666666">/</span>eventguide<span style="color: #666666">/</span>eventguide<span style="color: #666666">.</span><span style="color: #7D9029">adoc</span> <span style="color: #666666">-</span> <span style="color: #A0A000">include:</span><span style="color: #666666">:../../</span>java<span style="color: #666666">/</span>SNAPSHOT<span style="color: #666666">/</span>src<span style="color: #666666">/</span>main<span style="color: #666666">/</span>java<span style="color: #666666">/</span>io<span style="color: #666666">/</span>muoncore<span style="color: #666666">/</span>example<span style="color: #666666">/</span>event<span style="color: #666666">/</span>guide<span style="color: #666666">/</span>UserProjectionService<span style="color: #666666">.</span><span style="color: #7D9029">java</span><span style="color: #666666">[]</span></code></pre>
+<pre class="pygments highlight"><code data-lang="{language}">Unresolved directive in eventguide.adoc - include::{useprojection}[]</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -501,15 +492,6 @@ as below.</p>
 </div>
 </div>
 </div>
-        </div>
-      </div>
-
-      <div class='four spacing'></div>
-    </div>
-  </div>
-</div>
-</div>
-
     </div>
 
     

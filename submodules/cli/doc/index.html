@@ -479,11 +479,11 @@ server protocol to construct a new stream taking into account those parameters.<
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="bash">david@patmos:~/Development/microux/muon/muon-cli$ muon replay something
-<span style="color: #666666">{</span> <span style="color: #BA2121">&#39;order-id&#39;</span>: <span style="color: #666666">1491410009700831</span>,
+<pre class="pygments highlight"><code data-lang="bash">david@patmos:~/Development/microux/muon/muon-cli<span style="color: #19177C">$ </span>muon replay something
+<span style="color: #666666">{</span> <span style="color: #BA2121">&#39;order-id&#39;</span>: 1491410009700831,
   <span style="color: #BA2121">&#39;event-type&#39;</span>: <span style="color: #BA2121">&#39;SomethingHappened&#39;</span>,
   schema: <span style="color: #BA2121">&#39;1&#39;</span>,
-  <span style="color: #BA2121">&#39;event-time&#39;</span>: <span style="color: #666666">1491410009700</span>,
+  <span style="color: #BA2121">&#39;event-time&#39;</span>: 1491410009700,
   <span style="color: #BA2121">&#39;service-id&#39;</span>: <span style="color: #BA2121">&#39;cli&#39;</span>,
   <span style="color: #BA2121">&#39;stream-name&#39;</span>: <span style="color: #BA2121">&#39;something&#39;</span>,
   payload: <span style="color: #666666">{</span> message: <span style="color: #BA2121">&#39;Hi there!&#39;</span> <span style="color: #666666">}</span> <span style="color: #666666">}</span></code></pre>
@@ -494,7 +494,7 @@ server protocol to construct a new stream taking into account those parameters.<
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="bash">$ muon replay something <span style="color: #BA2121">&#39;{&quot;stream-type&quot;:&quot;&lt;type&gt;&quot;, &quot;from&quot;:&lt;orderid&gt;}&#39;</span></code></pre>
+<pre class="pygments highlight"><code data-lang="bash"><span style="color: #19177C">$ </span>muon replay something <span style="color: #BA2121">&#39;{&quot;stream-type&quot;:&quot;&lt;type&gt;&quot;, &quot;from&quot;:&lt;orderid&gt;}&#39;</span></code></pre>
 </div>
 </div>
 <div class="sect3">

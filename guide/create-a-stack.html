@@ -377,7 +377,7 @@
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="java"><span style="color: #008000; font-weight: bold">package</span> <span style="color: #0000FF; font-weight: bold">io.muoncore.example</span><span style="color: #666666">;</span>
+<pre class="pygments highlight"><code data-lang="java"><span style="color: #008000; font-weight: bold">package</span> io<span style="color: #666666">.</span><span style="color: #7D9029">muoncore</span><span style="color: #666666">.</span><span style="color: #7D9029">example</span><span style="color: #666666">;</span>
 
 <span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">io.muoncore.Muon</span><span style="color: #666666">;</span>
 <span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">io.muoncore.MuonBuilder</span><span style="color: #666666">;</span>
@@ -399,7 +399,7 @@
         Muon muon <span style="color: #666666">=</span> MuonBuilder<span style="color: #666666">.</span><span style="color: #7D9029">withConfig</span><span style="color: #666666">(</span>config<span style="color: #666666">).</span><span style="color: #7D9029">build</span><span style="color: #666666">();</span>
         muon<span style="color: #666666">.</span><span style="color: #7D9029">getDiscovery</span><span style="color: #666666">().</span><span style="color: #7D9029">blockUntilReady</span><span style="color: #666666">();</span>
 
-        ContinuousClient client <span style="color: #666666">=</span> <span style="color: #008000; font-weight: bold">new</span> ContinuousClient<span style="color: #666666">(</span>muon<span style="color: #666666">);</span>
+        ContinuousClient client <span style="color: #666666">=</span> <span style="color: #008000; font-weight: bold">new</span> <span style="color: #0000FF">ContinuousClient</span><span style="color: #666666">(</span>muon<span style="color: #666666">);</span>
 
         client<span style="color: #666666">.</span><span style="color: #7D9029">request</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;Hello World&quot;</span><span style="color: #666666">,</span> <span style="color: #666666">2,</span> functionResponse <span style="color: #666666">-&gt;</span> <span style="color: #666666">{</span>
             log<span style="color: #666666">.</span><span style="color: #7D9029">info</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;Server said &quot;</span> <span style="color: #666666">+</span> functionResponse<span style="color: #666666">.</span><span style="color: #7D9029">getResponse</span><span style="color: #666666">());</span>
@@ -413,7 +413,7 @@
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="java"><span style="color: #008000; font-weight: bold">package</span> <span style="color: #0000FF; font-weight: bold">io.muoncore.example.protocol.continuousfunction</span><span style="color: #666666">;</span>
+<pre class="pygments highlight"><code data-lang="java"><span style="color: #008000; font-weight: bold">package</span> io<span style="color: #666666">.</span><span style="color: #7D9029">muoncore</span><span style="color: #666666">.</span><span style="color: #7D9029">example</span><span style="color: #666666">.</span><span style="color: #7D9029">protocol</span><span style="color: #666666">.</span><span style="color: #7D9029">continuousfunction</span><span style="color: #666666">;</span>
 
 <span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">io.muoncore.Muon</span><span style="color: #666666">;</span>
 <span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">io.muoncore.channel.ChannelConnection</span><span style="color: #666666">;</span>
@@ -443,7 +443,7 @@
             <span style="color: #666666">}</span>
         <span style="color: #666666">});</span>
 
-        Subscription sub <span style="color: #666666">=</span> <span style="color: #008000; font-weight: bold">new</span> Subscription<span style="color: #666666">();</span>    <i class="conum" data-value="2"></i><b>(2)</b>
+        Subscription sub <span style="color: #666666">=</span> <span style="color: #008000; font-weight: bold">new</span> <span style="color: #0000FF">Subscription</span><span style="color: #666666">();</span>    <i class="conum" data-value="2"></i><b>(2)</b>
         Codecs<span style="color: #666666">.</span><span style="color: #7D9029">EncodingResult</span> encode <span style="color: #666666">=</span> muon<span style="color: #666666">.</span><span style="color: #7D9029">getCodecs</span><span style="color: #666666">().</span><span style="color: #7D9029">encode</span><span style="color: #666666">(</span>sub<span style="color: #666666">,</span> muon<span style="color: #666666">.</span><span style="color: #7D9029">getDiscovery</span><span style="color: #666666">().</span><span style="color: #7D9029">getCodecsForService</span><span style="color: #666666">(</span>targetService<span style="color: #666666">));</span>
 
         channel<span style="color: #666666">.</span><span style="color: #7D9029">send</span><span style="color: #666666">(</span>MuonMessageBuilder           <i class="conum" data-value="3"></i><b>(3)</b>
@@ -495,7 +495,7 @@ ChannelConnection<span style="color: #666666">&lt;</span>MuonInboundMessage<span
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="java"><span style="color: #008000; font-weight: bold">package</span> <span style="color: #0000FF; font-weight: bold">io.muoncore.example.protocol.continuousfunction</span><span style="color: #666666">;</span>
+<pre class="pygments highlight"><code data-lang="java"><span style="color: #008000; font-weight: bold">package</span> io<span style="color: #666666">.</span><span style="color: #7D9029">muoncore</span><span style="color: #666666">.</span><span style="color: #7D9029">example</span><span style="color: #666666">.</span><span style="color: #7D9029">protocol</span><span style="color: #666666">.</span><span style="color: #7D9029">continuousfunction</span><span style="color: #666666">;</span>
 
 <span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">io.muoncore.Muon</span><span style="color: #666666">;</span>
 <span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">io.muoncore.channel.Channel</span><span style="color: #666666">;</span>
@@ -565,7 +565,7 @@ ChannelConnection<span style="color: #666666">&lt;</span>MuonInboundMessage<span
     <span style="color: #666666">}</span>
 
     <span style="color: #008000; font-weight: bold">private</span> <span style="color: #B00040">void</span> <span style="color: #0000FF">sendResponse</span><span style="color: #666666">(</span>Channel<span style="color: #666666">&lt;</span>MuonInboundMessage<span style="color: #666666">,</span> MuonOutboundMessage<span style="color: #666666">&gt;</span> channel<span style="color: #666666">,</span> String sourceService<span style="color: #666666">)</span> <span style="color: #666666">{</span>
-        FunctionResponse response <span style="color: #666666">=</span> <span style="color: #008000; font-weight: bold">new</span> FunctionResponse<span style="color: #666666">();</span>
+        FunctionResponse response <span style="color: #666666">=</span> <span style="color: #008000; font-weight: bold">new</span> <span style="color: #0000FF">FunctionResponse</span><span style="color: #666666">();</span>
         Codecs<span style="color: #666666">.</span><span style="color: #7D9029">EncodingResult</span> encode <span style="color: #666666">=</span> muon<span style="color: #666666">.</span><span style="color: #7D9029">getCodecs</span><span style="color: #666666">().</span><span style="color: #7D9029">encode</span><span style="color: #666666">(</span>response<span style="color: #666666">,</span> muon<span style="color: #666666">.</span><span style="color: #7D9029">getDiscovery</span><span style="color: #666666">().</span><span style="color: #7D9029">getCodecsForService</span><span style="color: #666666">(</span>sourceService<span style="color: #666666">));</span>
 
         channel<span style="color: #666666">.</span><span style="color: #7D9029">right</span><span style="color: #666666">().</span><span style="color: #7D9029">send</span><span style="color: #666666">(</span>MuonMessageBuilder<span style="color: #666666">.</span><span style="color: #7D9029">fromService</span><span style="color: #666666">(</span>muon<span style="color: #666666">.</span><span style="color: #7D9029">getConfiguration</span><span style="color: #666666">().</span><span style="color: #7D9029">getServiceName</span><span style="color: #666666">())</span>
@@ -621,7 +621,7 @@ ChannelConnection<span style="color: #666666">&lt;</span>MuonInboundMessage<span
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="java"><span style="color: #008000; font-weight: bold">package</span> <span style="color: #0000FF; font-weight: bold">io.muoncore.example.protocol.continuousfunction</span><span style="color: #666666">;</span>
+<pre class="pygments highlight"><code data-lang="java"><span style="color: #008000; font-weight: bold">package</span> io<span style="color: #666666">.</span><span style="color: #7D9029">muoncore</span><span style="color: #666666">.</span><span style="color: #7D9029">example</span><span style="color: #666666">.</span><span style="color: #7D9029">protocol</span><span style="color: #666666">.</span><span style="color: #7D9029">continuousfunction</span><span style="color: #666666">;</span>
 
 <span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">io.muoncore.Muon</span><span style="color: #666666">;</span>
 <span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">io.muoncore.channel.Channel</span><span style="color: #666666">;</span>
@@ -691,7 +691,7 @@ ChannelConnection<span style="color: #666666">&lt;</span>MuonInboundMessage<span
     <span style="color: #666666">}</span>
 
     <span style="color: #008000; font-weight: bold">private</span> <span style="color: #B00040">void</span> <span style="color: #0000FF">sendResponse</span><span style="color: #666666">(</span>Channel<span style="color: #666666">&lt;</span>MuonInboundMessage<span style="color: #666666">,</span> MuonOutboundMessage<span style="color: #666666">&gt;</span> channel<span style="color: #666666">,</span> String sourceService<span style="color: #666666">)</span> <span style="color: #666666">{</span>
-        FunctionResponse response <span style="color: #666666">=</span> <span style="color: #008000; font-weight: bold">new</span> FunctionResponse<span style="color: #666666">();</span>
+        FunctionResponse response <span style="color: #666666">=</span> <span style="color: #008000; font-weight: bold">new</span> <span style="color: #0000FF">FunctionResponse</span><span style="color: #666666">();</span>
         Codecs<span style="color: #666666">.</span><span style="color: #7D9029">EncodingResult</span> encode <span style="color: #666666">=</span> muon<span style="color: #666666">.</span><span style="color: #7D9029">getCodecs</span><span style="color: #666666">().</span><span style="color: #7D9029">encode</span><span style="color: #666666">(</span>response<span style="color: #666666">,</span> muon<span style="color: #666666">.</span><span style="color: #7D9029">getDiscovery</span><span style="color: #666666">().</span><span style="color: #7D9029">getCodecsForService</span><span style="color: #666666">(</span>sourceService<span style="color: #666666">));</span>
 
         channel<span style="color: #666666">.</span><span style="color: #7D9029">right</span><span style="color: #666666">().</span><span style="color: #7D9029">send</span><span style="color: #666666">(</span>MuonMessageBuilder<span style="color: #666666">.</span><span style="color: #7D9029">fromService</span><span style="color: #666666">(</span>muon<span style="color: #666666">.</span><span style="color: #7D9029">getConfiguration</span><span style="color: #666666">().</span><span style="color: #7D9029">getServiceName</span><span style="color: #666666">())</span>
@@ -717,7 +717,7 @@ ChannelConnection<span style="color: #666666">&lt;</span>MuonInboundMessage<span
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="java"><span style="color: #008000; font-weight: bold">package</span> <span style="color: #0000FF; font-weight: bold">io.muoncore.example.protocol.continuousfunction</span><span style="color: #666666">;</span>
+<pre class="pygments highlight"><code data-lang="java"><span style="color: #008000; font-weight: bold">package</span> io<span style="color: #666666">.</span><span style="color: #7D9029">muoncore</span><span style="color: #666666">.</span><span style="color: #7D9029">example</span><span style="color: #666666">.</span><span style="color: #7D9029">protocol</span><span style="color: #666666">.</span><span style="color: #7D9029">continuousfunction</span><span style="color: #666666">;</span>
 
 <span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">io.muoncore.Muon</span><span style="color: #666666">;</span>
 <span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">io.muoncore.channel.Channel</span><span style="color: #666666">;</span>
@@ -756,7 +756,7 @@ ChannelConnection<span style="color: #666666">&lt;</span>MuonInboundMessage<span
     <span style="color: #008000; font-weight: bold">public</span> ChannelConnection<span style="color: #666666">&lt;</span>MuonInboundMessage<span style="color: #666666">,</span> MuonOutboundMessage<span style="color: #666666">&gt;</span> <span style="color: #0000FF">createChannel</span><span style="color: #666666">()</span> <span style="color: #666666">{</span>    <i class="conum" data-value="3"></i><b>(3)</b>
         Channel<span style="color: #666666">&lt;</span>MuonInboundMessage<span style="color: #666666">,</span> MuonOutboundMessage<span style="color: #666666">&gt;</span> channel <span style="color: #666666">=</span> Channels<span style="color: #666666">.</span><span style="color: #7D9029">channel</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;transport&quot;</span><span style="color: #666666">,</span> <span style="color: #BA2121">&quot;api&quot;</span><span style="color: #666666">);</span>
 
-        ServerJSProtocol serverJSProtocol <span style="color: #666666">=</span> <span style="color: #008000; font-weight: bold">new</span> ServerJSProtocol<span style="color: #666666">(</span>muon<span style="color: #666666">,</span> <span style="color: #BA2121">&quot;server-protocol&quot;</span><span style="color: #666666">,</span> channel<span style="color: #666666">.</span><span style="color: #7D9029">right</span><span style="color: #666666">());</span><i class="conum" data-value="4"></i><b>(4)</b>
+        ServerJSProtocol serverJSProtocol <span style="color: #666666">=</span> <span style="color: #008000; font-weight: bold">new</span> <span style="color: #0000FF">ServerJSProtocol</span><span style="color: #666666">(</span>muon<span style="color: #666666">,</span> <span style="color: #BA2121">&quot;server-protocol&quot;</span><span style="color: #666666">,</span> channel<span style="color: #666666">.</span><span style="color: #7D9029">right</span><span style="color: #666666">());</span><i class="conum" data-value="4"></i><b>(4)</b>
         serverJSProtocol<span style="color: #666666">.</span><span style="color: #7D9029">addTypeForDecoding</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;Subscription&quot;</span><span style="color: #666666">,</span> Subscription<span style="color: #666666">.</span><span style="color: #7D9029">class</span><span style="color: #666666">);</span>
         serverJSProtocol<span style="color: #666666">.</span><span style="color: #7D9029">start</span><span style="color: #666666">(</span>ContinuousJSServer<span style="color: #666666">.</span><span style="color: #7D9029">class</span><span style="color: #666666">.</span><span style="color: #7D9029">getResourceAsStream</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;/continuous-server.js&quot;</span><span style="color: #666666">));</span>
 
@@ -777,7 +777,7 @@ ChannelConnection<span style="color: #666666">&lt;</span>MuonInboundMessage<span
 <pre class="pygments highlight"><code data-lang="java">module<span style="color: #666666">.</span><span style="color: #7D9029">exports</span> <span style="color: #666666">=</span> function<span style="color: #666666">(</span>api<span style="color: #666666">)</span> <span style="color: #666666">{</span>
 
     <span style="color: #008000; font-weight: bold">return</span> <span style="color: #666666">{</span>
-        fromTransport<span style="color: #666666">:</span> function <span style="color: #666666">(</span>msg<span style="color: #666666">)</span> <span style="color: #666666">{</span>
+        <span style="color: #A0A000">fromTransport:</span> function <span style="color: #666666">(</span>msg<span style="color: #666666">)</span> <span style="color: #666666">{</span>
 
 
             var request <span style="color: #666666">=</span> api<span style="color: #666666">.</span><span style="color: #7D9029">decode</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;Subscription&quot;</span><span style="color: #666666">,</span> msg<span style="color: #666666">)</span>
@@ -787,11 +787,11 @@ ChannelConnection<span style="color: #666666">&lt;</span>MuonInboundMessage<span
             handler<span style="color: #666666">(</span>function<span style="color: #666666">(</span>response<span style="color: #666666">)</span> <span style="color: #666666">{</span>
                 var ret <span style="color: #666666">=</span> api<span style="color: #666666">.</span><span style="color: #7D9029">encodeFor</span><span style="color: #666666">(</span>response<span style="color: #666666">.</span><span style="color: #7D9029">payload</span><span style="color: #666666">,</span> msg<span style="color: #666666">.</span><span style="color: #7D9029">sourceServiceName</span><span style="color: #666666">)</span>
                 api<span style="color: #666666">.</span><span style="color: #7D9029">sendTransport</span><span style="color: #666666">({</span>
-                    step<span style="color: #666666">:</span> <span style="color: #BA2121">&quot;request.response&quot;</span><span style="color: #666666">,</span>
-                    payload<span style="color: #666666">:</span> <span style="color: #666666">{</span>
-                        status<span style="color: #666666">:</span> response<span style="color: #666666">.</span><span style="color: #7D9029">status</span><span style="color: #666666">,</span>
-                        content_type<span style="color: #666666">:</span> ret<span style="color: #666666">.</span><span style="color: #7D9029">contentType</span><span style="color: #666666">,</span>
-                        body<span style="color: #666666">:</span> ret<span style="color: #666666">.</span><span style="color: #7D9029">payload</span>
+                    <span style="color: #A0A000">step:</span> <span style="color: #BA2121">&quot;request.response&quot;</span><span style="color: #666666">,</span>
+                    <span style="color: #A0A000">payload:</span> <span style="color: #666666">{</span>
+                        <span style="color: #A0A000">status:</span> response<span style="color: #666666">.</span><span style="color: #7D9029">status</span><span style="color: #666666">,</span>
+                        <span style="color: #A0A000">content_type:</span> ret<span style="color: #666666">.</span><span style="color: #7D9029">contentType</span><span style="color: #666666">,</span>
+                        <span style="color: #A0A000">body:</span> ret<span style="color: #666666">.</span><span style="color: #7D9029">payload</span>
                     <span style="color: #666666">}</span>
                 <span style="color: #666666">})</span>
                 api<span style="color: #666666">.</span><span style="color: #7D9029">shutdown</span><span style="color: #666666">()</span>

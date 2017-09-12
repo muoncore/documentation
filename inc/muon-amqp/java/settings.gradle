@@ -1,3 +1,0 @@
-rootProject.name="muon-amqp"
-
-include "muon-amqp"
