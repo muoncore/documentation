@@ -2,24 +2,28 @@
 
 MYDIR=`pwd`
 
+TARGET=../doc-gen
+
 echo "Starting in $MYDIR"
 
-rm -rf /tmp/muon-doc-gen
+rm -rf $TARGET
 
-mkdir /tmp/muon-doc-gen
+mkdir $TARGET
 
-git clone -b gh-pages git@github.com:microserviceux/documentation.git /tmp/muon-doc-gen
+git clone -b gh-pages git@gitlab.com:muoncore/documentation.git $TARGET
 
-cd /tmp/muon-doc-gen
+
+cd $TARGET
 git checkout gh-pages
+git remote add github git@github.com:muoncore/documentation.git
 cd $MYDIR
 pwd
 
-./render.sh
+make render
 
-rsync -av --del  --exclude=".git/" _site/ /tmp/muon-doc-gen
+rsync -av --del  --exclude=".git/" _site/ $TARGET
 
-cd /tmp/muon-doc-gen
+cd $TARGET
 
 pwd
 git checkout gh-pages
@@ -29,5 +33,7 @@ git add .
 git status
 git commit -m "Update docs"
 git push origin -f gh-pages
+echo "Pushing to github"
+git push github -f gh-pages
 
 cd $MYDIR

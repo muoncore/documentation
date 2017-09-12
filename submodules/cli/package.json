@@ -1,0 +1,71 @@
+{
+  "name": "muon-cli",
+  "description": "node.js muon command line",
+  "version": "7.3.1-20",
+  "author": "Muon Core Ltd",
+  "keywords": [
+    "muon",
+    "microservices",
+    "antifragile"
+  ],
+  "private": false,
+  "repository": {
+    "url": "https://github.com/muoncore/muon-cli"
+  },
+  "scripts": {
+    "start": "node tck",
+    "tck": "node tck",
+    "test": "XUNIT_FILE=test-results/xunit.xml ./node_modules/.bin/mocha --recursive -R xunit-file test/",
+    "build": "babel cli --presets babel-preset-es2015 --out-dir distribution",
+    "install": "tabtab install --name muon --completer muon-autocomplete --auto"
+  },
+  "dependencies": {
+    "async": "*",
+    "async-rq": "*",
+    "body-parser": "*",
+    "cli": "0.6.6",
+    "cli-table": "*",
+    "colors": "*",
+    "joi": "*",
+    "js-csp": "*",
+    "jsonutil": "*",
+    "muon-amqp": "0.0.1-1",
+    "muon-core": "^7.3.0-1",
+    "muon-stack-event": "0.0.1-1",
+    "muon-stack-reactive-streams": "0.0.2-2",
+    "muon-stack-rpc": "0.0.2-5",
+    "rsvp": "*",
+    "rx": "*",
+    "sexylog": "*",
+    "signals": "*",
+    "split": "*",
+    "stack-trace": "*",
+    "string-format": "*",
+    "tabtab": "^2.2.2",
+    "underscore": "*",
+    "url": "*",
+    "url-template": "*"
+  },
+  "devDependencies": {
+    "expect.js": "*",
+    "babel-runtime": "^6.18.0",
+    "babel-cli": "^6.18.0",
+    "babel-plugin-transform-runtime": "^6.15.0",
+    "babel-preset-es2015": "^6.18.0",
+    "assert": "*",
+    "mocha": "*",
+    "superagent": "*",
+    "validator": "*",
+    "xunit-file": "*",
+    "should": "*",
+    "mocha-sinon": "*"
+  },
+  "engines": {
+    "node": "*"
+  },
+  "bin": {
+    "muon": "distribution/muon-cli.js",
+    "muon-autocomplete": "distribution/muon-autocomplete.js"
+  },
+  "preferGlobal": true
+}

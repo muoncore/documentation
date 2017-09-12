@@ -1,0 +1,71 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath(group: 'org.jfrog.buildinfo', name: 'build-info-extractor-gradle', version: '3.2.0')
+    }
+}
+
+apply plugin: 'maven'
+apply plugin: 'maven-publish'
+apply plugin: "com.jfrog.artifactory"
+apply plugin: 'groovy'
+
+sourceCompatibility = 1.8
+version = '1.0'
+
+repositories {
+    jcenter()
+    maven { url 'https://simplicityitself.artifactoryonline.com/simplicityitself/muon' }
+    maven { url 'https://simplicityitself.artifactoryonline.com/simplicityitself/muon-snapshot' }
+}
+
+dependencies {
+    def muonVersion = "7.3.0"
+    compile "io.muoncore:muon-core:$muonVersion"
+    compile "io.muoncore.protocol:stack-event:0.0.1-SNAPSHOT"
+
+    compile 'org.slf4j:slf4j-simple:1.7.21'
+    compile "org.codehaus.groovy:groovy:2.4.7"
+
+    testCompile "org.spockframework:spock-core:1.0-groovy-2.4"
+    testCompile 'cglib:cglib:2.2.2'
+    testCompile 'org.objenesis:objenesis:2.4'
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '3.4'
+}
+
+group = "io.muoncore"
+project.version = currentVersion.toString()
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+        }
+    }
+}
+
+artifactory {
+    contextUrl = 'https://simplicityitself.artifactoryonline.com/simplicityitself/'   //The base Artifactory URL if not overridden by the publisher/resolver
+    publish {
+        repository {
+            repoKey = 'muon'   //The Artifactory repository key to publish to
+            username = 'sergio'          //The publisher user name
+            password = 'cistechfutures'       //The publisher password
+        }
+        defaults {
+            publications ('mavenJava')
+            publishArtifacts = true
+            publishPom = true
+        }
+    }
+    resolve {
+        repository {
+            repoKey = 'repo'  //The Artifactory (preferably virtual) repository key to resolve from
+        }
+    }
+}

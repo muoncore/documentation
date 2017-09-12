@@ -1,0 +1,13 @@
+FROM simplicityitself-muon-image.jfrog.io/node:7
+
+RUN mkdir /applocal
+
+COPY . /applocal
+
+WORKDIR /applocal
+
+RUN npm version
+
+RUN npm install --unsafe-perm
+
+CMD npm test

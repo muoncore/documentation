@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Muon - Reactive APIs</title>
+  <meta name="description" content="">
+
+    <link rel="stylesheet" href="/css/foundation.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/fontello.css">
+  <link rel="stylesheet" href="/css/font-awesome.css">
+  <script src="/javascripts/modernizr.foundation.js" type="text/javascript"></script>
+    <script src="/javascripts/jquery-2.1.0.js" type="text/javascript"></script>
+    <script src="/javascripts/terrific-1.1.1.js" type="text/javascript"></script>
+    <script src="/javascripts/jquery.url.js" type="text/javascript"></script>
+    <script src="/javascripts/jquery.cookie.js" type="text/javascript"></script>
+    <script src="/javascripts/json2.js" type="text/javascript"></script>
+    <script src="/javascripts/foundation.js" type="text/javascript"></script>
+  <script>
+    // terrificjs bootstrap
+    (function($) {
+        $(document).ready(function() {
+            var $page = $('body');
+            var config = {
+              dependencyPath: {
+                plugin: 'javascripts/'
+              }
+            }
+            var application = new Tc.Application($page, config);
+            application.registerModules();
+            application.start();
+        });
+    })(Tc.$);
+  </script>
+  <link href="http://fonts.googleapis.com/css?family=Raleway:400,700,300" media="screen" rel="stylesheet" type="text/css" />
+  <script src="/javascripts/masonry.pkgd.js" type="text/javascript"></script>
+  <script src="/javascripts/imagesloaded.pkgd.min.js" type="text/javascript"></script>
+  <script src="/javascripts/slick.min.js" type="text/javascript"></script>
+
+  <link rel="canonical" href="/inc/muon-java/doc/extension.html">
+  <link rel="alternate" type="application/rss+xml" title="Muon - Reactive APIs" href="/feed.xml" />
+  <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+          <link rel="stylesheet" href="/css/asciidoc.css">
+          <link rel="stylesheet" href="/css/producttable.css">
+                  <style>
+  @media only screen and (min-width:768px){#toctitle{font-size:1.375em}
+      body.toc2{padding-left:15em;padding-right:0}
+#toc {margin-top:0!important;background-color:#f8f8f7;position:fixed;width:15em;right:0;top:0;border-right:1px solid #efefed;border-top-width:0!important;border-bottom-width:0!important;z-index:1000;padding:1.25em 1em;height:100%;overflow:auto}
+#toc #toctitle{margin-top:0;margin-bottom:.8rem;font-size:1.2em}
+#toc >ul{font-size:.9em;margin-bottom:0}
+#toc ul ul{margin-left:0;padding-left:1em}
+#toc ul.sectlevel0 ul.sectlevel1{padding-left:0;margin-top:.5em;margin-bottom:.5em}
+  @media only screen and (min-width:1280px){body.toc2{padding-left:20em;padding-right:0}
+#toc {width:20em}
+#toc #toctitle{font-size:1.375em}
+#toc >ul{font-size:.95em}
+#toc ul ul{padding-left:1.25em}
+      body.toc2.toc-right{padding-left:0;padding-right:20em}}
+
+#toc { z-index:20; padding-top:120px;}
+#documentation { padding-left:10px; margin-left:auto; margin-right:auto}
+#documentation .row { margin:auto }
+      code {
+          background:none;
+          border:0;
+      }
+
+      code span { border: 0; width:100% }
+      .listingblock {
+         background: #eee;
+         border-radius:5px;
+          border:1px solid #ccc
+      }
+  }
+
+  div.documentation a.btn {
+    margin-top:20px;
+    background: #3498db;
+    background-image: -webkit-linear-gradient(top, #3498db, #2980b9);
+    background-image: -moz-linear-gradient(top, #3498db, #2980b9);
+    background-image: -ms-linear-gradient(top, #3498db, #2980b9);
+    background-image: -o-linear-gradient(top, #3498db, #2980b9);
+    background-image: linear-gradient(to bottom, #3498db, #2980b9);
+    -webkit-border-radius: 28;
+    -moz-border-radius: 28;
+    border-radius: 28px;
+    font-family: Arial;
+    color: #ffffff;
+    font-size: 20px;
+    padding: 10px 20px 10px 20px;
+    text-decoration: none;
+  }
+
+  div.documentation a.btn:hover {
+    background: #3cb0fd;
+    background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
+    background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
+    background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
+    background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
+    background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
+    text-decoration: none;
+  }
+
+  </style>
+
+  <link rel="stylesheet" href="/css/sidebar2.css">
+</head>
+
+
+  <body>
+    
+      <a id='top'></a>
+<div class='contain-to-grid sticky fullwidth'>
+  <nav class='top-bar onepage' data-options='sticky_on: large' data-topbar=''>
+    <ul class='title-area'>
+      <li class='name'>
+        <h1>
+          <a href="/">
+            <img alt="" src="/images/muonlogo.png" style="width:50px; height:50px" /> Muon
+          </a>
+        </h1>
+      </li>
+      <li class='toggle-topbar menu-icon'>
+        <a href='#'>Menu</a>
+      </li>
+    </ul>
+    <span style="float:left">Reactive APIs for Microservices, Browser and More ...</span>
+    <section class='top-bar-section'>
+      <ul class='right'>
+        
+          
+            <li>
+              
+                <a href="/#ce">OSS/ CE</a>
+              
+
+            </li>
+          
+        
+          
+            <li>
+              
+                <a href="guide/index.html">Guides</a>
+              
+
+            </li>
+          
+        
+          
+            <li>
+              
+                <a href="/pro.html">Pro</a>
+              
+
+            </li>
+          
+        
+          
+            <li class="has-dropdown">
+              <a href="/guide/index.html">Docs</a>
+              <ul class='dropdown'>
+                
+                  <li>
+                    <a href="/guide/index.html">Guides</a>
+                  </li>
+                
+                  <li>
+                    <a href="/submodules/cli/doc/index.html">CLI</a>
+                  </li>
+                
+                  <li>
+                    <a href="/submodules/java/doc/">Java</a>
+                  </li>
+                
+                  <li>
+                    <a href="/submodules/clojure/doc/index.html">Clojure</a>
+                  </li>
+                
+                  <li>
+                    <a href="/submodules/node/doc/index.html">Node.JS</a>
+                  </li>
+                
+                  <li>
+                    <a href="/submodules/muonjs/doc/index.html">Browser</a>
+                  </li>
+                
+                  <li>
+                    <a href="/submodules/photon/doc/index.html">Photon - Event Store</a>
+                  </li>
+                
+              </ul>
+            </li>
+          
+        
+          
+            <li>
+              
+                <a href="https://github.com/muoncore">Github</a>
+              
+
+            </li>
+          
+        
+      </ul>
+    </section>
+  </nav>
+</div>
+<div class='full no-padding'>
+  <!-- Begin MailChimp Signup Form -->
+  <link href="//cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css" rel="stylesheet" type="text/css">
+  <style type="text/css">
+    #mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; width:100%;}
+    /* Add your own MailChimp form style overrides in your site stylesheet or in this style block.
+         We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
+  </style>
+  <div id="mc_embed_signup">
+    <form action="//simplicityitself.us9.list-manage.com/subscribe/post?u=fce1e12e8f44592cf75288e11&amp;id=98e2ce96d8" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+      <div id="mc_embed_signup_scroll">
+        <label for="mce-EMAIL">Get updated on new releases and features</label>
+        <input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required>
+        <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+        <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_fce1e12e8f44592cf75288e11_98e2ce96d8" tabindex="-1" value=""></div>
+        <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+      </div>
+    </form>
+  </div>
+</div>
+
+    
+
+    <div id='main' role='main'>
+      <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>In common with all Muon libraries, Muon Java is a restricted implementation of Communicating Sequential Processes.
+Extension then mostly involves creating and exposing various combinations of processes and channels.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="encoding">Encoding</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="transports">Transports</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="discovery">Discovery</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="adding-a-new-interaction-protocol">Adding a new interaction protocol</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Before reading on, many systems won&#8217;t need to do this. The baked in protocols (RPC, Streaming etc) are generally good enough
+in most circumstances. If you do have a specific need to control the way your services interact in a more granular way then read on!</p>
+</div>
+<div class="paragraph">
+<p>To implement a new protocol, you need to define the API(s) that you want to provide to your users, define the event interchange
+that will need to happen to communicate that between services, and then create the processes need to bring those events to life.</p>
+</div>
+<div class="paragraph">
+<p>This guide focuses on how to implement this in Muon-Java. For a fuller discussion on event protocols, see the main guide.</p>
+</div>
+<div class="paragraph">
+<p>TODO, link to main guide on protocols</p>
+</div>
+<div class="sect2">
+<h3 id="designing-a-protocol">Designing a Protocol</h3>
+
+</div>
+<div class="sect2">
+<h3 id="client-side">Client Side</h3>
+<div class="sect3">
+<h4 id="designing-building-a-muon-client-process">Designing Building a Muon Client Process</h4>
+
+</div>
+<div class="sect3">
+<h4 id="designing-the-user-api-and-protocol-stack">Designing the User API and Protocol Stack</h4>
+
+</div>
+</div>
+<div class="sect2">
+<h3 id="server-side">Server Side</h3>
+<div class="sect3">
+<h4 id="designing-building-a-muon-server-process">Designing Building a Muon Server Process</h4>
+
+</div>
+<div class="sect3">
+<h4 id="registering-the-serverstack">Registering the ServerStack</h4>
+
+</div>
+</div>
+</div>
+</div>
+    </div>
+
+    
+
+  <!--End mc_embed_signup-->
+<div class='full no-padding' style='background: #111'>
+  <div class='two spacing'></div>
+  <div class='row'>
+    <div class='large-12 columns' style="color:white;">
+      <p>©2017 Muon Core Ltd. All rights reserved.</p>
+    </div>
+  </div>
+  <div class='spacing'></div>
+</div>
+
+
+<script src="/javascripts/jquery.countTo.js" type="text/javascript"></script>
+<script src="/javascripts/jquery.appear.js" type="text/javascript"></script>
+<script src="/javascripts/jquery.validate.js" type="text/javascript"></script>
+<script src="/javascripts/jquery.sequence-min.js" type="text/javascript"></script>
+<script src="/javascripts/jquery.easing.1.3.js" type="text/javascript"></script>
+<script src="/javascripts/app.js" type="text/javascript"></script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-75338923-1', 'auto');
+  ga('require', 'linkid');
+  ga('send', 'pageview');
+
+</script>
+
+
+  </body>
+
+</html>

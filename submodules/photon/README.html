@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Photon Event Store</title>
+  <meta name="description" content="">
+
+    <link rel="stylesheet" href="/css/foundation.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/fontello.css">
+  <link rel="stylesheet" href="/css/font-awesome.css">
+  <script src="/javascripts/modernizr.foundation.js" type="text/javascript"></script>
+    <script src="/javascripts/jquery-2.1.0.js" type="text/javascript"></script>
+    <script src="/javascripts/terrific-1.1.1.js" type="text/javascript"></script>
+    <script src="/javascripts/jquery.url.js" type="text/javascript"></script>
+    <script src="/javascripts/jquery.cookie.js" type="text/javascript"></script>
+    <script src="/javascripts/json2.js" type="text/javascript"></script>
+    <script src="/javascripts/foundation.js" type="text/javascript"></script>
+  <script>
+    // terrificjs bootstrap
+    (function($) {
+        $(document).ready(function() {
+            var $page = $('body');
+            var config = {
+              dependencyPath: {
+                plugin: 'javascripts/'
+              }
+            }
+            var application = new Tc.Application($page, config);
+            application.registerModules();
+            application.start();
+        });
+    })(Tc.$);
+  </script>
+  <link href="http://fonts.googleapis.com/css?family=Raleway:400,700,300" media="screen" rel="stylesheet" type="text/css" />
+  <script src="/javascripts/masonry.pkgd.js" type="text/javascript"></script>
+  <script src="/javascripts/imagesloaded.pkgd.min.js" type="text/javascript"></script>
+  <script src="/javascripts/slick.min.js" type="text/javascript"></script>
+
+  <link rel="canonical" href="/submodules/photon/README.html">
+  <link rel="alternate" type="application/rss+xml" title="Muon - Reactive APIs" href="/feed.xml" />
+  <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+          <link rel="stylesheet" href="/css/asciidoc.css">
+          <link rel="stylesheet" href="/css/producttable.css">
+                  <style>
+  @media only screen and (min-width:768px){#toctitle{font-size:1.375em}
+      body.toc2{padding-left:15em;padding-right:0}
+#toc {margin-top:0!important;background-color:#f8f8f7;position:fixed;width:15em;right:0;top:0;border-right:1px solid #efefed;border-top-width:0!important;border-bottom-width:0!important;z-index:1000;padding:1.25em 1em;height:100%;overflow:auto}
+#toc #toctitle{margin-top:0;margin-bottom:.8rem;font-size:1.2em}
+#toc >ul{font-size:.9em;margin-bottom:0}
+#toc ul ul{margin-left:0;padding-left:1em}
+#toc ul.sectlevel0 ul.sectlevel1{padding-left:0;margin-top:.5em;margin-bottom:.5em}
+  @media only screen and (min-width:1280px){body.toc2{padding-left:20em;padding-right:0}
+#toc {width:20em}
+#toc #toctitle{font-size:1.375em}
+#toc >ul{font-size:.95em}
+#toc ul ul{padding-left:1.25em}
+      body.toc2.toc-right{padding-left:0;padding-right:20em}}
+
+#toc { z-index:20; padding-top:120px;}
+#documentation { padding-left:10px; margin-left:auto; margin-right:auto}
+#documentation .row { margin:auto }
+      code {
+          background:none;
+          border:0;
+      }
+
+      code span { border: 0; width:100% }
+      .listingblock {
+         background: #eee;
+         border-radius:5px;
+          border:1px solid #ccc
+      }
+  }
+
+  div.documentation a.btn {
+    margin-top:20px;
+    background: #3498db;
+    background-image: -webkit-linear-gradient(top, #3498db, #2980b9);
+    background-image: -moz-linear-gradient(top, #3498db, #2980b9);
+    background-image: -ms-linear-gradient(top, #3498db, #2980b9);
+    background-image: -o-linear-gradient(top, #3498db, #2980b9);
+    background-image: linear-gradient(to bottom, #3498db, #2980b9);
+    -webkit-border-radius: 28;
+    -moz-border-radius: 28;
+    border-radius: 28px;
+    font-family: Arial;
+    color: #ffffff;
+    font-size: 20px;
+    padding: 10px 20px 10px 20px;
+    text-decoration: none;
+  }
+
+  div.documentation a.btn:hover {
+    background: #3cb0fd;
+    background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
+    background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
+    background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
+    background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
+    background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
+    text-decoration: none;
+  }
+
+  </style>
+
+  <link rel="stylesheet" href="/css/sidebar2.css">
+</head>
+
+
+  <body>
+    
+      <a id='top'></a>
+<div class='contain-to-grid sticky fullwidth'>
+  <nav class='top-bar onepage' data-options='sticky_on: large' data-topbar=''>
+    <ul class='title-area'>
+      <li class='name'>
+        <h1>
+          <a href="/">
+            <img alt="" src="/images/muonlogo.png" style="width:50px; height:50px" /> Muon
+          </a>
+        </h1>
+      </li>
+      <li class='toggle-topbar menu-icon'>
+        <a href='#'>Menu</a>
+      </li>
+    </ul>
+    <span style="float:left">Reactive APIs for Microservices, Browser and More ...</span>
+    <section class='top-bar-section'>
+      <ul class='right'>
+        
+          
+            <li>
+              
+                <a href="/#ce">OSS/ CE</a>
+              
+
+            </li>
+          
+        
+          
+            <li>
+              
+                <a href="guide/index.html">Guides</a>
+              
+
+            </li>
+          
+        
+          
+            <li>
+              
+                <a href="/pro.html">Pro</a>
+              
+
+            </li>
+          
+        
+          
+            <li class="has-dropdown">
+              <a href="/guide/index.html">Docs</a>
+              <ul class='dropdown'>
+                
+                  <li>
+                    <a href="/guide/index.html">Guides</a>
+                  </li>
+                
+                  <li>
+                    <a href="/submodules/cli/doc/index.html">CLI</a>
+                  </li>
+                
+                  <li>
+                    <a href="/submodules/java/doc/">Java</a>
+                  </li>
+                
+                  <li>
+                    <a href="/submodules/clojure/doc/index.html">Clojure</a>
+                  </li>
+                
+                  <li>
+                    <a href="/submodules/node/doc/index.html">Node.JS</a>
+                  </li>
+                
+                  <li>
+                    <a href="/submodules/muonjs/doc/index.html">Browser</a>
+                  </li>
+                
+                  <li>
+                    <a href="/submodules/photon/doc/index.html">Photon - Event Store</a>
+                  </li>
+                
+              </ul>
+            </li>
+          
+        
+          
+            <li>
+              
+                <a href="https://github.com/muoncore">Github</a>
+              
+
+            </li>
+          
+        
+      </ul>
+    </section>
+  </nav>
+</div>
+<div class='full no-padding'>
+  <!-- Begin MailChimp Signup Form -->
+  <link href="//cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css" rel="stylesheet" type="text/css">
+  <style type="text/css">
+    #mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; width:100%;}
+    /* Add your own MailChimp form style overrides in your site stylesheet or in this style block.
+         We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
+  </style>
+  <div id="mc_embed_signup">
+    <form action="//simplicityitself.us9.list-manage.com/subscribe/post?u=fce1e12e8f44592cf75288e11&amp;id=98e2ce96d8" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+      <div id="mc_embed_signup_scroll">
+        <label for="mce-EMAIL">Get updated on new releases and features</label>
+        <input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required>
+        <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+        <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_fce1e12e8f44592cf75288e11_98e2ce96d8" tabindex="-1" value=""></div>
+        <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+      </div>
+    </form>
+  </div>
+</div>
+
+    
+
+    <div id='main' role='main'>
+      <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Photon is an event store with cold+hot event streaming.</p>
+</div>
+<div class="paragraph">
+<p>In microservices, each service is supposed to take responsibility for a single functional capability: a computational process. In this context, these processes will follow the same pattern: gathering sequences of inputs and generating sequences of outputs though transformation functions, also called projections. Usually such functions are deeply coupled with both 1) the implementation of the service and 2) the data consumed to generate a current state and outputs. As a consequence, designs and implementations of the concepts of storage, sequence handling and data transformation have to be repeated over and over again across different services.</p>
+</div>
+<div class="paragraph">
+<p>Photon is an attempt at avoiding such redundancy by abstracting and encapsulating both the storage and the transformation of data as service methods. It is designed as a black box with an internal database with a projection engine, both generic enough to store free-form data and allow for a wide range of expressivity for data transformation, in real time. In this way, business rules can be implemented and deployed in Photon instances via projections, effectively decoupling business logic and data storage and processing.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="quickstart">Quickstart</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Download the <a href="https://github.com/muoncore/muon-starter">Muon Starter</a> repository and run through the instructions and
+pre-requisites from there. The latest released version of photon will be started using Docker Compose,
+along with a contained RabbitMQ instance for communication and other support microservices.</p>
+</div>
+<div class="paragraph">
+<p>Install the <a href="https://github.com/muoncore/muon-cli">Muon CLI</a> and set up with the URL <code>amqp://muon:microservices@localhost</code></p>
+</div>
+<div class="paragraph">
+<p>You can then see photon running</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="bash">&gt; muon d
+
+┌──────────────────────────────┬──────────────────────────────┬──────────────────────────────┐
+│ SERVICE NAME                 │ TAGS                         │ CONTENT/TYPE                 │
+├──────────────────────────────┼──────────────────────────────┼──────────────────────────────┤
+│ molecule                     │                              │ application/json             │
+├──────────────────────────────┼──────────────────────────────┼──────────────────────────────┤
+│ photon                       │ photon,eventstore            │ application/json             │
+└──────────────────────────────┴──────────────────────────────┴──────────────────────────────┘</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You can emit an event using the CLI</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="bash">&gt; muon event <span style="color: #BA2121">&#39;{ &quot;event-type&quot;: &quot;SomethingHappened&quot;, &quot;schema&quot;: &quot;1&quot;,&quot;stream-name&quot;: &quot;something&quot;,&quot;payload&quot;: {&quot;message&quot;: &quot;Hi there!&quot;}}&#39;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This will persist the event in the given stream. It can be replayed at any point later on</p>
+</div>
+<div class="paragraph">
+<p>You can replay the persisted events using the CLI</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="bash">&gt; muon replay something</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>All the events stored will then be replayed.</p>
+</div>
+<div class="paragraph">
+<p>Check the latest <a href="http://muoncore.io/submodules/photon/docs/index.html">photon documentation</a> for more information.</p>
+</div>
+<div class="paragraph">
+<p>Check the <a href="http://muoncore.io/guide/index.html">Muon Guide "12 Days of Muon"</a> to see patterns for developing with events using Photon</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="developing-photon">Developing Photon</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="prerequisites">Prerequisites</h3>
+<div class="paragraph">
+<p>You will need [Leiningen][] 2.0.0 or above installed.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/technomancy/leiningen">leiningen</a></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="running">Running</h3>
+<div class="paragraph">
+<p>You can run photon directly from the source:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code>lein do cljsbuild once, run</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Or you can build an uberjar:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code>lein do cljsbuild once, uberjar
+java -jar photon-*-standalone.jar</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="admin-console">Admin Console</h3>
+<div class="paragraph">
+<p>Once running, point your browser to: <code>http[s]://HOST:PORT/index.html</code>. HOST and PORT can be configured as seen below.</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Migration of UI</div>
+<div class="paragraph">
+<p>This console will be migrated to the Molecule project once the Molecule plugin system is stable.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="startup-options">Startup options</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code>Usage: java -jar photon-x.x.x-standalone.jar [-h] [-option value] ... [-option value]
+Options:
+-microservice.name    : Service ID, especially important for Muon (default = photon)
+-rest.host            : The IP or hostname of the web server for frontend and API. Change it for external access (default = localhost)
+-rest.port            : The port for the UI frontend and the REST API
+-rest.keystore        : If set, the web server will be started in SSL mode using the certificates identified by this path
+-rest.keypass         : The password required to open the keystore set in rest.keystore. Not required in not-SSL mode
+-admin.user           : The default username for logging in and requesting API tokens (default = admin)
+-admin.pass           : The default password for logging in and requesting API tokens (default = p4010n)
+-admin.secret         : A secret string that will be used to encode authentication tokens (default is random on launch)
+-projections.port     : Port to stream projection updates to (default = 8375)
+-events.port          : Port to stream incoming events to (default = 8376)
+-muon.url             : AMQP endpoint for Muon-based transport and discovery (default = amqp://localhost)
+-parallel.projections : Number of cores assigned for parallel stream processing (default = number of cores on your machine)
+-projections.path     : Local folder with projections, in EDN format, to pre-load on start (default = /tmp/photon)
+-db.backend           : DB backend plugin to use (default=h2). Depending on the build of photon, this can be one of:
+                        h2, cassandra, redis, file, mongo, riak, dummy.
+-h2.path              : If using H2, the file prefix for the database file, including path (default = /tmp/photon.h2)
+-cassandra.ip         : If using Cassandra, the host of the cluster
+-file.path            : If using files as backend, the absolute path to the file
+-mongodb.host         : If using MongoDB, the host of the cluster
+-riak.default_bucket  : If using Riak, the name of the bucket
+-riak.node.X          : If using Riak, the nodes that form the cluster (riak.node.1, riak.node.2, etc.)</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="setting-up-a-file-for-static-configuration">Setting up a file for static configuration</h3>
+<div class="paragraph">
+<p>Photon can be configured either directly from the command line or from a file, and parameters can be combined from different sources. The order of priority in which the configuration is build is the following:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Command-line arguments</p>
+</li>
+<li>
+<p>photon.properties in the working directory</p>
+</li>
+<li>
+<p>resources/photon.properties</p>
+</li>
+<li>
+<p>resources/config.properties</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Example of property file:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code># Microservice identifier (default = photon):
+microservice.name=photon
+# AMQP endpoint (default = amqp://localhost):
+muon.url=amqp://username:password@localhost
+# Number of cores assigned for parallel stream processing
+# (default = number of cores on your machine):
+parallel.projections=8
+# Local folder with projections, in EDN format, to pre-load on start
+# (default = /tmp/photon):
+file.path=/path/to/edn-files/
+# DB backend plugin to use, several options currently available:
+db.backend={file,mongodb,riak,cassandra}
+# Depending on the backend, you'll need to set up the DB plugin:
+cassandra.ip=127.0.0.1
+file.path=/path/to/file.json
+mongodb.host=localhost
+riak.default_bucket=photon-eventstore-v1
+riak.node.1=riak1.yourdomain.com
+riak.node.2=riak2.yourdomain.com
+riak.node.3=riak3.yourdomain.com</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="muon-schemas">Muon schemas</h3>
+<div class="paragraph">
+<p>The endpoints and expected schemas to interact with <code>photon</code> can be found [here](doc/schemas.md).</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="testing">Testing</h3>
+<div class="paragraph">
+<p>Tests are run by executing</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code>lein midje</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To run the test suite from the REPL:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="bash">lein <span style="color: #19177C">repl</span>
+<span style="color: #666666">=</span>&gt; <span style="color: #666666">(</span>use <span style="border: 1px solid #FF0000">&#39;</span>midje.sweet<span style="color: #666666">)</span>
+<span style="color: #666666">=</span>&gt; <span style="color: #666666">(</span>autotest<span style="color: #666666">)</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Alternatively, create a test photon client to interact with photon:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="bash">lein new muon-clojure photon-test-client</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="profiling">Profiling</h3>
+<div class="paragraph">
+<p>In order to achieve the best performance and thoughput, photon has been intensively tested and profiled with the [YourKit](<a href="https://www.yourkit.com" class="bare">https://www.yourkit.com</a>) profiler, with a license kindly provided by their creators as part of their support to the open source community.</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="https://www.yourkit.com/images/yklogo.png" alt="YourKit logo"></span></p>
+</div>
+<div class="paragraph">
+<p>YourKit supports open source projects with its full-featured Java Profiler.
+YourKit, LLC is the creator of &lt;a href="https://www.yourkit.com/java/profiler/index.jsp"&gt;YourKit Java Profiler&lt;/a&gt;
+and &lt;a href="https://www.yourkit.com/.net/profiler/index.jsp"&gt;YourKit .NET Profiler&lt;/a&gt;,
+innovative and intelligent tools for profiling Java and .NET applications.</p>
+</div>
+</div>
+</div>
+</div>
+    </div>
+
+    
+
+  <!--End mc_embed_signup-->
+<div class='full no-padding' style='background: #111'>
+  <div class='two spacing'></div>
+  <div class='row'>
+    <div class='large-12 columns' style="color:white;">
+      <p>©2017 Muon Core Ltd. All rights reserved.</p>
+    </div>
+  </div>
+  <div class='spacing'></div>
+</div>
+
+
+<script src="/javascripts/jquery.countTo.js" type="text/javascript"></script>
+<script src="/javascripts/jquery.appear.js" type="text/javascript"></script>
+<script src="/javascripts/jquery.validate.js" type="text/javascript"></script>
+<script src="/javascripts/jquery.sequence-min.js" type="text/javascript"></script>
+<script src="/javascripts/jquery.easing.1.3.js" type="text/javascript"></script>
+<script src="/javascripts/app.js" type="text/javascript"></script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-75338923-1', 'auto');
+  ga('require', 'linkid');
+  ga('send', 'pageview');
+
+</script>
+
+
+  </body>
+
+</html>

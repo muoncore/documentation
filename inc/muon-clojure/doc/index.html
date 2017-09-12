@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Muon - Reactive APIs</title>
+  <meta name="description" content="">
+
+    <link rel="stylesheet" href="/css/foundation.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/fontello.css">
+  <link rel="stylesheet" href="/css/font-awesome.css">
+  <script src="/javascripts/modernizr.foundation.js" type="text/javascript"></script>
+    <script src="/javascripts/jquery-2.1.0.js" type="text/javascript"></script>
+    <script src="/javascripts/terrific-1.1.1.js" type="text/javascript"></script>
+    <script src="/javascripts/jquery.url.js" type="text/javascript"></script>
+    <script src="/javascripts/jquery.cookie.js" type="text/javascript"></script>
+    <script src="/javascripts/json2.js" type="text/javascript"></script>
+    <script src="/javascripts/foundation.js" type="text/javascript"></script>
+  <script>
+    // terrificjs bootstrap
+    (function($) {
+        $(document).ready(function() {
+            var $page = $('body');
+            var config = {
+              dependencyPath: {
+                plugin: 'javascripts/'
+              }
+            }
+            var application = new Tc.Application($page, config);
+            application.registerModules();
+            application.start();
+        });
+    })(Tc.$);
+  </script>
+  <link href="http://fonts.googleapis.com/css?family=Raleway:400,700,300" media="screen" rel="stylesheet" type="text/css" />
+  <script src="/javascripts/masonry.pkgd.js" type="text/javascript"></script>
+  <script src="/javascripts/imagesloaded.pkgd.min.js" type="text/javascript"></script>
+  <script src="/javascripts/slick.min.js" type="text/javascript"></script>
+
+  <link rel="canonical" href="/inc/muon-clojure/doc/">
+  <link rel="alternate" type="application/rss+xml" title="Muon - Reactive APIs" href="/feed.xml" />
+  <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+          <link rel="stylesheet" href="/css/asciidoc.css">
+          <link rel="stylesheet" href="/css/producttable.css">
+                  <style>
+  @media only screen and (min-width:768px){#toctitle{font-size:1.375em}
+      body.toc2{padding-left:15em;padding-right:0}
+#toc {margin-top:0!important;background-color:#f8f8f7;position:fixed;width:15em;right:0;top:0;border-right:1px solid #efefed;border-top-width:0!important;border-bottom-width:0!important;z-index:1000;padding:1.25em 1em;height:100%;overflow:auto}
+#toc #toctitle{margin-top:0;margin-bottom:.8rem;font-size:1.2em}
+#toc >ul{font-size:.9em;margin-bottom:0}
+#toc ul ul{margin-left:0;padding-left:1em}
+#toc ul.sectlevel0 ul.sectlevel1{padding-left:0;margin-top:.5em;margin-bottom:.5em}
+  @media only screen and (min-width:1280px){body.toc2{padding-left:20em;padding-right:0}
+#toc {width:20em}
+#toc #toctitle{font-size:1.375em}
+#toc >ul{font-size:.95em}
+#toc ul ul{padding-left:1.25em}
+      body.toc2.toc-right{padding-left:0;padding-right:20em}}
+
+#toc { z-index:20; padding-top:120px;}
+#documentation { padding-left:10px; margin-left:auto; margin-right:auto}
+#documentation .row { margin:auto }
+      code {
+          background:none;
+          border:0;
+      }
+
+      code span { border: 0; width:100% }
+      .listingblock {
+         background: #eee;
+         border-radius:5px;
+          border:1px solid #ccc
+      }
+  }
+
+  div.documentation a.btn {
+    margin-top:20px;
+    background: #3498db;
+    background-image: -webkit-linear-gradient(top, #3498db, #2980b9);
+    background-image: -moz-linear-gradient(top, #3498db, #2980b9);
+    background-image: -ms-linear-gradient(top, #3498db, #2980b9);
+    background-image: -o-linear-gradient(top, #3498db, #2980b9);
+    background-image: linear-gradient(to bottom, #3498db, #2980b9);
+    -webkit-border-radius: 28;
+    -moz-border-radius: 28;
+    border-radius: 28px;
+    font-family: Arial;
+    color: #ffffff;
+    font-size: 20px;
+    padding: 10px 20px 10px 20px;
+    text-decoration: none;
+  }
+
+  div.documentation a.btn:hover {
+    background: #3cb0fd;
+    background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
+    background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
+    background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
+    background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
+    background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
+    text-decoration: none;
+  }
+
+  </style>
+
+  <link rel="stylesheet" href="/css/sidebar2.css">
+</head>
+
+
+  <body>
+    
+      <a id='top'></a>
+<div class='contain-to-grid sticky fullwidth'>
+  <nav class='top-bar onepage' data-options='sticky_on: large' data-topbar=''>
+    <ul class='title-area'>
+      <li class='name'>
+        <h1>
+          <a href="/">
+            <img alt="" src="/images/muonlogo.png" style="width:50px; height:50px" /> Muon
+          </a>
+        </h1>
+      </li>
+      <li class='toggle-topbar menu-icon'>
+        <a href='#'>Menu</a>
+      </li>
+    </ul>
+    <span style="float:left">Reactive APIs for Microservices, Browser and More ...</span>
+    <section class='top-bar-section'>
+      <ul class='right'>
+        
+          
+            <li>
+              
+                <a href="/#ce">OSS/ CE</a>
+              
+
+            </li>
+          
+        
+          
+            <li>
+              
+                <a href="guide/index.html">Guides</a>
+              
+
+            </li>
+          
+        
+          
+            <li>
+              
+                <a href="/pro.html">Pro</a>
+              
+
+            </li>
+          
+        
+          
+            <li class="has-dropdown">
+              <a href="/guide/index.html">Docs</a>
+              <ul class='dropdown'>
+                
+                  <li>
+                    <a href="/guide/index.html">Guides</a>
+                  </li>
+                
+                  <li>
+                    <a href="/submodules/cli/doc/index.html">CLI</a>
+                  </li>
+                
+                  <li>
+                    <a href="/submodules/java/doc/">Java</a>
+                  </li>
+                
+                  <li>
+                    <a href="/submodules/clojure/doc/index.html">Clojure</a>
+                  </li>
+                
+                  <li>
+                    <a href="/submodules/node/doc/index.html">Node.JS</a>
+                  </li>
+                
+                  <li>
+                    <a href="/submodules/muonjs/doc/index.html">Browser</a>
+                  </li>
+                
+                  <li>
+                    <a href="/submodules/photon/doc/index.html">Photon - Event Store</a>
+                  </li>
+                
+              </ul>
+            </li>
+          
+        
+          
+            <li>
+              
+                <a href="https://github.com/muoncore">Github</a>
+              
+
+            </li>
+          
+        
+      </ul>
+    </section>
+  </nav>
+</div>
+<div class='full no-padding'>
+  <!-- Begin MailChimp Signup Form -->
+  <link href="//cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css" rel="stylesheet" type="text/css">
+  <style type="text/css">
+    #mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; width:100%;}
+    /* Add your own MailChimp form style overrides in your site stylesheet or in this style block.
+         We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
+  </style>
+  <div id="mc_embed_signup">
+    <form action="//simplicityitself.us9.list-manage.com/subscribe/post?u=fce1e12e8f44592cf75288e11&amp;id=98e2ce96d8" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+      <div id="mc_embed_signup_scroll">
+        <label for="mce-EMAIL">Get updated on new releases and features</label>
+        <input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required>
+        <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+        <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_fce1e12e8f44592cf75288e11_98e2ce96d8" tabindex="-1" value=""></div>
+        <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+      </div>
+    </form>
+  </div>
+</div>
+
+    
+
+    <div id='main' role='main'>
+      <div class="documentation">
+<div class='full' style='background: #000'>
+  <div class='row' style="margin-left:0; margin-right:0; max-width:100%">
+    <div class='large-12 columns'>
+      <div class='mod modBlogPost big'>
+        <div class='images'>
+          
+        </div>
+        <div class='content' style="font-size:1.2rem; max-width:80%">
+          <div id="toc" class="toc">
+<div id="toctitle">Muon Clojure</div>
+<ul class="sectlevel1">
+<li><a href="#muon-clojure">Muon Clojure</a>
+<ul class="sectlevel2">
+<li><a href="#installation">Installation</a></li>
+<li><a href="#usage">Usage</a>
+<ul class="sectlevel3">
+<li><a href="#client-api">Client API</a>
+<ul class="sectlevel4">
+<li><a href="#creating-a-muon-client">Creating a muon client</a></li>
+<li><a href="#sending-a-query-or-command">Sending a query or command</a></li>
+<li><a href="#subscribe-to-a-stream">Subscribe to a stream</a></li>
+<li><a href="#send-an-event-to-an-eventstore">Send an event to an eventstore</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#server-api">Server API</a>
+<ul class="sectlevel3">
+<li><a href="#providing-an-implementation">Providing an implementation</a></li>
+<li><a href="#starting-the-microservice">Starting the microservice</a></li>
+<li><a href="#using-the-server-as-a-client">Using the server as a client</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+This document is maintained at <a href="https://github.com/muoncore/muon-clojure" class="bare">https://github.com/muoncore/muon-clojure</a>.
+Please submit issues at that repository.
+</td>
+</tr>
+</table>
+</div>
+<div class="sect1">
+<h2 id="muon-clojure">Muon Clojure</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A Clojure client/server library for building and interacting with Muon microservices.</p>
+</div>
+<div class="paragraph">
+<p>It is built on Muon Java, and so many of the documentation there will also apply in Clojure</p>
+</div>
+<div class="sect2">
+<h3 id="installation">Installation</h3>
+<div class="paragraph">
+<p><code>muon-clojure</code> is deployed in clojars.org:</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="https://img.shields.io/clojars/v/io.muoncore/muon-clojure.svg" alt="Clojars Project"></span></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="usage">Usage</h3>
+<div class="sect3">
+<h4 id="client-api">Client API</h4>
+<div class="paragraph">
+<p>To import the library:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="clojure">(<span style="color: #0000FF">use</span> <span style="color: #19177C">&#39;muon-clojure.core</span>)</code></pre>
+</div>
+</div>
+<div class="sect4">
+<h5 id="creating-a-muon-client">Creating a muon client</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="clojure">(<span style="color: #008000; font-weight: bold">def </span><span style="color: #19177C">m</span> (<span style="color: #0000FF">muon-client</span> <span style="color: #BA2121">&quot;amqp://mq-url&quot;</span> <span style="color: #BA2121">&quot;service-name&quot;</span> <span style="color: #BA2121">&quot;tag1&quot;</span> <span style="color: #BA2121">&quot;tag2&quot;</span> <span style="color: #BA2121">&quot;tag3&quot;</span>))</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="sending-a-query-or-command">Sending a query or command</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="clojure">(<span style="color: #0000FF">with-muon</span> <span style="color: #19177C">m</span> (<span style="color: #0000FF">request!</span> <span style="color: #BA2121">&quot;request://target-service/endpoint&quot;</span> {<span style="color: #19177C">:foo</span> <span style="color: #BA2121">&quot;bar&quot;</span>}))</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="subscribe-to-a-stream">Subscribe to a stream</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="clojure">(<span style="color: #0000FF">require</span> <span style="color: #666666">&#39;</span>[<span style="color: #19177C">clojure.core.async</span> <span style="color: #19177C">:as</span> <span style="color: #19177C">async</span> <span style="color: #19177C">:refer</span> [<span style="color: #19177C">go</span> <span style="color: #19177C">&lt;!</span>]])
+
+(<span style="color: #008000; font-weight: bold">let </span>[<span style="color: #19177C">ch</span> (<span style="color: #0000FF">with-muon</span> <span style="color: #19177C">ms</span> (<span style="color: #0000FF">subscribe!</span> <span style="color: #BA2121">&quot;stream://my-server/stream1&quot;</span>))]
+  (<span style="color: #0000FF">go</span> (<span style="color: #008000; font-weight: bold">loop </span>[<span style="color: #19177C">elem</span> (<span style="color: #0000FF">&lt;!</span> <span style="color: #19177C">ch</span>)]
+        (<span style="color: #008000">when-not </span>(<span style="color: #008000">nil? </span><span style="color: #19177C">elem</span>)
+          (<span style="color: #008000">println </span>(<span style="color: #008000">pr-str </span><span style="color: #19177C">elem</span>)) (<span style="color: #0000FF">recur</span> (<span style="color: #0000FF">&lt;!</span> <span style="color: #19177C">ch</span>))))))</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="send-an-event-to-an-eventstore">Send an event to an eventstore</h5>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+This functionality is only available if there is an eventstore available subscribed to the same AMQP server. If you see the following message when initialising the client:
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code>INFO  client:6 - Eventstore not found, event functionality not available!</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>then the calls to <code>(event)</code> won&#8217;t be successful.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="clojure">(<span style="color: #0000FF">with-muon</span> <span style="color: #19177C">m</span> (<span style="color: #0000FF">event!</span> {<span style="color: #19177C">:event-type</span> <span style="color: #BA2121">&quot;type&quot;</span> <span style="color: #19177C">:stream-name</span> <span style="color: #BA2121">&quot;my-stream&quot;</span> <span style="color: #19177C">:payload</span> {<span style="color: #19177C">:my</span> <span style="color: #19177C">:data</span>}}))</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For an explanation of the possible fields of the event, please refer to [<a href="https://github.com/microserviceux/documentation/blob/master/implementmuon/protocol/event/v1.adoc" class="bare">https://github.com/microserviceux/documentation/blob/master/implementmuon/protocol/event/v1.adoc</a>](<a href="https://github.com/microserviceux/documentation/blob/master/implementmuon/protocol/event/v1.adoc" class="bare">https://github.com/microserviceux/documentation/blob/master/implementmuon/protocol/event/v1.adoc</a>).</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="server-api">Server API</h3>
+<div class="paragraph">
+<p>In order to run a microservice in server mode, you will need to provide an implementation and start/stop the instance by means of the <code>component</code> library.</p>
+</div>
+<div class="sect3">
+<h4 id="providing-an-implementation">Providing an implementation</h4>
+<div class="paragraph">
+<p>An implementation of a microservice endpoints consists in a reification of the <code>muon-clojure.core/[MicroserviceStream,MicroserviceEvent,MicroserviceRequest]</code> protocols. Each of them is optional, and they serve different purposes:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>MicroserviceStream</code> allows to expose subscription endpoints that should return a channel.</p>
+</li>
+<li>
+<p><code>MicroserviceEvent</code> allows to expose an endpoint that will process (e.g. store) an event. These endpoints, in order to be compliant with the Muon Event protocol, should return the same event with an <code>order-id</code> and <code>event-time</code> filled. Please check the [<a href="https://github.com/microserviceux/documentation/blob/master/implementmuon/protocol/event/v1.adoc" class="bare">https://github.com/microserviceux/documentation/blob/master/implementmuon/protocol/event/v1.adoc</a>](schema docs).</p>
+</li>
+<li>
+<p><code>MicroserviceRequest</code> allows to expose endpoints that should return and/or do something based on the parameters.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="clojure">(<span style="color: #008000; font-weight: bold">defrecord </span><span style="color: #19177C">MyMicroservice</span> [<span style="color: #19177C">my-params</span>]
+  <span style="color: #19177C">MicroserviceStream</span>
+  (<span style="color: #0000FF">stream-mappings</span> [<span style="color: #19177C">this</span>]
+    [{<span style="color: #19177C">:endpoint</span> <span style="color: #BA2121">&quot;stream1&quot;</span> <span style="color: #19177C">:type</span> <span style="color: #19177C">:cold</span>
+      <span style="color: #19177C">:fn-process</span> (<span style="color: #008000; font-weight: bold">fn </span>[<span style="color: #19177C">params</span>]
+                    (<span style="color: #0000FF">clojure.core.async/to-chan</span> [{<span style="color: #19177C">:val</span> <span style="color: #666666">1</span>} {<span style="color: #19177C">:val</span> <span style="color: #666666">2</span>}]))}
+     {<span style="color: #19177C">:endpoint</span> <span style="color: #BA2121">&quot;stream2&quot;</span> <span style="color: #19177C">:type</span> <span style="color: #19177C">:hot-cold</span>
+      <span style="color: #19177C">:fn-process</span> (<span style="color: #008000; font-weight: bold">fn </span>[<span style="color: #19177C">params</span>]
+                    (<span style="color: #0000FF">clojure.core.async/to-chan</span> [{<span style="color: #19177C">:val</span> <span style="color: #666666">1</span>} {<span style="color: #19177C">:val</span> <span style="color: #666666">2</span>}]))}])
+  <span style="color: #19177C">MicroserviceEvent</span>
+  (<span style="color: #0000FF">handle-event</span> [<span style="color: #19177C">this</span> <span style="color: #19177C">event</span>]
+    (<span style="color: #008000">println </span><span style="color: #BA2121">&quot;Event received!&quot;</span>)
+    (<span style="color: #008000">merge </span><span style="color: #19177C">event</span> {<span style="color: #19177C">:order-id</span> <span style="color: #666666">1</span> <span style="color: #19177C">:event-time</span> <span style="color: #666666">1</span>}))
+  <span style="color: #19177C">MicroserviceRequest</span>
+  (<span style="color: #0000FF">request-mappings</span> [<span style="color: #19177C">this</span>]
+    [{<span style="color: #19177C">:endpoint</span> <span style="color: #BA2121">&quot;echo&quot;</span>
+      <span style="color: #408080; font-style: italic">;; As an example, we return the same payload that we receive</span>
+      <span style="color: #19177C">:fn-process</span> <span style="color: #19177C">identity</span>}]))</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="starting-the-microservice">Starting the microservice</h4>
+<div class="paragraph">
+<p>In order to start the microservice, we have to provide some parameters and call <code>component/start</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="clojure">(<span style="color: #008000; font-weight: bold">def </span><span style="color: #19177C">params</span> {<span style="color: #19177C">:url</span> <span style="color: #BA2121">&quot;amqp://mq-url&quot;</span>
+             <span style="color: #19177C">:service-name</span> <span style="color: #BA2121">&quot;my-server&quot;</span>
+             <span style="color: #19177C">:tags</span> [<span style="color: #BA2121">&quot;tag4&quot;</span> <span style="color: #BA2121">&quot;tag5&quot;</span>]
+             <span style="color: #19177C">:implementation</span> (<span style="color: #0000FF">MyMicroservice.</span> {<span style="color: #19177C">:record</span> <span style="color: #19177C">:params</span>})})
+(<span style="color: #008000; font-weight: bold">def </span><span style="color: #19177C">ms</span> (<span style="color: #0000FF">com.stuartsierra.component/start</span> (<span style="color: #0000FF">micro-service</span> <span style="color: #19177C">params</span>)))</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The microservice can be properly shut down by calling stop:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="clojure">(<span style="color: #0000FF">component/stop</span> <span style="color: #19177C">ms</span>)</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="using-the-server-as-a-client">Using the server as a client</h4>
+<div class="paragraph">
+<p>The microservice server in <code>muon-clojure</code> is a client at its core, so it can be used as a client as well:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="clojure">(<span style="color: #0000FF">with-muon</span> <span style="color: #19177C">ms</span> (<span style="color: #0000FF">request!</span> <span style="color: #BA2121">&quot;request://my-server/echo&quot;</span> {<span style="color: #19177C">:bar</span> <span style="color: #BA2121">&quot;baz&quot;</span>}))
+<span style="color: #19177C">=&gt;</span> {<span style="color: #19177C">:bar</span> <span style="color: #BA2121">&quot;baz&quot;</span>}
+
+(<span style="color: #0000FF">with-muon</span> <span style="color: #19177C">ms</span> (<span style="color: #0000FF">event!</span> {}))
+<span style="color: #19177C">=&gt;</span> <span style="color: #19177C">Event</span> <span style="color: #19177C">received!</span>
+<span style="color: #19177C">=&gt;</span> {<span style="color: #19177C">:order-id</span> <span style="color: #666666">1</span>, <span style="color: #19177C">:event-time</span> <span style="color: #666666">1</span>}
+
+(<span style="color: #0000FF">with-muon</span> <span style="color: #19177C">ms</span> (<span style="color: #0000FF">event!</span> {<span style="color: #19177C">:stream-name</span> <span style="color: #BA2121">&quot;test&quot;</span>}))
+<span style="color: #19177C">=&gt;</span> <span style="color: #19177C">Event</span> <span style="color: #19177C">received!</span>
+<span style="color: #19177C">=&gt;</span> {<span style="color: #19177C">:stream-name</span> <span style="color: #BA2121">&quot;test&quot;</span>, <span style="color: #19177C">:order-id</span> <span style="color: #666666">1</span>, <span style="color: #19177C">:event-time</span> <span style="color: #666666">1</span>}
+
+(<span style="color: #0000FF">require</span> <span style="color: #666666">&#39;</span>[<span style="color: #19177C">clojure.core.async</span> <span style="color: #19177C">:as</span> <span style="color: #19177C">async</span> <span style="color: #19177C">:refer</span> [<span style="color: #19177C">go</span> <span style="color: #19177C">&lt;!</span>]])
+(<span style="color: #008000; font-weight: bold">let </span>[<span style="color: #19177C">ch</span> (<span style="color: #0000FF">with-muon</span> <span style="color: #19177C">ms</span> (<span style="color: #0000FF">subscribe!</span> <span style="color: #BA2121">&quot;stream://my-server/stream1&quot;</span>))]
+  (<span style="color: #0000FF">go</span> (<span style="color: #008000; font-weight: bold">loop </span>[<span style="color: #19177C">elem</span> (<span style="color: #0000FF">&lt;!</span> <span style="color: #19177C">ch</span>)]
+        (<span style="color: #008000">when-not </span>(<span style="color: #008000">nil? </span><span style="color: #19177C">elem</span>)
+          (<span style="color: #008000">println </span>(<span style="color: #008000">pr-str </span><span style="color: #19177C">elem</span>)) (<span style="color: #0000FF">recur</span> (<span style="color: #0000FF">&lt;!</span> <span style="color: #19177C">ch</span>))))))
+<span style="color: #19177C">=&gt;</span> {<span style="color: #19177C">:val</span> <span style="color: #666666">1.0</span>}
+<span style="color: #19177C">=&gt;</span> {<span style="color: #19177C">:val</span> <span style="color: #666666">2.0</span>}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+        </div>
+      </div>
+
+      <div class='four spacing'></div>
+    </div>
+  </div>
+</div>
+</div>
+
+    </div>
+
+    
+
+  <!--End mc_embed_signup-->
+<div class='full no-padding' style='background: #111'>
+  <div class='two spacing'></div>
+  <div class='row'>
+    <div class='large-12 columns' style="color:white;">
+      <p>©2017 Muon Core Ltd. All rights reserved.</p>
+    </div>
+  </div>
+  <div class='spacing'></div>
+</div>
+
+
+<script src="/javascripts/jquery.countTo.js" type="text/javascript"></script>
+<script src="/javascripts/jquery.appear.js" type="text/javascript"></script>
+<script src="/javascripts/jquery.validate.js" type="text/javascript"></script>
+<script src="/javascripts/jquery.sequence-min.js" type="text/javascript"></script>
+<script src="/javascripts/jquery.easing.1.3.js" type="text/javascript"></script>
+<script src="/javascripts/app.js" type="text/javascript"></script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-75338923-1', 'auto');
+  ga('require', 'linkid');
+  ga('send', 'pageview');
+
+</script>
+
+
+  </body>
+
+</html>

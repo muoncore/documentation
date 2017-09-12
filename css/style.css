@@ -13,6 +13,10 @@
   font-weight: bold;
 }
 
+ul {
+  font-size:inherit;
+}
+
 /*some basic settings */
 a {
   color: #F9CE06;
@@ -63,6 +67,7 @@ hr {
   padding: 80px 0 0;
   background-size: cover;
   background-position: 50% 50%;
+  font-size: 1.6rem;
 }
 .full.no-padding {
   padding: 0;
@@ -880,7 +885,7 @@ body.screenshot {
   font-style: italic;
 }
 .modBlogPost img {
-  width: 100%;
+  /*width: 100%;*/
 }
 .modBlogPost a:hover img {
   -moz-transition-duration: 0.5s;
@@ -3459,4 +3464,28 @@ body ul.sequence-canvas .button.medium.success {
 
 .markdown p {
   font-size:1.6rem;
+}
+
+
+@media only screen and (max-width: 700px) {
+  .modBlogPost.big .content {
+    padding:0 15px;
+  }
+  div.documentation #main h2 {
+    margin-top:0
+  }
+}
+
+@media only screen and (min-width: 1280px) {
+}
+
+@media only screen and (min-width: 1450px) {
+
+}
+
+
+
+
+h2:before {
+  content: ''; display: block; position: relative; width: 0; height: 3em; margin-top: -3em
 }

@@ -1,0 +1,54 @@
+{
+  "name": "muonjs",
+  "version": "7.2.6",
+  "description": "Muon in the Browser, Requires a functional muon.js gateway",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "./node_modules/.bin/mocha --recursive -R xunit-file test/",
+    "dev": "node test/server/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/muoncore/muon.js.git"
+  },
+  "keywords": [
+    "Muon",
+    "microservices",
+    "reactive",
+    "streaming",
+    "events",
+    "browser"
+  ],
+  "dependencies": {
+    "sexylog": "0.0.3",
+    "muon-core": "7.2.6",
+    "underscore": "*",
+    "node-uuid": "*",
+    "sockjs": "*",
+    "sockjs-client": "*",
+    "rsvp": "*"
+  },
+  "devDependencies": {
+    "async-rq": "*",
+    "minifier": "*",
+    "envify": "~1.2.1",
+    "babel-preset-react": "^6.5.0",
+    "babel-preset-es2015": "*",
+    "babelify": "^7.2.0",
+    "express": "^4.4.5",
+    "assert": "*",
+    "babel": "^6.5.2",
+    "babel-core": "^6.4.5",
+    "mocha": "*",
+    "browserify": "*",
+    "loose-envify": "*",
+    "json-markup": "1.0.0",
+    "jquery": "3.1.0"
+  },
+  "author": "Muon Core Ltd",
+  "license": "AGPLv2",
+  "bugs": {
+    "url": "https://github.com/muoncore/muon.js/issues"
+  },
+  "homepage": "https://github.com/muoncore/muon.js#readme"
+}

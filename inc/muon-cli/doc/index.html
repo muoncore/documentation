@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Muon - Reactive APIs</title>
+  <meta name="description" content="">
+
+    <link rel="stylesheet" href="/css/foundation.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/fontello.css">
+  <link rel="stylesheet" href="/css/font-awesome.css">
+  <script src="/javascripts/modernizr.foundation.js" type="text/javascript"></script>
+    <script src="/javascripts/jquery-2.1.0.js" type="text/javascript"></script>
+    <script src="/javascripts/terrific-1.1.1.js" type="text/javascript"></script>
+    <script src="/javascripts/jquery.url.js" type="text/javascript"></script>
+    <script src="/javascripts/jquery.cookie.js" type="text/javascript"></script>
+    <script src="/javascripts/json2.js" type="text/javascript"></script>
+    <script src="/javascripts/foundation.js" type="text/javascript"></script>
+  <script>
+    // terrificjs bootstrap
+    (function($) {
+        $(document).ready(function() {
+            var $page = $('body');
+            var config = {
+              dependencyPath: {
+                plugin: 'javascripts/'
+              }
+            }
+            var application = new Tc.Application($page, config);
+            application.registerModules();
+            application.start();
+        });
+    })(Tc.$);
+  </script>
+  <link href="http://fonts.googleapis.com/css?family=Raleway:400,700,300" media="screen" rel="stylesheet" type="text/css" />
+  <script src="/javascripts/masonry.pkgd.js" type="text/javascript"></script>
+  <script src="/javascripts/imagesloaded.pkgd.min.js" type="text/javascript"></script>
+  <script src="/javascripts/slick.min.js" type="text/javascript"></script>
+
+  <link rel="canonical" href="/inc/muon-cli/doc/">
+  <link rel="alternate" type="application/rss+xml" title="Muon - Reactive APIs" href="/feed.xml" />
+  <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+          <link rel="stylesheet" href="/css/asciidoc.css">
+          <link rel="stylesheet" href="/css/producttable.css">
+                  <style>
+  @media only screen and (min-width:768px){#toctitle{font-size:1.375em}
+      body.toc2{padding-left:15em;padding-right:0}
+#toc {margin-top:0!important;background-color:#f8f8f7;position:fixed;width:15em;right:0;top:0;border-right:1px solid #efefed;border-top-width:0!important;border-bottom-width:0!important;z-index:1000;padding:1.25em 1em;height:100%;overflow:auto}
+#toc #toctitle{margin-top:0;margin-bottom:.8rem;font-size:1.2em}
+#toc >ul{font-size:.9em;margin-bottom:0}
+#toc ul ul{margin-left:0;padding-left:1em}
+#toc ul.sectlevel0 ul.sectlevel1{padding-left:0;margin-top:.5em;margin-bottom:.5em}
+  @media only screen and (min-width:1280px){body.toc2{padding-left:20em;padding-right:0}
+#toc {width:20em}
+#toc #toctitle{font-size:1.375em}
+#toc >ul{font-size:.95em}
+#toc ul ul{padding-left:1.25em}
+      body.toc2.toc-right{padding-left:0;padding-right:20em}}
+
+#toc { z-index:20; padding-top:120px;}
+#documentation { padding-left:10px; margin-left:auto; margin-right:auto}
+#documentation .row { margin:auto }
+      code {
+          background:none;
+          border:0;
+      }
+
+      code span { border: 0; width:100% }
+      .listingblock {
+         background: #eee;
+         border-radius:5px;
+          border:1px solid #ccc
+      }
+  }
+
+  div.documentation a.btn {
+    margin-top:20px;
+    background: #3498db;
+    background-image: -webkit-linear-gradient(top, #3498db, #2980b9);
+    background-image: -moz-linear-gradient(top, #3498db, #2980b9);
+    background-image: -ms-linear-gradient(top, #3498db, #2980b9);
+    background-image: -o-linear-gradient(top, #3498db, #2980b9);
+    background-image: linear-gradient(to bottom, #3498db, #2980b9);
+    -webkit-border-radius: 28;
+    -moz-border-radius: 28;
+    border-radius: 28px;
+    font-family: Arial;
+    color: #ffffff;
+    font-size: 20px;
+    padding: 10px 20px 10px 20px;
+    text-decoration: none;
+  }
+
+  div.documentation a.btn:hover {
+    background: #3cb0fd;
+    background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
+    background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
+    background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
+    background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
+    background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
+    text-decoration: none;
+  }
+
+  </style>
+
+  <link rel="stylesheet" href="/css/sidebar2.css">
+</head>
+
+
+  <body>
+    
+      <a id='top'></a>
+<div class='contain-to-grid sticky fullwidth'>
+  <nav class='top-bar onepage' data-options='sticky_on: large' data-topbar=''>
+    <ul class='title-area'>
+      <li class='name'>
+        <h1>
+          <a href="/">
+            <img alt="" src="/images/muonlogo.png" style="width:50px; height:50px" /> Muon
+          </a>
+        </h1>
+      </li>
+      <li class='toggle-topbar menu-icon'>
+        <a href='#'>Menu</a>
+      </li>
+    </ul>
+    <span style="float:left">Reactive APIs for Microservices, Browser and More ...</span>
+    <section class='top-bar-section'>
+      <ul class='right'>
+        
+          
+            <li>
+              
+                <a href="/#ce">OSS/ CE</a>
+              
+
+            </li>
+          
+        
+          
+            <li>
+              
+                <a href="guide/index.html">Guides</a>
+              
+
+            </li>
+          
+        
+          
+            <li>
+              
+                <a href="/pro.html">Pro</a>
+              
+
+            </li>
+          
+        
+          
+            <li class="has-dropdown">
+              <a href="/guide/index.html">Docs</a>
+              <ul class='dropdown'>
+                
+                  <li>
+                    <a href="/guide/index.html">Guides</a>
+                  </li>
+                
+                  <li>
+                    <a href="/submodules/cli/doc/index.html">CLI</a>
+                  </li>
+                
+                  <li>
+                    <a href="/submodules/java/doc/">Java</a>
+                  </li>
+                
+                  <li>
+                    <a href="/submodules/clojure/doc/index.html">Clojure</a>
+                  </li>
+                
+                  <li>
+                    <a href="/submodules/node/doc/index.html">Node.JS</a>
+                  </li>
+                
+                  <li>
+                    <a href="/submodules/muonjs/doc/index.html">Browser</a>
+                  </li>
+                
+                  <li>
+                    <a href="/submodules/photon/doc/index.html">Photon - Event Store</a>
+                  </li>
+                
+              </ul>
+            </li>
+          
+        
+          
+            <li>
+              
+                <a href="https://github.com/muoncore">Github</a>
+              
+
+            </li>
+          
+        
+      </ul>
+    </section>
+  </nav>
+</div>
+<div class='full no-padding'>
+  <!-- Begin MailChimp Signup Form -->
+  <link href="//cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css" rel="stylesheet" type="text/css">
+  <style type="text/css">
+    #mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; width:100%;}
+    /* Add your own MailChimp form style overrides in your site stylesheet or in this style block.
+         We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
+  </style>
+  <div id="mc_embed_signup">
+    <form action="//simplicityitself.us9.list-manage.com/subscribe/post?u=fce1e12e8f44592cf75288e11&amp;id=98e2ce96d8" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+      <div id="mc_embed_signup_scroll">
+        <label for="mce-EMAIL">Get updated on new releases and features</label>
+        <input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required>
+        <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+        <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_fce1e12e8f44592cf75288e11_98e2ce96d8" tabindex="-1" value=""></div>
+        <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+      </div>
+    </form>
+  </div>
+</div>
+
+    
+
+    <div id='main' role='main'>
+      <div class="documentation">
+<div class='full' style='background: #000'>
+  <div class='row' style="margin-left:0; margin-right:0; max-width:100%">
+    <div class='large-12 columns'>
+      <div class='mod modBlogPost big'>
+        <div class='images'>
+          
+        </div>
+        <div class='content' style="font-size:1.2rem; max-width:80%">
+          <div id="toc" class="toc">
+<div id="toctitle">Muon CLI</div>
+<ul class="sectlevel1">
+<li><a href="#muon-cli">Muon CLI</a>
+<ul class="sectlevel2">
+<li><a href="#installation">Installation</a></li>
+<li><a href="#discovery">Discovery</a></li>
+<li><a href="#introspection">Introspection</a></li>
+<li><a href="#rpc">RPC</a></li>
+<li><a href="#reactive-streaming">Reactive Streaming</a></li>
+<li><a href="#events">Events</a>
+<ul class="sectlevel3">
+<li><a href="#stream-type">Stream Type</a></li>
+<li><a href="#partial-replay-using-from">Partial Replay using From</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The current version is 7.2.2</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+This document is maintained at <a href="https://github.com/muoncore/muon-cli" class="bare">https://github.com/muoncore/muon-cli</a>.
+Please submit issues at that repository.
+</td>
+</tr>
+</table>
+</div>
+<div class="sect1">
+<h2 id="muon-cli">Muon CLI</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Read about Muon in the <a href="/guide">Guide</a>.</p>
+</div>
+<div class="paragraph">
+<p>The Muon CLI is based on Muon Node, and allows you to interact with a Muon system from the command line</p>
+</div>
+<div class="sect2">
+<h3 id="installation">Installation</h3>
+<div class="paragraph">
+<p>Install the CLI using NPM. If you don&#8217;t have NPM installed already, go to <a href="http://npmjs.org" class="bare">http://npmjs.org</a> to install it.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="bash">&gt; npm install -g muon-cli</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Once installed, you should be able to run</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code>&gt; muon
+Usage:
+  muon [OPTIONS] &lt;command&gt; [ARGS]
+
+Options:
+  -r  --raw              Output raw, no decoration. Suitable for post
+                         processing
+  -k, --no-color         Omit color from output
+      --debug            Show debug information
+  -h, --help             Display help and usage details
+
+Commands:
+  introspect             Obtain introspection information for a service,
+                         showing implemented protocols and endpoints
+  discover               Show the currently running services
+  rpc                    &lt;url&gt; &lt;payload&gt;
+  stream                 &lt;url&gt; [configuration]&gt;
+  emit                   &lt;event&gt;
+  replay                 &lt;stream name&gt; [configuration]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The commands above are broadly aligned with the an underlying protocol.</p>
+</div>
+<div class="paragraph">
+<p>Next, you need to configure the CLI to connect to your Muon system</p>
+</div>
+<div class="paragraph">
+<p>This is done using the <code>MUON_URL</code> environment variable.</p>
+</div>
+<div class="paragraph">
+<p>Currently supported are AMQP systems for discovery and transport, and so you would set your MUON_URL to read</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code>export MUON_URL=amqp://muon:microservices@localhost</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This will allow you to connect to the Muon Starter environment, which is set to use this username/ password</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="discovery">Discovery</h3>
+<div class="paragraph">
+<p>Discovery is the process of inspecting the various services running in the system.</p>
+</div>
+<div class="paragraph">
+<p>You can run discovery from the cli using the <code>discover</code> command. All commands can be shortened as needed,
+so long as they are unambiguous. In this case, this could be reduced to <code>d</code></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code>&gt; muon d
+
+┌──────────────────────────────┬──────────────────────────────┬─────────────────────────────────────┐
+│ SERVICE NAME                 │ TAGS                         │ TRANSPORT                           │
+├──────────────────────────────┼──────────────────────────────┼─────────────────────────────────────┤
+│ muon-gateway                 │ node,muon-gateway            │ amqp://muon:microservices@rabbitmq  │
+├──────────────────────────────┼──────────────────────────────┼─────────────────────────────────────┤
+│ muon-cli-128e78bb-5533-4271… │ node,muon-cli-128e78bb-5533… │ amqp://muon:microservices@localhost │
+└──────────────────────────────┴──────────────────────────────┴─────────────────────────────────────┘</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Once you have discovered services, you need to be able to understand what they can do. This is the role of
+<em>introspection</em></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="introspection">Introspection</h3>
+<div class="paragraph">
+<p>Introspection is a Muon protocol, and is implemented by every Muon implementation.</p>
+</div>
+<div class="paragraph">
+<p>It allows you to connect to a remote service and ask it what its capabilities are.</p>
+</div>
+<div class="paragraph">
+<p>This will return what protocols it implements, and what endpoints those protocols expose, if any
+(not all protocols map to the concept of endpoints)</p>
+</div>
+<div class="paragraph">
+<p>This can be run using</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code>&gt; muon introspect remote-service-name</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>An introspection report will then be printed to the console.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="rpc">RPC</h3>
+<div class="paragraph">
+<p>RPC is a basic request/ response protocol that we conceptually don&#8217;t like very much, but haven&#8217;t
+managed to remove all the use cases for.</p>
+</div>
+<div class="paragraph">
+<p>By all means start with RPC, it&#8217;s easy, however please don&#8217;t stay here as your core communication
+ protocol.</p>
+</div>
+<div class="paragraph">
+<p>Given a remote system with an endpoint <code>/hello</code>, you can make an rpc call to it using</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code>&gt; muon rpc rpc://remote-service/hello</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If the endpoint takes a payload parameter, you pass it as a string that will be read as JSON</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code>muon rpc rpc://remote-service/hello '{"message":"is this"}'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The remote service will then receive a JSON encoded payload that it can read.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="reactive-streaming">Reactive Streaming</h3>
+<div class="paragraph">
+<p>Reactive Streams is a set of Java interfaces that define the interactions needed to implement
+<em>back pressure</em> on the stream. This allows the client to subscribe to a stream and then periodically instruct
+the server to send more data through.</p>
+</div>
+<div class="paragraph">
+<p>The Muon Reactive Streams protocol takes these interfaces and maps them to a Muon messaging protocol.</p>
+</div>
+<div class="paragraph">
+<p>The CLI can therefore connect to a remote streaming endpoint and have a full Reactive Streams
+conversation with it.</p>
+</div>
+<div class="paragraph">
+<p>In order to simplify the CLI use case, it automatically requests new data every 10 items.</p>
+</div>
+<div class="paragraph">
+<p>To subscribe to a remote, the command is</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="bash">&gt; muon stream stream://remote-service/endpoint</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>As with RPC, you can pass a parameter along with the subscription, which permits the Reactive Stream
+server protocol to construct a new stream taking into account those parameters.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="bash">&gt; muon stream stream://remote-service/endpoint <span style="color: #BA2121">&#39;{&quot;param&quot;:&quot;value&quot;}&#39;</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="events">Events</h3>
+<div class="paragraph">
+<p>To manipulate events you will need a running event store. Run a Photon and then you will be able to use the event commands.</p>
+</div>
+<div class="paragraph">
+<p>To persist an event, you decide the <strong>type</strong> and the <strong>stream</strong> that it will be persisted on</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="bash">&gt; muon emit <span style="color: #BA2121">&#39;{ &quot;event-type&quot;: &quot;SomethingHappened&quot;, &quot;schema&quot;: &quot;1&quot;,&quot;stream-name&quot;: &quot;something&quot;,&quot;payload&quot;: {&quot;message&quot;: &quot;Hi there!&quot;}}&#39;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You can then replay the stream</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="bash">david@patmos:~/Development/microux/muon/muon-cli$ muon replay something
+<span style="color: #666666">{</span> <span style="color: #BA2121">&#39;order-id&#39;</span>: <span style="color: #666666">1491410009700831</span>,
+  <span style="color: #BA2121">&#39;event-type&#39;</span>: <span style="color: #BA2121">&#39;SomethingHappened&#39;</span>,
+  schema: <span style="color: #BA2121">&#39;1&#39;</span>,
+  <span style="color: #BA2121">&#39;event-time&#39;</span>: <span style="color: #666666">1491410009700</span>,
+  <span style="color: #BA2121">&#39;service-id&#39;</span>: <span style="color: #BA2121">&#39;cli&#39;</span>,
+  <span style="color: #BA2121">&#39;stream-name&#39;</span>: <span style="color: #BA2121">&#39;something&#39;</span>,
+  payload: <span style="color: #666666">{</span> message: <span style="color: #BA2121">&#39;Hi there!&#39;</span> <span style="color: #666666">}</span> <span style="color: #666666">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You can also decide the type of replay, and when to replay from</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="bash">$ muon replay something <span style="color: #BA2121">&#39;{&quot;stream-type&quot;:&quot;&lt;type&gt;&quot;, &quot;from&quot;:&lt;orderid&gt;}&#39;</span></code></pre>
+</div>
+</div>
+<div class="sect3">
+<h4 id="stream-type">Stream Type</h4>
+<div class="paragraph">
+<p>Streams in the Muon event model are durable and persisted. The client, when subscribing, can decide whether to
+ replay all the existing data, some of it, none of it, and whether to continue the subscription into the future or not.</p>
+</div>
+<div class="paragraph">
+<p>The stream-type param above can be set to one of</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>hot-cold</strong> - Existing data will be replayed, then all new data will be played. New data that arrives during replay will be buffered in Photon and played in order once the cold replay is complete.</p>
+</li>
+<li>
+<p><strong>hot</strong> - No existing data will be provided, only data that arrives are the subscription is established. No transactional consistency is applied to this rule. If you require all data are a time period, use <strong>hot-cold</strong> with a predefined <strong>from</strong> parameter.</p>
+</li>
+<li>
+<p><strong>cold</strong> - Only existing data will be replayed. Once the data is finished, a <em>complete</em> signal will be sent and the cli process will terminate</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The default is <strong>hot-cold</strong>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="partial-replay-using-from">Partial Replay using From</h4>
+<div class="paragraph">
+<p>Every event has an <strong>Event Time</strong> stamped on it when it is accepted by the event store. This is the event accept time and is
+defined as millis since the unix epoch.
+This event time can be used to select a replay period.  To use it, pull the event time from an event, or choose a time in millis
+and pass that in to the from param.</p>
+</div>
+<div class="paragraph">
+<p>This example will display the single record from above, then exit</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code>muon replay something '{"from": 1491410009700, "stream-type":"cold"}'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This will simply exit, as the from period is altered to be 1ms later.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code>muon replay something '{"from": 1491410009701, "stream-type":"cold"}'</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+        </div>
+      </div>
+
+      <div class='four spacing'></div>
+    </div>
+  </div>
+</div>
+</div>
+
+    </div>
+
+    
+
+  <!--End mc_embed_signup-->
+<div class='full no-padding' style='background: #111'>
+  <div class='two spacing'></div>
+  <div class='row'>
+    <div class='large-12 columns' style="color:white;">
+      <p>©2017 Muon Core Ltd. All rights reserved.</p>
+    </div>
+  </div>
+  <div class='spacing'></div>
+</div>
+
+
+<script src="/javascripts/jquery.countTo.js" type="text/javascript"></script>
+<script src="/javascripts/jquery.appear.js" type="text/javascript"></script>
+<script src="/javascripts/jquery.validate.js" type="text/javascript"></script>
+<script src="/javascripts/jquery.sequence-min.js" type="text/javascript"></script>
+<script src="/javascripts/jquery.easing.1.3.js" type="text/javascript"></script>
+<script src="/javascripts/app.js" type="text/javascript"></script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-75338923-1', 'auto');
+  ga('require', 'linkid');
+  ga('send', 'pageview');
+
+</script>
+
+
+  </body>
+
+</html>

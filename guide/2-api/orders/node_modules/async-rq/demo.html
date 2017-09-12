@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="description" content="This file demonstrates rq.js.
+    It uses demo.js.">
+<title>RQ Demo</title>
+<style>
+body {
+    background-color: lightblue;
+}
+
+fieldset {
+    background-color: white;
+    border: 2px solid black;
+    border-radius: 0.5em;
+    float: left;
+    margin: 0.5em;
+}
+
+legend {
+    background-color: white;
+    border: 2px solid black;
+    border-radius: 0.5em;
+    font-size: xx-large;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+}
+
+input {
+    border: 2px solid black;
+}
+
+input[value="success"]:hover {
+    background-color: lightgreen;
+    border: 2px solid green;
+}
+
+input[value="failure"]:hover {
+    background-color: pink;
+    border: 2px solid red;
+}
+</style>
+</head>
+<body>
+<script>
+// Some browsers do not yet implement setImmediate.
+
+/*global window */
+
+if (typeof window.setImmediate !== 'function') {
+    window.setImmediate = function (func) {
+        'use strict';
+        var args = arguments;
+        return window.setTimeout(function () {
+            return func.apply(undefined, args);
+        }, 0);
+    };
+    window.clearImmediate = window.clearTimeout;
+}
+</script>
+<div id=demo></div>
+<script src=rq.js></script>
+<script src=demo.js></script>
+</body></html>

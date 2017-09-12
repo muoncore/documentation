@@ -1,0 +1,68 @@
+{
+  "name": "muon-core",
+  "description": "node.js muon implementation",
+  "version": "7.3.0-56",
+  "author": "Muon Core Ltd",
+  "keywords": [
+    "muon",
+    "microservices",
+    "antifragile"
+  ],
+  "private": false,
+  "repository": {
+    "url": "https://github.com/muoncore/muon-node"
+  },
+  "scripts": {
+    "start": "node tck",
+    "tck": "node tck",
+    "test": "./node_modules/.bin/mocha --recursive -R xunit-file test/",
+    "build": "babel muon --presets babel-preset-es2015 --out-dir distribution"
+  },
+  "dependencies": {
+    "babel-runtime": "^6.18.0",
+    "body-parser": "^1.17.2",
+    "callsite": "1.0.0",
+    "cors": "^2.8.3",
+    "daemon": "1.1.0",
+    "es6-promise": "^4.1.0",
+    "expect.js": "0.3.1",
+    "joi": "^10.5.2",
+    "js-csp": "^0.9.3",
+    "jsonutil": "0.2.0",
+    "moment": "^2.18.1",
+    "pako": "^1.0.5",
+    "rsvp": "^3.5.0",
+    "rx": "4.1.0",
+    "sexylog": "0.0.3",
+    "split": "1.0.0",
+    "stack-trace": "0.0.10",
+    "string-format": "0.5.0",
+    "underscore": "1.8.3",
+    "url": "0.11.0",
+    "url-template": "2.0.8",
+    "uuid": "^3.0.1"
+  },
+  "devDependencies": {
+    "assert": "1.4.1",
+    "babel-cli": "^6.18.0",
+    "babel-plugin-transform-runtime": "^6.15.0",
+    "babel-preset-es2015": "^6.18.0",
+    "browserify": "^14.4.0",
+    "mocha": "^3.4.2",
+    "mocha-multi": "^0.11.0",
+    "mocha-sinon": "^2.0.0",
+    "mocha-teamcity-reporter": "1.1.1",
+    "muon-stack-rpc": "0.0.2-4",
+    "should": "^11.2.1",
+    "sinon": "^2.3.2",
+    "superagent": "^3.5.2",
+    "validator": "^7.0.0",
+    "xunit-file": "1.0.0"
+  },
+  "engines": {
+    "node": "*"
+  },
+  "license": "AGPLv2",
+  "preferGlobal": "false",
+  "main": "./distribution/api/muoncore"
+}

@@ -1,0 +1,3 @@
+rootProject.name="stack-rpc"
+
+include "stack-rpc"

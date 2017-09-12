@@ -1,0 +1,24 @@
+{
+  "name": "muonjs-gateway",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/muoncore/corgi-email.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/muoncore/corgi-email/issues"
+  },
+  "homepage": "https://github.com/muoncore/corgi-email#readme",
+  "dependencies": {
+    "muon-core": "7.2.6",
+    "muonjs": "7.2.6"
+  }
+}
