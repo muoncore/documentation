@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <title>Muon - Reactive APIs</title>
-  <meta name="description" content="">
+  <meta name="description" content="Learn how to build a new implementation of Muon and Muon apis">
 
     <link rel="stylesheet" href="/css/foundation.css">
 
@@ -245,109 +245,261 @@
         <div class='content' style="font-size:1.2rem; max-width:80%">
           <div id="toc" class="toc">
 <div id="toctitle">Implement Muon</div>
+<ul class="sectlevel1">
+<li><a href="#terms-and-visualisations">Terms and visualisations</a></li>
+<li><a href="#message-formats-and-core-protocols">Message formats and core protocols</a>
 <ul class="sectlevel2">
-<li><a href="#getting-started">Getting Started</a></li>
-<li><a href="#csp-of-channels-and-processes">CSP, of Channels and Processes</a>
-<ul class="sectlevel3">
-<li><a href="#terminology">Terminology</a></li>
+<li><a href="#example-protocol-messages-rpc">Example protocol messages. RPC.</a></li>
+<li><a href="#transport-messages">Transport messages</a></li>
 </ul>
 </li>
+<li><a href="#implementation-guide">Implementation guide</a></li>
+<li><a href="#client-components">Client Components</a>
+<ul class="sectlevel2">
+<li><a href="#channel-and-message-dispatch">Channel and message dispatch</a></li>
+<li><a href="#codecs">Codecs</a></li>
+<li><a href="#transport-interface">Transport interface</a></li>
 <li><a href="#discovery">Discovery</a></li>
-<li><a href="#transports">Transports</a></li>
-<li><a href="#client-protocols">Client Protocols</a></li>
-<li><a href="#server-protocol">Server Protocol</a>
+<li><a href="#transport-client">Transport client</a>
 <ul class="sectlevel3">
+<li><a href="#shared-channel-multiplex-optional">Shared channel/ multiplex (optional)</a></li>
+<li><a href="#load-balancing-optional">Load Balancing (optional)</a></li>
+</ul>
+</li>
+<li><a href="#implement-the-api-type">Implement the API type</a></li>
+</ul>
+</li>
+<li><a href="#server-components">Server Components</a>
+<ul class="sectlevel2">
 <li><a href="#server-stacks">Server Stacks</a></li>
-<li><a href="#default-protocol">Default Protocol</a></li>
+<li><a href="#discovery-2">Discovery</a></li>
+<li><a href="#server-side-api">Server side api</a></li>
+<li><a href="#shared-channel-multiplex-required">Shared channel/ multiplex (required)</a></li>
 </ul>
 </li>
-<li><a href="#optional-features">Optional Features</a>
-<ul class="sectlevel3">
-<li><a href="#wiretap">Wiretap</a></li>
+<li><a href="#implementing-an-api-type">Implementing an API type</a></li>
+<li><a href="#introspection-api">Introspection api</a></li>
 </ul>
-</li>
-<li><a href="#optional-features-2">Optional Features</a>
-<ul class="sectlevel3">
-<li><a href="#wiretap-2">Wiretap</a></li>
-</ul>
-</li>
-</ul>
+</div>
+<div class="paragraph">
+<p>Muon is a toolkit for building Reactive/ message based apis. Thia article describes how to implement Muon, including discussing the core Muon model, message formats and rationale for the major design decisions.</p>
+</div>
+<div class="paragraph">
+<p>Being an api approach, Muon is defined ultimately by the messages that are exchanged between services and the order they are exchanged in. Message definitions and interaction protocols described in this document are mandatory for implementing Muon correctly.</p>
+</div>
+<div class="sect1">
+<h2 id="terms-and-visualisations">Terms and visualisations</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The Muon model is a restricted form of Communicating Sequential Processes  (CSP). This places the channel as the primary design primitive in this system.</p>
+</div>
+<div class="paragraph">
+<p>Muon is therefore implemented as a set of components, connected by <em>bi directional channels</em>, that we refer to as a <em>bichannel</em>. Some of these are purely in memory, and act to be an async transform and dispatch, other channels bridge a network, and are implemented by <strong><em>Transports</em></strong>.  In order to visualise this and be able to understand and communicate about it more easily, we have adopted a common visualisation metaphor that we use in diagrams, and in code.</p>
+</div>
+<div class="paragraph">
+<p>Here is an example.</p>
+</div>
+<div class="paragraph">
+<p>todo. example.</p>
+</div>
+<div class="paragraph">
+<p>Here, you can see the various components and channels arranged horizontally and connected on their left/ right sides to others. These are the terms that we use, <em>left</em> and <em>right</em>. When you see these in code, or as part of a design document, it is always referring to this visual arrangement.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="message-formats-and-core-protocols">Message formats and core protocols</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Muon operates in layers. It&#8217;s messaging formats represent that explicitly. As is common in layered network models, Muon systems create a mirrored stack of message protocols. Each adds capabilities to the one to its right, providing services for the one to its left.</p>
+</div>
+<div class="paragraph">
+<p>It is expected that each layer in the stack of channel/ agents will interact with its equivalent in the mirror stack in the "other" Muon instance(s)</p>
+</div>
+<div class="paragraph">
+<p>You can see that in this example.</p>
+</div>
+<div class="paragraph">
+<p>todo, diagram of client/ server above each other.</p>
+</div>
+<div class="paragraph">
+<p>Each type of API that is implemented in a Muon system will be implemented as its own messaging protocol, interacting with other instances of that protocol by using the mid level "Muon protocol" and lower level transports.</p>
+</div>
+<div class="paragraph">
+<p>As such, the mid layer is common across all apis and transports, which we refer to as Muon Messages. This an example message, represented as JSON (which is not the only transport representation)</p>
+</div>
+<div class="paragraph">
+<p>todo. a muon message.</p>
+</div>
+<div class="paragraph">
+<p>This schema is used by all protocols. the role of the Muon protocol is to create and consume Muon Messages appropriately. The protocol will encode its data into the muon message payload field and indicate where in the protocol state machine it is by using the <em>step</em> field.</p>
+</div>
+<div class="paragraph">
+<p>How the messages are used by them higher protocols is not restricted.</p>
+</div>
+<div class="paragraph">
+<p>This is designed to be very flexible, and allow encoding of arbitrary payloads from higher level protocols without caring what is within them.</p>
 </div>
 <div class="sect2">
-<h3 id="getting-started">Getting Started</h3>
+<h3 id="example-protocol-messages-rpc">Example protocol messages. RPC.</h3>
 <div class="paragraph">
-<p>Building a new implementation of Muon is TODO</p>
+<p>The apis have their own messages that they must encode and decode into Muon Messages. These are not restricted in any way, and once encoded into the muon message payload, is ignored by all other Muon components.</p>
+</div>
+<div class="paragraph">
+<p>To give a worked example. Simple rpc (this is not the actual rpc protocol)</p>
+</div>
+<div class="paragraph">
+<p>The app code will make a request, somehow. The client protocol will generate a message to represent that request. It could look like this (as JSON).</p>
+</div>
+<div class="paragraph">
+<p>todo exanple request.</p>
+</div>
+<div class="paragraph">
+<p>It will then encode that and generate a Muon message holding that, and indicating the protocol step.</p>
+</div>
+<div class="paragraph">
+<p>The Muon message would look like this.</p>
+</div>
+<div class="paragraph">
+<p>TODO, a Request message</p>
+</div>
+<div class="paragraph">
+<p>Then, the api opens a new channel to the remote service and sends the message.</p>
+</div>
+<div class="paragraph">
+<p>On the server side in the remote service, Muon understands the protocol that has been requested and begins a new protocol session (assuming it supports the given protocol!)</p>
+</div>
+<div class="paragraph">
+<p>The server side rpc protocol will receive the Muon message above, and will then decode the payload. Based on the content, it can use whatever api it has available to do some work  (e.g. call a function). Once complete, it will generate a response message, encode and wrap that into a muon message. The messages would look like this.</p>
+</div>
+<div class="paragraph">
+<p>todo.  response messages</p>
+</div>
+<div class="paragraph">
+<p>Once done, it can close the channel. The client receives the message, unpacks it and completes its work.</p>
+</div>
+<div class="paragraph">
+<p>RPC is a very simple protocol, but I hope you can see how more complex protocols can be designed and built easily using this approach.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="csp-of-channels-and-processes">CSP, of Channels and Processes</h3>
+<h3 id="transport-messages">Transport messages</h3>
 <div class="paragraph">
-<p>Muon is designed as a restricted and modified form of Communication Sequential Processes. Communication between muon services is in
-the form of bidirectional channels, with messages passed in serial in either direction.</p>
-</div>
-<div class="paragraph">
-<p>Internally, all of the Muon components are also designed this way, persistent autonomous processes that are generally event based,
-with defined bidirectional channels between them that they used to pass messages serially in either direction.</p>
+<p>Transports deal with moving muon messages from one service to another. They operate within their own discrete layer and are undefined from the point of view of the higher layers.</p>
 </div>
 <div class="paragraph">
-<p>This architecture can be confusing if you have never come across this design before.</p>
+<p>The flow for a transport message interaction is</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Muon Client protocol calls "open a channel to service X".</p>
+</li>
+<li>
+<p>This invokes on the transport, with the <code>protocol</code> and <code>service name</code>.</p>
+</li>
+<li>
+<p>The client side transport looks up the concrete connection information from the local discovery</p>
+</li>
+<li>
+<p>The client side transport connects to its server side peer of the remote service and negotiates a new channel connection for the given protocol.</p>
+</li>
+<li>
+<p>The server side transport negotiates with its client counterpart and looks up in the local list of server protocols to see if it has that protocol registered. If so, its opens a local channel to it and connects it to the network channel that the client opened.</p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
-<p>This was selected as it gives an excellent basis for building a reactive, distributed system that emphasises autonomy and availability
-as defined in CAP Theorum. If you are building a microservice based system, you <em>must</em> choose Availability over Consistency.</p>
+<p>At the end of this process, the transports have negotiated a channel and created server side resources to handle the given protocol request. From this point on</p>
 </div>
-<div class="sect3">
-<h4 id="terminology">Terminology</h4>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="implementation-guide">Implementation guide</h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p>Muon CSP naturally arranges into a pipeline like sturcture. It is possible at the transport layer for this to branch, however that
-is fairly rare in practice.</p>
+<p>The client and server portions of Muon are fairly distinct, and can be implemented independently. If you are implementing a new Muon, it is recommended you pick one of these and fully implement it before moving to the other. This guide assumes you will implement the client, along with common components, first.</p>
 </div>
 <div class="paragraph">
-<p>To aid in visualisation and to reduce ambiguity, this structure is defined using the terms <em>left</em> and <em>right</em>.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="dot-example.svg" alt="dot example" width="118" height="345">
+<p>The following component design is recommended, but is not required to implement Muon correctly. The only requirement for building a conformant muon implementation is to follow the message protocols and message schemas.</p>
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="client-components">Client Components</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The client portion of Muon has the responsibility for</p>
+</div>
+<div class="sect2">
+<h3 id="channel-and-message-dispatch">Channel and message dispatch</h3>
+
+</div>
+<div class="sect2">
+<h3 id="codecs">Codecs</h3>
+
+</div>
+<div class="sect2">
+<h3 id="transport-interface">Transport interface</h3>
+
 </div>
 <div class="sect2">
 <h3 id="discovery">Discovery</h3>
 
 </div>
 <div class="sect2">
-<h3 id="transports">Transports</h3>
-
-</div>
-<div class="sect2">
-<h3 id="client-protocols">Client Protocols</h3>
-
-</div>
-<div class="sect2">
-<h3 id="server-protocol">Server Protocol</h3>
+<h3 id="transport-client">Transport client</h3>
 <div class="sect3">
-<h4 id="server-stacks">Server Stacks</h4>
+<h4 id="shared-channel-multiplex-optional">Shared channel/ multiplex (optional)</h4>
 
 </div>
 <div class="sect3">
-<h4 id="default-protocol">Default Protocol</h4>
+<h4 id="load-balancing-optional">Load Balancing (optional)</h4>
 
 </div>
 </div>
 <div class="sect2">
-<h3 id="optional-features">Optional Features</h3>
-<div class="sect3">
-<h4 id="wiretap">Wiretap</h4>
+<h3 id="implement-the-api-type">Implement the API type</h3>
+
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="server-components">Server Components</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="server-stacks">Server Stacks</h3>
+
+</div>
+<div class="sect2">
+<h3 id="discovery-2">Discovery</h3>
+
+</div>
+<div class="sect2">
+<h3 id="server-side-api">Server side api</h3>
+
+</div>
+<div class="sect2">
+<h3 id="shared-channel-multiplex-required">Shared channel/ multiplex (required)</h3>
+
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="implementing-an-api-type">Implementing an API type</h2>
+<div class="sectionbody">
 
 </div>
 </div>
 <div class="sect1">
-<h2 id="optional-features-2">Optional Features</h2>
+<h2 id="introspection-api">Introspection api</h2>
 <div class="sectionbody">
-<div class="sect3">
-<h4 id="wiretap-2">Wiretap</h4>
-
+<div class="paragraph">
+<p>Once you have finished all aspects of this guide, you will have a fully working Muon. Unfortunately, it won&#8217;t actually do that much!  For it to be useful, you have to implement one of the api protocols on top of it. For the server side, you should have a minimal introspection all at the very least. Introspection is a <strong>required</strong> API, and all Muon server implementations must have a basic introspection capability at the very least.</p>
+</div>
+<div class="paragraph">
+<p>Each Muon api is very different in the way it operates, but they all share common defining features. They all connect to one or more other Muon service, by opening channels to them, and then exchange messages according to their own internally defined messaging protocol.  In order to implement an existing api, you need to understand its messaging protocol and data schemas. Then, you can implement the protocol, and design a user facing api that is idiomatic in your runtime.</p>
 </div>
 </div>
 </div>
