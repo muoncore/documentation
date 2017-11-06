@@ -136,25 +136,7 @@
           
             <li>
               
-                <a href="/#ce">OSS/ CE</a>
-              
-
-            </li>
-          
-        
-          
-            <li>
-              
                 <a href="guide/index.html">Guides</a>
-              
-
-            </li>
-          
-        
-          
-            <li>
-              
-                <a href="/pro.html">Pro</a>
               
 
             </li>
@@ -234,27 +216,80 @@
     
 
     <div id='main' role='main'>
-      <div class='full'>
-  <div class='row' style="text-align: center;">
-    <div  style="text-align: center; font-weight:bolder; font-size:1.2em" class='large-12 columns large'>
-      <div>Reactive APIs | <i>Message Driven, Beyond HTTP and RPC</i></div><br/>
-      <div>Data | Scale | Resilience</div><br/>
-      <div>Any Infrastructure | Choose Your Language</div>
-    </div>
-  </div>
-</div>
+      <style>
+  .row-large {
+    max-width: 120rem
+  }
+  .full {
+    margin-bottom: 10px;
+  }
+
+  .vids div {
+    /*float:left;*/
+  }
+
+  .vid {
+    display: inline-block;
+    width: 365px;
+    vertical-align: top;
+  }
+</style>
 
 <div class='full'>
-  <div class='row' style="text-align: center;">
-    <div  style="text-align: left;" class='large-12 columns large'>
-      <div class="markdown">
-        <p>Muon is easy and fun for developers, while giving architects the ability to solve general problems 
-systemically. Between them they can deliver on the <strong><em>promises of Microservices</em></strong>, speed and effective use of the cloud, using the Muon ecosystem.</p>
-
-      </div>
+  <div class='row row-large' style="text-align: center;">
+    <div  style="text-align: center; line-height: 1.2em; font-size:1.5em" class='large-6 columns large'>
+      <div style="margin-top:5px"><b>HTTP is not enough</b> to build Modern Distributed Systems</div><br/>
+      <div style="margin-top:5px"><b>Message Driven Systems enable scale</b>, but are hard to manage as Message API do not exist, or tooling is minimal</div><br/>
+      <div style="margin-top:5px"><b>Muon gives the benefits of APIs for Message Driven, Reactive Systems</b></div>
     </div>
+    <div id="ytplayer"></div><br/>
+    <div style="text-align: center;margin-left:auto;margin-right:100px; width:640px;line-height: 1.2em;">Project founder <a href="http://twitter.com/davidthecoder" target="_blank">David Dawson</a> on the motivations for Muon Building Reactive APIs</div>
   </div>
 </div>
+
+
+<div class='full vids' style="background:#eef">
+  <div class='row row-large ' style="text-align: center;">
+    <div  style="text-align: left;" class='large-12 columns large'>
+      
+      <div class="vid">
+        <h3>Muon and Java</h3>
+        <img src="/images/comingsoon.jpg"/>
+        <div id="M7lc1UVf-VE"></div>
+        <p>Learn how you can use Muon in Java applications</p>
+      </div>
+      
+      <div class="vid">
+        <h3>Muon and Javascript/ Browser</h3>
+        <img src="/images/comingsoon.jpg"/>
+        <div id="sb-XPYeFyjA"></div>
+        <p>Learn how you can use Muon in the browser to build rich clients</p>
+      </div>
+      
+      <div class="vid">
+        <h3>Managing Resource Usage using Reactive Streams</h3>
+        <img src="/images/comingsoon.jpg"/>
+        <div id="mYoEp5ytEaU"></div>
+        <p>Take Reactive Streams, networked and polyglot. Use Akka, Vert.x, RxJava or Kakfa Streams? Check out how you can manage your data in this example using MongoDB Reactive Streams Driver and RxJava in a Microservice and browser system to remove any buffering and increase performance.</p>
+      </div>
+      
+      <div class="vid">
+        <h3>Distributed Events, DDD and Spring Boot using Newton</h3>
+        <img src="/images/comingsoon.jpg"/>
+        <div id="mYoEp5ytEaU"></div>
+        <p>Built on the Muon Event Log API, Newton implements a variety of DDD patterns natively in Spring Boot.</p>
+      </div>
+      
+
+        <div id="vidtesting"></div>
+        <div id="videvents"></div>
+        <div id="vidgettingstarted"></div>
+    </div>
+
+  </div>
+  <div style="clear:left;">&nbsp;</div>
+</div>
+<div style="clear:left;">&nbsp;</div>
 <div class='full no-padding'>
 
   <div class='row' style="text-align: left;">
@@ -729,26 +764,6 @@ systemically. Between them they can deliver on the <strong><em>promises of Micro
   </div>
 </div>
 -->
-<a id='ce'></a>
-<div class='full'>
-  <div class='row' style="text-align: left;">
-    <div  style="text-align: center;" class='large-12 columns large'>
-      <div class='spacing'></div>
-      <div class='alt mod modSectionHeader'>
-  <div class='special-title centered-text'>
-    <h2 style=''>
-      Muon CE
-    </h2>
-  </div>
-</div>
-      <div class='spacing'></div>
-      <div class="markdown" style='font-size: 1.6rem'>
-        Muon was conceived and built in the open source community. Muon CE is the core of the system, delivering immense value,
-        at no up front cost to you.  It is licensed using the LGPL, a free software license from the GNU project.
-      </div>
-    </div>
-  </div>
-</div>
 
 <div class='full'>
   <div class='spacing'></div>
@@ -789,6 +804,45 @@ systemically. Between them they can deliver on the <strong><em>promises of Micro
     <div class='spacing'></div>
   </div>
 </div>
+
+
+<script>
+  // Load the IFrame Player API code asynchronously.
+  var tag = document.createElement('script');
+  tag.src = "https://www.youtube.com/player_api";
+  var firstScriptTag = document.getElementsByTagName('script')[0];
+  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+  function load(tag, target, height, width) {
+    player = new YT.Player(tag, {
+      height: height,
+      width: width,
+      videoId: target
+    });
+  }
+
+  function vid(tag, target) {
+    load(tag, target, 180, 320)
+  }
+
+  function onYouTubePlayerAPIReady() {
+    load('ytplayer', 'OFV-1cpjQRk', 360, 640)
+
+//    
+//
+//    vid('M7lc1UVf-VE', 'M7lc1UVf-VE')
+//    
+//
+//    vid('sb-XPYeFyjA', 'sb-XPYeFyjA')
+//    
+//
+//    vid('mYoEp5ytEaU', 'mYoEp5ytEaU')
+//    
+//
+//    vid('mYoEp5ytEaU', 'mYoEp5ytEaU')
+//    
+  }
+</script>
 
     </div>
 

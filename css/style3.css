@@ -3468,7 +3468,9 @@ body ul.sequence-canvas .button.medium.success {
 }
 
 
+
 @media only screen and (max-width: 700px) {
+
   .modBlogPost.big .content {
     padding:0 15px;
   }
@@ -3483,3 +3485,4 @@ body ul.sequence-canvas .button.medium.success {
 @media only screen and (min-width: 1450px) {
 
 }
+
