@@ -1,4 +1,8 @@
 
+publish:
+	$(MAKE) -C java publish
+	#$(MAKE) -C javascript publish-snapshot
+
 publish-snapshot:
 	$(MAKE) -C java publish-snapshot
 	$(MAKE) -C javascript publish-snapshot

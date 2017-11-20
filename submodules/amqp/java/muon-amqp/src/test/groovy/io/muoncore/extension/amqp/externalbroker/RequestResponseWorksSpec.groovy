@@ -13,7 +13,6 @@ import io.muoncore.extension.amqp.DefaultServiceQueue
 import io.muoncore.extension.amqp.MyTestClass
 import io.muoncore.extension.amqp.rabbitmq09.RabbitMq09ClientAmqpConnection
 import io.muoncore.extension.amqp.rabbitmq09.RabbitMq09QueueListenerFactory
-import reactor.Environment
 import spock.lang.Ignore
 
 import java.util.concurrent.TimeUnit
@@ -31,8 +30,6 @@ class RequestResponseWorksSpec extends BaseEmbeddedBrokerSpec {
     }
 
     def "high level request response protocol works"() {
-
-        Environment.initializeIfEmpty()
 
         def svc1 = createMuon("simples")
         def svc2 = createMuon("tombolana")

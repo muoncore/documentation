@@ -122,7 +122,7 @@ public class RabbitMq09ClientAmqpConnection implements AmqpConnection {
                         try {
                             connection.close();
                         } catch (Exception e) {
-                            log.debug("Error closing connection", e);
+                            log.debug("When cleaning existing connection, received error. This wil be ignored while reconnecting to broker: {}", e.getMessage());
                         }
                         channel = null;
                         connection = null;

@@ -19,7 +19,10 @@ describe("Gateway tests", function () {
                 hostname: "localhost"
             }}
 
+        require("muon-amqp").attach(muoncore)
+
         muon = muoncore.create("gateway-testing", amqpurl);
+        require("muon-stack-rpc").create(muon)
         muon.handle('/tennis', function (event, respond) {
             logger.warn('*****  muon://service/tennis: muoncore-test.js *************************************************');
             logger.warn('rpc://service/tennis server responding to event=' + JSON.stringify(event));
@@ -27,6 +30,7 @@ describe("Gateway tests", function () {
         });
 
         muon2 = muoncore.create("target-service-muonjs", amqpurl);
+        require("muon-stack-rpc").create(muon2)
         muon2.handle('/tennis', function (event, respond) {
             logger.warn('*****  muon://service/tennis: muoncore-test.js *************************************************');
             logger.warn('rpc://service/tennis server responding to event=' + JSON.stringify(event));
@@ -46,7 +50,7 @@ describe("Gateway tests", function () {
     it("functional check", function (done) {
 
         var clientmuon = require("../src/index").client({port: 56078})
-
+        require("muon-stack-rpc").create(clientmuon)
         var promise = clientmuon.request('rpc://target-service-muonjs/tennis', "ping");
 
         promise.then(function (response) {

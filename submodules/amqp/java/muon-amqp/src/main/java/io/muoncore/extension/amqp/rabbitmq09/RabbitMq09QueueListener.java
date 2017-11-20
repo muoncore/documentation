@@ -46,7 +46,7 @@ public class RabbitMq09QueueListener implements QueueListener {
     public void run() {
         channel.executeOnEveryConnect(channel -> {
             try {
-                log.debug("Opening Queue: " + queueName);
+                log.trace("Opening Queue: " + queueName);
                 channel.queueDeclare(queueName, false, false, true, null);
                 channel.addShutdownListener(cause -> {
                     log.error("AMQP Channel is shut down by its connnection {}", cause.getMessage());
@@ -71,7 +71,7 @@ public class RabbitMq09QueueListener implements QueueListener {
                                 newHeaders.put(entry.getKey(), entry.getValue().toString());
                             });
 
-                            log.debug("Receiving message on " + queueName + " of type " + newHeaders.get("eventType"));
+                            log.trace("Receiving message on {} of type {} ", queueName, newHeaders);
 
                             listener.exec(new QueueListener.QueueMessage(queueName, body, newHeaders));
 

@@ -64,7 +64,6 @@ public class AmqpDiscovery implements Discovery {
           Thread.sleep(4000);
           executedOnReady = true;
           if (onReady != null) {
-            log.debug("On Ready will now be called.");
             onReady.call();
           }
         } catch (Exception e) {

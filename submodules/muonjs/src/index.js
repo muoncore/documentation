@@ -137,8 +137,9 @@ module.exports.client = function(conf) {
     var host = window.location.hostname
 
     var port = conf.port || 9999
-    
-    var basews = "http://" + host + ":" + port
+    var scheme = window.location.protocol
+
+    var basews = scheme + "//" + host + ":" + port
     
     var serviceName = "browser-instance"
     var websockurl = basews + "/transport"
@@ -159,5 +160,8 @@ module.exports.client = function(conf) {
         }
     }
     
-    return Muon.api(serviceName, infrastructure)
+    var muon = Muon.api(serviceName, infrastructure)
+    require("muon-stack-rpc").create(muon)
+    require("muon-stack-reactive-streams").create(muon)
+    return muon;
 }

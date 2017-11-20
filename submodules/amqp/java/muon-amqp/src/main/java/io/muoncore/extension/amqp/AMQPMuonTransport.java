@@ -5,6 +5,7 @@ import io.muoncore.ServiceDescriptor;
 import io.muoncore.channel.Channel;
 import io.muoncore.channel.ChannelConnection;
 import io.muoncore.channel.Channels;
+import io.muoncore.channel.Dispatchers;
 import io.muoncore.channel.impl.KeepAliveChannel;
 import io.muoncore.channel.support.Scheduler;
 import io.muoncore.codec.Codecs;
@@ -80,7 +81,7 @@ public class AMQPMuonTransport implements MuonTransport {
 
         channel.initiateHandshake(serviceName, protocol);
         channels.add(channel);
-        Channel<MuonOutboundMessage, MuonInboundMessage> intermediate = new KeepAliveChannel(Channels.EVENT_DISPATCHER, protocol, scheduler);
+        Channel<MuonOutboundMessage, MuonInboundMessage> intermediate = new KeepAliveChannel(Dispatchers.dispatcher(), protocol, scheduler);
 
         Channels.connect(intermediate.right(), channel);
 
@@ -101,11 +102,10 @@ public class AMQPMuonTransport implements MuonTransport {
                     serverStacks.openServerChannel(handshake.getProtocol());
 
             Channel<MuonOutboundMessage, MuonInboundMessage> keepAliveChannel =
-                    new KeepAliveChannel(Channels.EVENT_DISPATCHER, handshake.getProtocol(), scheduler);
+                    new KeepAliveChannel(Dispatchers.dispatcher(), handshake.getProtocol(), scheduler);
 
             AmqpChannel amqpChannel = channelFactory.createChannel();
 
-//            Channels.connect(amqpChannel, serverChannelConnection);
             Channels.connect(amqpChannel, keepAliveChannel.right());
             Channels.connect(serverChannelConnection, keepAliveChannel.left());
 

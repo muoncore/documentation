@@ -17,14 +17,13 @@ version = '1.0'
 
 repositories {
     jcenter()
-    maven { url 'https://simplicityitself.artifactoryonline.com/simplicityitself/muon' }
-    maven { url 'https://simplicityitself.artifactoryonline.com/simplicityitself/muon-snapshot' }
+    maven { url 'http://artifactory.cloud.daviddawson.me/artifactory/muon' }
 }
 
 dependencies {
-    def muonVersion = "7.3.0"
-    compile "io.muoncore:muon-core:$muonVersion"
-    compile "io.muoncore.protocol:stack-event:0.0.1-SNAPSHOT"
+    def muonVersion = "7.4.1"
+    compile "io.muoncore:muon-core:7.4.1"
+    compile "io.muoncore.protocol:stack-event:0.0.4"
 
     compile 'org.slf4j:slf4j-simple:1.7.21'
     compile "org.codehaus.groovy:groovy:2.4.7"
@@ -45,17 +44,76 @@ publishing {
     publications {
         mavenJava(MavenPublication) {
             from components.java
+          artifact sourceJar {
+            classifier "sources"
+          }
+          pom.withXml {
+            asNode().appendNode('name', "Muon Test Event Store")
+            asNode().appendNode('description', 'Muon is a toolkit for building highly portable, polyglot, reactive APIs. This provides a purely in memory implementation of the Event Log API, for testing purposes')
+            asNode().appendNode('url', 'http://muoncore.io')
+            def license = asNode().appendNode("licenses").appendNode("license")
+            license.appendNode("name", "The GNU Lesser General Public License, Version 3.0")
+            license.appendNode("url", "http://www.gnu.org/licenses/lgpl-3.0.txt")
+            license.appendNode("distribution", "repo")
+
+            asNode().appendNode("scm").appendNode("url", "https://github.com/muoncore/test-event-stores")
+
+            def developers = asNode().appendNode("developers")
+            def dev = developers.appendNode("developer")
+            dev.appendNode("name", "Muon Developers")
+            dev.appendNode("email", "info@muoncore.io")
+            dev.appendNode("organization", "Muon Project")
+            dev.appendNode("organizationUrl", "http://muoncore.io")
+          }
         }
     }
 }
 
+task sourceJar(type: Jar) {
+  from sourceSets.main.allJava
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+  classifier = 'javadoc'
+  from javadoc.destinationDir
+}
+
+task packageJavadoc(type: Jar) {
+  from javadoc
+  classifier = 'javadoc'
+}
+
+javadoc {
+  source = sourceSets.main.allJava
+  classpath = configurations.compileClasspath
+
+  options
+    {
+      setMemberLevel JavadocMemberLevel.PUBLIC
+      setAuthor true
+
+      links "https://docs.oracle.com/javase/8/docs/api/"
+    }
+}
+
+configurations {
+  published
+}
+
+artifacts {
+  published sourceJar
+  published javadocJar
+}
+
+
+
 artifactory {
-    contextUrl = 'https://simplicityitself.artifactoryonline.com/simplicityitself/'   //The base Artifactory URL if not overridden by the publisher/resolver
+    contextUrl = 'http://artifactory.cloud.daviddawson.me/artifactory/'   //The base Artifactory URL if not overridden by the publisher/resolver
     publish {
         repository {
             repoKey = 'muon'   //The Artifactory repository key to publish to
-            username = 'sergio'          //The publisher user name
-            password = 'cistechfutures'       //The publisher password
+          username = artifactoryUser          //The publisher user name
+          password = artifactoryPass       //The publisher password
         }
         defaults {
             publications ('mavenJava')

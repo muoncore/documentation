@@ -235,24 +235,7 @@ language.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="java"><span style="color: #008000; font-weight: bold">public</span> <span style="color: #008000; font-weight: bold">class</span> <span style="color: #0000FF; font-weight: bold">MuonServerExample</span> <span style="color: #666666">{</span>
-
-
-    <span style="color: #008000; font-weight: bold">public</span> <span style="color: #008000; font-weight: bold">static</span> <span style="color: #B00040">void</span> <span style="color: #0000FF">main</span><span style="color: #666666">(</span>String<span style="color: #666666">[]</span> args<span style="color: #666666">)</span> <span style="color: #008000; font-weight: bold">throws</span> Exception <span style="color: #666666">{</span>
-        AutoConfiguration config <span style="color: #666666">=</span> MuonConfigBuilder
-                      <span style="color: #666666">.</span><span style="color: #7D9029">withServiceIdentifier</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;example-service&quot;</span><span style="color: #666666">).</span><span style="color: #7D9029">build</span><span style="color: #666666">();</span> <i class="conum" data-value="1"></i><b>(1)</b>
-
-        Muon muon <span style="color: #666666">=</span> MuonBuilder<span style="color: #666666">.</span><span style="color: #7D9029">withConfig</span><span style="color: #666666">(</span>config<span style="color: #666666">).</span><span style="color: #7D9029">build</span><span style="color: #666666">();</span>              <i class="conum" data-value="2"></i><b>(2)</b>
-
-        muon<span style="color: #666666">.</span><span style="color: #7D9029">handleRequest</span><span style="color: #666666">(</span>all<span style="color: #666666">(),</span> request <span style="color: #666666">-&gt;</span> <span style="color: #666666">{</span>                           <i class="conum" data-value="3"></i><b>(3)</b>
-            System<span style="color: #666666">.</span><span style="color: #7D9029">out</span><span style="color: #666666">.</span><span style="color: #7D9029">println</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;A request has been made &quot;</span><span style="color: #666666">);</span>
-            Map data <span style="color: #666666">=</span> <span style="color: #008000; font-weight: bold">new</span> <span style="color: #0000FF">HashMap</span><span style="color: #666666">();</span>
-            data<span style="color: #666666">.</span><span style="color: #7D9029">put</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;Hello&quot;</span><span style="color: #666666">,</span> <span style="color: #BA2121">&quot;world &quot;</span> <span style="color: #666666">+</span> System<span style="color: #666666">.</span><span style="color: #7D9029">currentTimeMillis</span><span style="color: #666666">());</span>
-            request<span style="color: #666666">.</span><span style="color: #7D9029">ok</span><span style="color: #666666">(</span>data<span style="color: #666666">);</span>                                            <i class="conum" data-value="4"></i><b>(4)</b>
-        <span style="color: #666666">});</span>
-        System<span style="color: #666666">.</span><span style="color: #7D9029">out</span><span style="color: #666666">.</span><span style="color: #7D9029">println</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;Use Ctrl-C to exit&quot;</span><span style="color: #666666">);</span>
-    <span style="color: #666666">}</span>
-<span style="color: #666666">}</span></code></pre>
+<pre class="pygments highlight"><code data-lang="java">Unresolved directive in intro<span style="color: #666666">.</span><span style="color: #7D9029">adoc</span> <span style="color: #666666">-</span> <span style="color: #A0A000">include:</span><span style="color: #666666">:{</span>includedir<span style="color: #666666">}/</span>src<span style="color: #666666">/</span>main<span style="color: #666666">/</span>java<span style="color: #666666">/</span>io<span style="color: #666666">/</span>muoncore<span style="color: #666666">/</span>example<span style="color: #666666">/</span>MuonServerExample<span style="color: #666666">.</span><span style="color: #7D9029">java</span><span style="color: #666666">[</span>tags<span style="color: #666666">=</span>main<span style="color: #666666">]</span></code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -263,14 +246,26 @@ language.</p>
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>Construct a Muon instance from the config. It will appear in the network soon after this.</td>
+<td>Configure the AMQP transport to connect to the correct broker (see transport, below)</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>Setup an RPC Protocol Handler, for all request paths.</td>
+<td>Configure the AMQP discovery to connect to the correct broker (see discovery, below)</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Create a Muon instance on the AMQP transport/ discovery</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>Add an RPC Server to this Muon instance                       (see protocols, below)</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="6"></i><b>6</b></td>
+<td>Add an RPC endpoint to the server</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="7"></i><b>7</b></td>
 <td>When invoked, respond to the RPC request with some manufactured data.</td>
 </tr>
 </table>
@@ -288,8 +283,11 @@ language.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="bash">&gt; muon rpc rpc://example-service/</code></pre>
+<pre class="pygments highlight"><code data-lang="bash">&gt; muon rpc example-service /</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>This accesses the <code>rpc</code> protocol and interacts with the <code>/</code> endpoint</p>
 </div>
 <div class="paragraph">
 <p>You will see the results from the example service that should look like</p>

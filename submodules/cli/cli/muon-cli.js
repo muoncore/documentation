@@ -11,7 +11,7 @@ var Joi = require('joi');
 var _ = require('underscore');
 var util = require('util');
 var Table = require('cli-table');
-var uuid = require('node-uuid');
+var uuid = require('uuid');
 
 var rpc = require("./actions/rpc")
 var builtin = require("./actions/builtin")
@@ -26,7 +26,8 @@ var cliobj;
 
 cli.parse({
     // discover:   ['d', 'discover muon services'],
-    raw: ['r', "Output raw, no decoration. Suitable for post processing"]
+    raw: ['r', "Output raw, no decoration. Suitable for post processing"],
+    auth: ['a', "Add an auth token to the protocol connection, if supported by the protocol. SHould be of the form {'provider': 'token':'XXX'}", "string", ""]
   },
   {
     "introspect": "Obtain introspection information for a service, showing implemented protocols and endpoints",

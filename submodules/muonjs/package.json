@@ -1,6 +1,6 @@
 {
   "name": "muonjs",
-  "version": "7.2.6",
+  "version": "7.3.0-78",
   "description": "Muon in the Browser, Requires a functional muon.js gateway",
   "main": "src/index.js",
   "scripts": {
@@ -20,30 +20,36 @@
     "browser"
   ],
   "dependencies": {
-    "sexylog": "0.0.3",
-    "muon-core": "7.2.6",
-    "underscore": "*",
+    "muon-core": "^7.3.0-76",
+    "muon-stack-reactive-streams": "0.0.2-48",
+    "muon-stack-rpc": "0.0.2-34",
     "node-uuid": "*",
+    "rsvp": "*",
+    "sexylog": "0.0.3",
     "sockjs": "*",
     "sockjs-client": "*",
-    "rsvp": "*"
+    "underscore": "*",
+    "uuid": "^3.1.0"
   },
   "devDependencies": {
-    "async-rq": "*",
-    "minifier": "*",
-    "envify": "~1.2.1",
-    "babel-preset-react": "^6.5.0",
-    "babel-preset-es2015": "*",
-    "babelify": "^7.2.0",
-    "express": "^4.4.5",
+    "amqp": "^0.2.6",
+    "amqplib": "^0.5.1",
     "assert": "*",
+    "async-rq": "*",
     "babel": "^6.5.2",
     "babel-core": "^6.4.5",
-    "mocha": "*",
+    "babel-preset-es2015": "*",
+    "babel-preset-react": "^6.5.0",
+    "babelify": "^7.2.0",
     "browserify": "*",
-    "loose-envify": "*",
+    "envify": "~1.2.1",
+    "express": "^4.4.5",
+    "jquery": "3.1.0",
     "json-markup": "1.0.0",
-    "jquery": "3.1.0"
+    "loose-envify": "*",
+    "minifier": "*",
+    "mocha": "*",
+    "muon-amqp": "0.0.1-18"
   },
   "author": "Muon Core Ltd",
   "license": "AGPLv2",

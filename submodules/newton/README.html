@@ -227,34 +227,54 @@
 <td class="tableblock halign-left valign-top"><p class="tableblock">License</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="image"><img src="https://img.shields.io/teamcity/http/teamcity.simplicityitself.com/e/OpenSource_Newton_PublishSnapshot.svg" alt="Status"></span></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="image"><img src="https://img.shields.io/github/license/muoncore/newton.svg" alt="newton"></span></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="image"><img src="https://img.shields.io/teamcity/http/teamcity.cloud.daviddawson.me/e/OpenSource_Newton_PublishSnapshot.svg" alt="Status"></span></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="image"><img src="https://img.shields.io/github/license/muoncore/muon-spring.svg" alt="muon spring"></span></p></td>
 </tr>
 </tbody>
 </table>
-<h1 id="newton" class="sect0">Newton</h1>
+<h1 id="what-is-muon" class="sect0">What is Muon</h1>
 <div class="paragraph">
-<p>Newton is a Polyglot Distributed DDD Framework designed for building complex event based Microservice applications using CQRS principles, Event Sourcing and Stream Processing.</p>
+<p>Microservices today are optimised for building systems that can continue to change as you need them to. To achieve this, you decompose an application into its component parts, then recompose it back together again using some form of integration technology. The most common form of integration today is RPC based, whether HTTP, gRPC or one of its friends.</p>
 </div>
 <div class="paragraph">
-<p>It provides Event Sourced Aggregates, Stream Processed Views and Distributed Sagas. It enables you to build highly complex transactional systems that are naturally distributed, event oriented and give event based transactional semantics.</p>
+<p>RPC is a fairly simplistic model for integration, with well known flaws and foibles. The other options, messaging and event collaboration are much harder to get started with, and so are often avoided until the "v2 rewrite". Muon lets you adopt messaging and events from the start of a project, by making it easy to do the right thing with them.</p>
 </div>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Master Build</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">License</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="image"><img src="https://img.shields.io/teamcity/http/teamcity.simplicityitself.com/e/OpenSource_MuonReleases_Libraries_StackStreamSnapshot.svg" alt="Status"></span></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="image"><img src="https://img.shields.io/github/license/muoncore/stack-reactive-streams.svg" alt="stack reactive streams"></span></p></td>
-</tr>
-</tbody>
-</table>
+<div class="paragraph">
+<p>Muon is fully polyglot and enables you to build and use much richer <strong><em>message based APIs</em></strong> to recompose your distributed system in highly performant, rich communication styles, beyond RPC.</p>
+</div>
+<div class="paragraph">
+<p>Muon Spring lets you use, expose and interact with these APIs in various forms and gives helpers for using them in a Spring project.  It has particular support for using persisted event streams as described at <a href="https://github.com/muoncore/stack-event" class="bare">https://github.com/muoncore/stack-event</a></p>
+</div>
+<div class="sect1">
+<h2 id="event-systems">Event Systems</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The Muon Event Protocol provides a muon api for creating and consuming persisted event streams. These can be used to implement Event Sourcing, stream processing and other techniques.</p>
+</div>
+<div class="paragraph">
+<p>Muon Spring uses this API to provide a set of DDD patterns. Notably :-</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Event Sourced Aggregates</p>
+</li>
+<li>
+<p>Stream Processed Views</p>
+</li>
+<li>
+<p>Distributed Sagas.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>It enables you to build highly complex transactional systems that are naturally distributed, event oriented and give event based transactional semantics.</p>
+</div>
+<div class="paragraph">
+<p>These integrate well with the other Muon APIs, enabling you to interact easily with other services written in other languages.</p>
+</div>
+</div>
+</div>
     </div>
 
     

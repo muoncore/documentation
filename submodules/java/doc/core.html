@@ -217,24 +217,57 @@
 
     <div id='main' role='main'>
       <div class="sect1">
-<h2 id="core-features">Core Features</h2>
+<h2 id="of-apis-and-protocols">Of APIs and Protocols</h2>
 <div class="sectionbody">
-<div class="sect2">
-<h3 id="reactive-rpc">Reactive RPC</h3>
 <div class="paragraph">
-<p>Request/ Response is a well understood communication style where you make a single request and expect to receive a single resonse</p>
+<p>Muon, at heart, is a toolkit for building new <em>Reactive APIs</em>. These are message based and give the ability to build true APIs that confirm to the guiding principles of the Reactive Manifesto.</p>
+</div>
+<div class="paragraph">
+<p>To get you started, Muon provides a set of prebuilt types of API that give you semantics beyond HTTP or other RPCish protocols</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Reactive Streams. Managed Streaming, with explicit client controlled back-pressure. Follows the Reactive Streams semantics and in Muon Java, fully supports the interfaces. - <a href="https://github.com/muoncore/stack-reactive-streams" class="bare">https://github.com/muoncore/stack-reactive-streams</a></p>
+</li>
+<li>
+<p>Extended RPC - <a href="http://github.com/muoncore/stack-rpc" class="bare">http://github.com/muoncore/stack-rpc</a></p>
+</li>
+<li>
+<p>Persisted Event Logs - <a href="http://github.com/muoncore/stack-event" class="bare">http://github.com/muoncore/stack-event</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Once you have constructed a Muon instance, connected it to a Discovery and enabled some transport, you can begin to wrap it with Protocols. This give different types of behaviour, richer semantics.</p>
+</div>
+<div class="paragraph">
+<p>In addition to the ones described here, you can write your own!</p>
+</div>
+<div class="sect2">
+<h3 id="example-protocols">Example Protocols</h3>
+<div class="paragraph">
+<p>Here we look at RPC and Reactive Streams. These are hosted at  <a href="http://github.com/muoncore/stack-rpc" class="bare">http://github.com/muoncore/stack-rpc</a> and <a href="http://github.com/muoncore/stack-reactive-streams" class="bare">http://github.com/muoncore/stack-reactive-streams</a></p>
+</div>
+<div class="paragraph">
+<p>You will find the Java implementations alongside implementations for other Muon implementations of those API types.</p>
+</div>
+<div class="sect3">
+<h4 id="rpc">RPC</h4>
+<div class="paragraph">
+<p>Request/ Response is a well understood communication style where you make a single request and expect to receive a single response</p>
 </div>
 <div class="paragraph">
 <p>Muon supports this style of communication, over it&#8217;s naturally scalable reactive and event based channel communication.</p>
 </div>
-<div class="sect3">
-<h4 id="simple-rpc">Simple RPC</h4>
+<div class="sect4">
+<h5 id="simple-rpc">Simple RPC</h5>
 <div class="paragraph">
-<p>Here is the simplest possible Muon RPC endpoint. It accepts any data pushed to it, and responsds with a simple text message</p>
+<p>Here is the simplest possible Muon RPC endpoint. It accepts any data pushed to it, and responds with a simple text message</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="java">Unresolved directive in core<span style="color: #666666">.</span><span style="color: #7D9029">adoc</span> <span style="color: #666666">-</span> <span style="color: #A0A000">include:</span><span style="color: #666666">:</span>src<span style="color: #666666">/</span>main<span style="color: #666666">/</span>java<span style="color: #666666">/</span>io<span style="color: #666666">/</span>muoncore<span style="color: #666666">/</span>example<span style="color: #666666">/</span>ReactiveRPC<span style="color: #666666">.</span><span style="color: #7D9029">java</span><span style="color: #666666">[]</span></code></pre>
+<pre class="pygments highlight"><code data-lang="java">Unresolved directive in core<span style="color: #666666">.</span><span style="color: #7D9029">adoc</span> <span style="color: #666666">-</span> <span style="color: #A0A000">include:</span><span style="color: #666666">:</span>src<span style="color: #666666">/</span>main<span style="color: #666666">/</span>java<span style="color: #666666">/</span>io<span style="color: #666666">/</span>muoncore<span style="color: #666666">/</span>example<span style="color: #666666">/</span>ReactiveRPC<span style="color: #666666">.</span><span style="color: #7D9029">java</span><span style="color: #666666">[</span>tags<span style="color: #666666">=</span>server<span style="color: #666666">]</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -242,15 +275,15 @@
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="java">Unresolved directive in core<span style="color: #666666">.</span><span style="color: #7D9029">adoc</span> <span style="color: #666666">-</span> <span style="color: #A0A000">include:</span><span style="color: #666666">:</span>src<span style="color: #666666">/</span>main<span style="color: #666666">/</span>java<span style="color: #666666">/</span>io<span style="color: #666666">/</span>muoncore<span style="color: #666666">/</span>example<span style="color: #666666">/</span>ReactiveRPC<span style="color: #666666">.</span><span style="color: #7D9029">java</span><span style="color: #666666">[]</span></code></pre>
+<pre class="pygments highlight"><code data-lang="java">Unresolved directive in core<span style="color: #666666">.</span><span style="color: #7D9029">adoc</span> <span style="color: #666666">-</span> <span style="color: #A0A000">include:</span><span style="color: #666666">:</span>src<span style="color: #666666">/</span>main<span style="color: #666666">/</span>java<span style="color: #666666">/</span>io<span style="color: #666666">/</span>muoncore<span style="color: #666666">/</span>example<span style="color: #666666">/</span>ReactiveRPC<span style="color: #666666">.</span><span style="color: #7D9029">java</span><span style="color: #666666">[</span>tags<span style="color: #666666">=</span>client<span style="color: #666666">]</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>The Response object contains meta data about the reponse, if it succeeded.</p>
+<p>The Response object contains meta data about the response, eg, if it succeeded.</p>
 </div>
 </div>
-<div class="sect3">
-<h4 id="making-it-reactive">Making it Reactive</h4>
+<div class="sect4">
+<h5 id="making-it-reactive">Making it Reactive</h5>
 <div class="paragraph">
 <p>The handler does not need to response synchronously as in the above example. The response can be invoked from any context, and by any thread.</p>
 </div>
@@ -262,8 +295,28 @@
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="java">Unresolved directive in core<span style="color: #666666">.</span><span style="color: #7D9029">adoc</span> <span style="color: #666666">-</span> <span style="color: #A0A000">include:</span><span style="color: #666666">:</span>src<span style="color: #666666">/</span>main<span style="color: #666666">/</span>java<span style="color: #666666">/</span>io<span style="color: #666666">/</span>muoncore<span style="color: #666666">/</span>example<span style="color: #666666">/</span>ReactiveRPCAsync<span style="color: #666666">.</span><span style="color: #7D9029">java</span><span style="color: #666666">[]</span></code></pre>
+<pre class="pygments highlight"><code data-lang="java">Unresolved directive in core<span style="color: #666666">.</span><span style="color: #7D9029">adoc</span> <span style="color: #666666">-</span> <span style="color: #A0A000">include:</span><span style="color: #666666">:</span>src<span style="color: #666666">/</span>main<span style="color: #666666">/</span>java<span style="color: #666666">/</span>io<span style="color: #666666">/</span>muoncore<span style="color: #666666">/</span>example<span style="color: #666666">/</span>ReactiveRPCAsync<span style="color: #666666">.</span><span style="color: #7D9029">java</span><span style="color: #666666">[</span>tags<span style="color: #666666">=</span>main<span style="color: #666666">]</span></code></pre>
 </div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>As requests arrive, add them to a Queue for processing</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Start a thread to process the requests in serial</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Send a response. This is on a different thread</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Original thread drops out of this method and is re-used by Muon</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>This demonstrates adding the requests onto a queue and processing them asynchronously.</p>
@@ -272,27 +325,9 @@
 <p>Be aware that the request will time out on both the client and server side, depending on your configuration.</p>
 </div>
 </div>
+</div>
 <div class="sect3">
-<h4 id="batch-handling-rpc">Batch handling RPC</h4>
-<div class="paragraph">
-<p>A common failure of RPC based systems is that they attempt to perform too much work in concurrently, and in logical isolation.
-This then ends up causing thread thrashing, overwhelming of the thread pool or overload on some backing data store.</p>
-</div>
-<div class="paragraph">
-<p>Taking the above mechanism to it&#8217;s logical conclusion, it becomes trivial to batch up the processing of request.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="pygments highlight"><code data-lang="java">Unresolved directive in core<span style="color: #666666">.</span><span style="color: #7D9029">adoc</span> <span style="color: #666666">-</span> <span style="color: #A0A000">include:</span><span style="color: #666666">:</span>src<span style="color: #666666">/</span>main<span style="color: #666666">/</span>java<span style="color: #666666">/</span>io<span style="color: #666666">/</span>muoncore<span style="color: #666666">/</span>example<span style="color: #666666">/</span>ReactiveRPCBatch<span style="color: #666666">.</span><span style="color: #7D9029">java</span><span style="color: #666666">[]</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>This example will, every 5 seconds, drain the queue, generate a single answer and send it to all of them.</p>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="reactive-streams">Reactive Streams</h3>
+<h4 id="reactive-streams">Reactive Streams</h4>
 <div class="paragraph">
 <p>Muon is built to enable the creation of streams easily. Internally everything is treated as a <em>channel</em>, a naturally streaming
 construction.</p>
@@ -305,94 +340,66 @@ construction.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="java">Unresolved directive in core<span style="color: #666666">.</span><span style="color: #7D9029">adoc</span> <span style="color: #666666">-</span> <span style="color: #A0A000">include:</span><span style="color: #666666">:</span>src<span style="color: #666666">/</span>main<span style="color: #666666">/</span>java<span style="color: #666666">/</span>io<span style="color: #666666">/</span>muoncore<span style="color: #666666">/</span>example<span style="color: #666666">/</span>ReactiveStreams<span style="color: #666666">.</span><span style="color: #7D9029">java</span><span style="color: #666666">[]</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Here, we use <em>Spring Reactor</em> to demonstrate the creation of a Publisher, however any Reactive Streams compatible framework or library could
-be used.</p>
-</div>
-<div class="paragraph">
-<p>To access the data from another service, use the subscribe method, passing in the logical Muon discovery url.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="pygments highlight"><code data-lang="java">Unresolved directive in core<span style="color: #666666">.</span><span style="color: #7D9029">adoc</span> <span style="color: #666666">-</span> <span style="color: #A0A000">include:</span><span style="color: #666666">:</span>src<span style="color: #666666">/</span>main<span style="color: #666666">/</span>java<span style="color: #666666">/</span>io<span style="color: #666666">/</span>muoncore<span style="color: #666666">/</span>example<span style="color: #666666">/</span>ReactiveStreams<span style="color: #666666">.</span><span style="color: #7D9029">java</span><span style="color: #666666">[]</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Again, this example uses Java and shows two separate services communicating using a reactive message stream, with back pressure support
-managed by Reactor.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="wiretap">Wiretap</h3>
-<div class="paragraph">
-<p>The transport subsystem of Muon injects a WiretapChannel into every connection that is made. This allows you to optionally
-read the messages moving in and out of the transport and further interpret them. The messages themselves are immutable,
-and so you recieve the message itself for processing.</p>
-</div>
-<div class="paragraph">
-<p>Ordinarily, this is used to record the way a service communicates with the rest of the distributed application. This
-is particularly useful when designing and building a new communication protocol.</p>
-</div>
-<div class="paragraph">
-<p>Image a service with a single RPC endpoint that accepts an undefined object data structure, which represent using a Map.
- It then responds inline wth the number 42. A very simple service.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="pygments highlight"><code data-lang="java">Unresolved directive in core<span style="color: #666666">.</span><span style="color: #7D9029">adoc</span> <span style="color: #666666">-</span> <span style="color: #A0A000">include:</span><span style="color: #666666">:</span>src<span style="color: #666666">/</span>main<span style="color: #666666">/</span>java<span style="color: #666666">/</span>io<span style="color: #666666">/</span>muoncore<span style="color: #666666">/</span>example<span style="color: #666666">/</span>Wiretap<span style="color: #666666">.</span><span style="color: #7D9029">java</span><span style="color: #666666">[</span>tags<span style="color: #666666">=</span>setupRPC<span style="color: #666666">]</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>We would like to generate a list of all the services that are calling this one, without altering the business method.</p>
-</div>
-<div class="paragraph">
-<p>We could implement this using a wiretap, this will extract a stream of all the requests that match a particular filter.
-The stream interface provided implements the Reactive Stream interface.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="pygments highlight"><code data-lang="java">Unresolved directive in core<span style="color: #666666">.</span><span style="color: #7D9029">adoc</span> <span style="color: #666666">-</span> <span style="color: #A0A000">include:</span><span style="color: #666666">:</span>src<span style="color: #666666">/</span>main<span style="color: #666666">/</span>java<span style="color: #666666">/</span>io<span style="color: #666666">/</span>muoncore<span style="color: #666666">/</span>example<span style="color: #666666">/</span>Wiretap<span style="color: #666666">.</span><span style="color: #7D9029">java</span><span style="color: #666666">[</span>tags<span style="color: #666666">=</span>wiretap<span style="color: #666666">]</span></code></pre>
+<pre class="pygments highlight"><code data-lang="java">Unresolved directive in core<span style="color: #666666">.</span><span style="color: #7D9029">adoc</span> <span style="color: #666666">-</span> <span style="color: #A0A000">include:</span><span style="color: #666666">:</span>src<span style="color: #666666">/</span>main<span style="color: #666666">/</span>java<span style="color: #666666">/</span>io<span style="color: #666666">/</span>muoncore<span style="color: #666666">/</span>example<span style="color: #666666">/</span>ReactiveStreams<span style="color: #666666">.</span><span style="color: #7D9029">java</span><span style="color: #666666">[</span>tags<span style="color: #666666">=</span>server<span style="color: #666666">]</span></code></pre>
 </div>
 </div>
 <div class="colist arabic">
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>The services that have connected to this one via the RPC endpont.</td>
+<td>Create the ReactiveStreamServer. The protocol is then attached to the running Muon instance and will be visible in the introspection report.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>A Spring Reactor Broadcaster, converting the messages into the list.</td>
+<td>Create a re-usable new RxJava Flowable (which implements <code>Publisher</code>) and expose it on a Muon endpoint.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>Adding the tap into the Muon transport subsystem</td>
+<td>DYnamically generate a <code>Publisher</code>. Parameters can be passed to the endpoint by the client, which allows the endpoint to load data, transform the stream or other tasks before providing the Publisher to be connected to by the remote Subscriber</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="4"></i><b>4</b></td>
-<td>The filter matches for the EventType field on the TransportMessage, picking out particular messages.</td>
+<td>Access the passed params</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>Dynamically build a new <code>Publisher</code></td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>Whenever you then perform an RPC communication, the Request <code><code>TransportMessage</code></code> events will be selected by your wiretap
- and passed into the Subscriber, in this case the Reactor Broadcaster.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="pygments highlight"><code data-lang="java">Unresolved directive in core<span style="color: #666666">.</span><span style="color: #7D9029">adoc</span> <span style="color: #666666">-</span> <span style="color: #A0A000">include:</span><span style="color: #666666">:</span>src<span style="color: #666666">/</span>main<span style="color: #666666">/</span>java<span style="color: #666666">/</span>io<span style="color: #666666">/</span>muoncore<span style="color: #666666">/</span>example<span style="color: #666666">/</span>Wiretap<span style="color: #666666">.</span><span style="color: #7D9029">java</span><span style="color: #666666">[</span>tags<span style="color: #666666">=</span>fireRPC<span style="color: #666666">]</span></code></pre>
-</div>
+<p>Here, we use <em>RxJava</em> to demonstrate the creation of a Publisher, however any Reactive Streams compatible framework or library could be used.</p>
 </div>
 <div class="paragraph">
-<p>As many wiretaps as you like can be active. You may add another Wiretap later on to select the Response messages, and it will then begin
-to receive all the messages required.</p>
+<p>To access the data from another service, use the subscribe method, passing in the logical Muon discovery url.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="java">Unresolved directive in core<span style="color: #666666">.</span><span style="color: #7D9029">adoc</span> <span style="color: #666666">-</span> <span style="color: #A0A000">include:</span><span style="color: #666666">:</span>src<span style="color: #666666">/</span>main<span style="color: #666666">/</span>java<span style="color: #666666">/</span>io<span style="color: #666666">/</span>muoncore<span style="color: #666666">/</span>example<span style="color: #666666">/</span>Wiretap<span style="color: #666666">.</span><span style="color: #7D9029">java</span><span style="color: #666666">[</span>tags<span style="color: #666666">=</span>wiretap2<span style="color: #666666">]</span></code></pre>
+<pre class="pygments highlight"><code data-lang="java">Unresolved directive in core<span style="color: #666666">.</span><span style="color: #7D9029">adoc</span> <span style="color: #666666">-</span> <span style="color: #A0A000">include:</span><span style="color: #666666">:</span>src<span style="color: #666666">/</span>main<span style="color: #666666">/</span>java<span style="color: #666666">/</span>io<span style="color: #666666">/</span>muoncore<span style="color: #666666">/</span>example<span style="color: #666666">/</span>ReactiveStreams<span style="color: #666666">.</span><span style="color: #7D9029">java</span><span style="color: #666666">[</span>tags<span style="color: #666666">=</span>client<span style="color: #666666">]</span></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Subscribe to the given Rx endpoint. Pass in a Reactive Streams <code>Subscriber</code></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Manage back pressure from the client. Here, we just request as much data as possible.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Receive the data. <code>StreamData</code> lets you selectively decode it in various ways to allow heterogeneous data flow over the stream and be correctly decoded.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Subscribe to a dynamic endpoint, passing a parameter in the query string.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Again, this example uses Java and shows two separate services communicating using a reactive message stream, with back pressure support managed by the Reactive Stream Subscriber.</p>
 </div>
 </div>
 </div>

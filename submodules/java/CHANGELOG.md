@@ -1,5 +1,40 @@
 # Change Log
 
+## [Unreleased](https://github.com/muoncore/muon-java/tree/HEAD)
+
+[Full Changelog](https://github.com/muoncore/muon-java/compare/v7.4.0...HEAD)
+
+**Closed issues:**
+
+- Shade/ jarjar dependencies to avoid clashing [\#41](https://github.com/muoncore/muon-java/issues/41)
+
+## [v7.4.0](https://github.com/muoncore/muon-java/tree/v7.4.0) (2017-09-02)
+[Full Changelog](https://github.com/muoncore/muon-java/compare/v7.3.4...v7.4.0)
+
+**Closed issues:**
+
+- Update to generate full pom for maven central [\#65](https://github.com/muoncore/muon-java/issues/65)
+
+**Merged pull requests:**
+
+- Clean dependencies [\#66](https://github.com/muoncore/muon-java/pull/66) ([daviddawson](https://github.com/daviddawson))
+
+## [v7.3.4](https://github.com/muoncore/muon-java/tree/v7.3.4) (2017-08-15)
+[Full Changelog](https://github.com/muoncore/muon-java/compare/v7.3.3...v7.3.4)
+
+**Closed issues:**
+
+- InMem transport.triggerFailure should also cause opening channels to fail [\#63](https://github.com/muoncore/muon-java/issues/63)
+
+## [v7.3.3](https://github.com/muoncore/muon-java/tree/v7.3.3) (2017-08-02)
+[Full Changelog](https://github.com/muoncore/muon-java/compare/v7.3.2...v7.3.3)
+
+**Closed issues:**
+
+- Shared socket server channel does not terminate internal channels appropriately [\#61](https://github.com/muoncore/muon-java/issues/61)
+- If a configured transport or discovery is not present on the classpath. this should be a FATAL [\#56](https://github.com/muoncore/muon-java/issues/56)
+- Add per instance information to discovery and enable per instance connection  [\#43](https://github.com/muoncore/muon-java/issues/43)
+
 ## [v7.3.2](https://github.com/muoncore/muon-java/tree/v7.3.2) (2017-06-25)
 [Full Changelog](https://github.com/muoncore/muon-java/compare/v7.3.1...v7.3.2)
 

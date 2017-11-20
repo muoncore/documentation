@@ -1,5 +1,67 @@
 # Change Log
 
+## [v0.0.15](https://github.com/muoncore/muon-amqp/tree/v0.0.15) (2017-10-07)
+[Full Changelog](https://github.com/muoncore/muon-amqp/compare/v0.0.14...v0.0.15)
+
+## [v0.0.14](https://github.com/muoncore/muon-amqp/tree/v0.0.14) (2017-10-07)
+[Full Changelog](https://github.com/muoncore/muon-amqp/compare/v0.0.13...v0.0.14)
+
+## [v0.0.13](https://github.com/muoncore/muon-amqp/tree/v0.0.13) (2017-10-06)
+[Full Changelog](https://github.com/muoncore/muon-amqp/compare/v0.0.12...v0.0.13)
+
+## [v0.0.12](https://github.com/muoncore/muon-amqp/tree/v0.0.12) (2017-10-06)
+[Full Changelog](https://github.com/muoncore/muon-amqp/compare/v0.0.11...v0.0.12)
+
+## [v0.0.11](https://github.com/muoncore/muon-amqp/tree/v0.0.11) (2017-10-06)
+[Full Changelog](https://github.com/muoncore/muon-amqp/compare/v0.0.10...v0.0.11)
+
+**Closed issues:**
+
+- A large number of parallel connections with no backpressure can cause resource exhaustion [\#5](https://github.com/muoncore/muon-amqp/issues/5)
+
+## [v0.0.10](https://github.com/muoncore/muon-amqp/tree/v0.0.10) (2017-09-02)
+[Full Changelog](https://github.com/muoncore/muon-amqp/compare/v0.0.9...v0.0.10)
+
+**Merged pull requests:**
+
+- Protocol extension [\#8](https://github.com/muoncore/muon-amqp/pull/8) ([daviddawson](https://github.com/daviddawson))
+
+## [v0.0.9](https://github.com/muoncore/muon-amqp/tree/v0.0.9) (2017-09-01)
+[Full Changelog](https://github.com/muoncore/muon-amqp/compare/v0.0.8...v0.0.9)
+
+**Closed issues:**
+
+- Update to generate full pom for maven central [\#6](https://github.com/muoncore/muon-amqp/issues/6)
+
+**Merged pull requests:**
+
+- Update pom, migrate to 7.4 [\#7](https://github.com/muoncore/muon-amqp/pull/7) ([daviddawson](https://github.com/daviddawson))
+
+## [v0.0.8](https://github.com/muoncore/muon-amqp/tree/v0.0.8) (2017-08-02)
+[Full Changelog](https://github.com/muoncore/muon-amqp/compare/v0.0.7...v0.0.8)
+
+**Closed issues:**
+
+- Error appears when broker is bounced [\#4](https://github.com/muoncore/muon-amqp/issues/4)
+
+## [v0.0.7](https://github.com/muoncore/muon-amqp/tree/v0.0.7) (2017-06-24)
+[Full Changelog](https://github.com/muoncore/muon-amqp/compare/v0.0.6...v0.0.7)
+
+## [v0.0.6](https://github.com/muoncore/muon-amqp/tree/v0.0.6) (2017-06-24)
+[Full Changelog](https://github.com/muoncore/muon-amqp/compare/v0.0.5...v0.0.6)
+
+## [v0.0.5](https://github.com/muoncore/muon-amqp/tree/v0.0.5) (2017-06-20)
+[Full Changelog](https://github.com/muoncore/muon-amqp/compare/v0.0.4...v0.0.5)
+
+## [v0.0.4](https://github.com/muoncore/muon-amqp/tree/v0.0.4) (2017-06-20)
+[Full Changelog](https://github.com/muoncore/muon-amqp/compare/v0.0.3...v0.0.4)
+
+## [v0.0.3](https://github.com/muoncore/muon-amqp/tree/v0.0.3) (2017-06-20)
+[Full Changelog](https://github.com/muoncore/muon-amqp/compare/v0.0.2...v0.0.3)
+
+## [v0.0.2](https://github.com/muoncore/muon-amqp/tree/v0.0.2) (2017-06-20)
+[Full Changelog](https://github.com/muoncore/muon-amqp/compare/v0.0.1...v0.0.2)
+
 ## [v0.0.1](https://github.com/muoncore/muon-amqp/tree/v0.0.1) (2017-06-20)
 **Closed issues:**
 

@@ -1,11 +1,10 @@
 package io.muoncore.extension.amqp
 
 import io.muoncore.Discovery
+import io.muoncore.channel.Reactor2Dispatcher
 import io.muoncore.channel.support.Scheduler
 import io.muoncore.codec.json.JsonOnlyCodecs
-import io.muoncore.message.MuonMessage
-import io.muoncore.message.MuonMessageBuilder
-import reactor.Environment
+import io.muoncore.transport.client.RingBufferLocalDispatcher
 import spock.lang.Specification
 
 import static io.muoncore.extension.amqp.QueueListener.QueueFunction
@@ -20,7 +19,6 @@ class DefaultAmqpChannelSpec extends Specification {
 
 //    def "when channel_op=closed received from left, cleanup the queues"() {
 //        given:
-//        Environment.initializeIfEmpty()
 //        QueueListener listener = Mock(QueueListener)
 //        def listenerfactory = Mock(QueueListenerFactory) {
 //            listenOnQueue(_, _ as QueueFunction) >> listener
@@ -41,10 +39,9 @@ class DefaultAmqpChannelSpec extends Specification {
 
     def "respondToHandshake opens a new queue and sends a handshake response"() {
         given:
-        Environment.initializeIfEmpty()
         def listenerfactory = Mock(QueueListenerFactory)
         def connection = Mock(AmqpConnection)
-        def channel = new DefaultAmqpChannel(connection, listenerfactory, "myawesomeservice", Environment.sharedDispatcher(), codecs, discovery, new Scheduler())
+        def channel = new DefaultAmqpChannel(connection, listenerfactory, "myawesomeservice", new Reactor2Dispatcher(new RingBufferLocalDispatcher("test")), codecs, discovery, new Scheduler())
         def localQueue
 
         when:
@@ -61,10 +58,10 @@ class DefaultAmqpChannelSpec extends Specification {
 
     def "initiateFromHandshake opens a new queue and sends a handshake response"() {
         given:
-        Environment.initializeIfEmpty()
+
         def listenerfactory = Mock(QueueListenerFactory)
         def connection = Mock(AmqpConnection)
-        def channel = new DefaultAmqpChannel(connection, listenerfactory, "awesomeservice", Environment.sharedDispatcher(), codecs, discovery, new Scheduler())
+        def channel = new DefaultAmqpChannel(connection, listenerfactory, "awesomeservice", new Reactor2Dispatcher(new RingBufferLocalDispatcher("test")), codecs, discovery, new Scheduler())
 
         when:
         Thread.start {

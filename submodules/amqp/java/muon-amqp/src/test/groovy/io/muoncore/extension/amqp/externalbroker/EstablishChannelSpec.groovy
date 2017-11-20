@@ -13,7 +13,6 @@ import io.muoncore.extension.amqp.rabbitmq09.RabbitMq09ClientAmqpConnection
 import io.muoncore.extension.amqp.rabbitmq09.RabbitMq09QueueListenerFactory
 import io.muoncore.message.MuonMessageBuilder
 import io.muoncore.protocol.ServerStacks
-import reactor.Environment
 import spock.lang.IgnoreIf
 import spock.lang.Timeout
 
@@ -30,8 +29,6 @@ class EstablishChannelSpec extends BaseEmbeddedBrokerSpec {
     }
 
     def "two transports can establish an AMQP channel between them"() {
-
-        Environment.initializeIfEmpty()
 
         AMQPMuonTransport svc1 = createTransport("service1")
         AMQPMuonTransport svc2 = createTransport("tombola")

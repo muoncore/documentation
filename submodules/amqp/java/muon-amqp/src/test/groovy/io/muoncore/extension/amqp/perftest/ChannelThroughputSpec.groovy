@@ -15,10 +15,8 @@ import io.muoncore.message.MuonInboundMessage
 import io.muoncore.message.MuonMessageBuilder
 import io.muoncore.message.MuonOutboundMessage
 import io.muoncore.protocol.ServerStacks
-import reactor.Environment
 import spock.lang.AutoCleanup
 import spock.lang.Ignore
-import spock.lang.IgnoreIf
 import spock.lang.Unroll
 import spock.util.concurrent.PollingConditions
 
@@ -36,8 +34,6 @@ class ChannelThroughputSpec extends BaseEmbeddedBrokerSpec {
 
     @Unroll
     def "can establish #numservices channels and send #numRequests messages"() {
-
-        Environment.initializeIfEmpty()
 
         AMQPMuonTransport service1 = createTransport("service1")
 

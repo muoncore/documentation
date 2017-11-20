@@ -4,20 +4,52 @@ description = 'AMQP Transport and Discovery for Muon Java'
 repositories {
   mavenLocal()
   maven {
-    url "https://simplicityitself.artifactoryonline.com/simplicityitself/muon"
-  }
-  maven {
-    url "https://simplicityitself.artifactoryonline.com/simplicityitself/muon-snapshot"
+    url "http://artifactory.cloud.daviddawson.me/artifactory/muon"
   }
 }
-
 
 dependencies {
-  compile "io.muoncore:muon-core:7.3.0"
-  compile "com.rabbitmq:amqp-client:4.1.0"
+  compileOnly "io.muoncore:muon-core:7.4.1"
+  compile "com.rabbitmq:amqp-client:4.1.1"
   testCompile 'io.arivera.oss:embedded-rabbitmq:1.1.2'
   testCompile 'org.slf4j:slf4j-simple:1.7.12'
-  testCompile 'io.muoncore.protocol:stack-reactive-streams:0.0.1-SNAPSHOT'
-  testCompile 'io.muoncore.protocol:stack-rpc:0.0.1-SNAPSHOT'
+  testCompile 'io.muoncore.protocol:stack-reactive-streams:0.0.4'
+  testCompile 'io.muoncore.protocol:stack-rpc:0.0.5'
 }
 
+publishing {
+  publications {
+    mavenJava(MavenPublication) {
+      artifact sourceJar {
+        classifier "sources"
+      }
+      artifact packageJavadoc
+      pom.withXml {
+        asNode().appendNode('name', "Muon AMQP")
+        asNode().appendNode('description', 'Muon is a toolkit for building highly portable, polyglot, reactive microservices. Muon AMQP Adds transport and discovery for Muon Core on an AMQP broker')
+        asNode().appendNode('url', 'http://muoncore.io')
+        def license = asNode().appendNode("licenses").appendNode("license")
+        license.appendNode("name", "The GNU Lesser General Public License, Version 3.0")
+        license.appendNode("url", "http://www.gnu.org/licenses/lgpl-3.0.txt")
+        license.appendNode("distribution", "repo")
+
+        asNode().appendNode("scm").appendNode("url", "https://github.com/muoncore/muon-amqp")
+
+        def developers = asNode().appendNode("developers")
+        def dev = developers.appendNode("developer")
+        dev.appendNode("name", "Muon Developers")
+        dev.appendNode("email", "info@muoncore.io")
+        dev.appendNode("organization", "Muon Project")
+        dev.appendNode("organizationUrl", "http://muoncore.io")
+      }
+    }
+  }
+}
+
+task sourceJar(type: Jar) {
+  from sourceSets.main.allJava
+}
+task packageJavadoc(type: Jar) {
+  from javadoc
+  classifier = 'javadoc'
+}

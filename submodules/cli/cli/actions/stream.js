@@ -6,6 +6,7 @@ module.exports.stream = function (muon, options, args) {
     if (! args[1]) args[1] = '{}';
     var url = args[0];
     var params = JSON.parse(args[1]);
+    var auth = options.auth
 
     muon.subscribe(url,
         params,

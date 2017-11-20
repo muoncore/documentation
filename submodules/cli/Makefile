@@ -1,18 +1,16 @@
 
 .PHONY: test
 
-publish:
-ifndef VERSION
-	$(error VERSION is undefined for NPM release)
-endif
-	npm install
-	npm run build
+version:
+	ifndef VERSION
+		$(error VERSION is undefined for NPM release)
+	endif
 	npm version --no-git-tag-version $(VERSION)
+
+publish: version build
 	npm publish
 
-publish-snapshot:
-	npm install
-	npm run build
+publish-snapshot: setup
 	npm version --no-git-tag-version prerelease
 	npm publish --tag next
 	git add package.json
@@ -22,3 +20,14 @@ publish-snapshot:
 test:
 	npm install
 	npm test
+
+setup:
+	npm install
+
+compile:
+	npm run build
+
+binary:
+	pkg distribution/muon-cli.js
+
+build: setup compile binary

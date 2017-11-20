@@ -1,7 +1,7 @@
 {
   "name": "muon-cli",
   "description": "node.js muon command line",
-  "version": "7.3.1-20",
+  "version": "7.3.1-30",
   "author": "Muon Core Ltd",
   "keywords": [
     "muon",
@@ -20,6 +20,8 @@
     "install": "tabtab install --name muon --completer muon-autocomplete --auto"
   },
   "dependencies": {
+    "amqp": "*",
+    "amqplib": "^0.5.1",
     "async": "*",
     "async-rq": "*",
     "body-parser": "*",
@@ -29,11 +31,11 @@
     "joi": "*",
     "js-csp": "*",
     "jsonutil": "*",
-    "muon-amqp": "0.0.1-1",
-    "muon-core": "^7.3.0-1",
-    "muon-stack-event": "0.0.1-1",
-    "muon-stack-reactive-streams": "0.0.2-2",
-    "muon-stack-rpc": "0.0.2-5",
+    "muon-amqp": "0.0.1-17",
+    "muon-core": "7.3.0-76",
+    "muon-stack-event": "0.0.1-32",
+    "muon-stack-reactive-streams": "0.0.2-57",
+    "muon-stack-rpc": "0.0.2-33",
     "rsvp": "*",
     "rx": "*",
     "sexylog": "*",

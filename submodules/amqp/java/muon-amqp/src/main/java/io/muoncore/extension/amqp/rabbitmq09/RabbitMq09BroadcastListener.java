@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class RabbitMq09BroadcastListener implements QueueListener {
 
@@ -24,6 +25,7 @@ public class RabbitMq09BroadcastListener implements QueueListener {
     private String queueName;
     private QueueFunction listener;
     private QueueingConsumer consumer;
+    private UUID id = UUID.randomUUID();
 
     public RabbitMq09BroadcastListener(AmqpConnection.ExecuteWithChannel channel, String broadcastMessageType, QueueFunction function) {
         this.channel = channel;
@@ -81,7 +83,8 @@ public class RabbitMq09BroadcastListener implements QueueListener {
 
                         channel.basicAck(delivery.getEnvelope().getDeliveryTag(), false);
                     } catch (ShutdownSignalException | ConsumerCancelledException ex) {
-                        log.debug("Channel shuts down", ex);
+                        log.debug("Discovery AMQP Channel {} shuts down {}", id, ex.getMessage());
+                        running = false;
                     } catch (Exception e) {
                         log.warn(e.getMessage(), e);
                     }

@@ -3,9 +3,10 @@ var _ = require('underscore');
 var util = require("../util")
 
 module.exports = function (muon, options, args) {
-
   var url = args[0]
   var payload = args[1]
+
+  var auth = options.auth
 
   if (!_.contains(url, "rpc://")) {
     // broken down format
@@ -14,7 +15,15 @@ module.exports = function (muon, options, args) {
   }
 
   if (!payload) payload = ' ';
-  muon.request(url, payload, function (response) {
+
+  if (auth) {
+    muon.requestWithAuth(url, payload, JSON.parse(auth), processResponse);
+  } else {
+    // console.log("NO AUTH")
+    muon.request(url, payload, processResponse);
+  }
+
+  function processResponse(response) {
     logger.trace("RPC RESPONSE: \n" + JSON.stringify(response));
     var table = new Table({
       head: ['STATUS', 'CONTENT/TYPE', 'BODY']
@@ -44,10 +53,12 @@ module.exports = function (muon, options, args) {
         console.log(JSON.stringify(response));
       }
     }
-
     util.exit();
-  });
+  }
 }
+
+
+
 
 module.exports.complete = function (data, done) {
   util.withMuon(function (muon) {

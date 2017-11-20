@@ -1,5 +1,20 @@
 # Change Log
 
+## [v0.0.14](https://github.com/muoncore/test-event-stores/tree/v0.0.14) (2017-10-19)
+[Full Changelog](https://github.com/muoncore/test-event-stores/compare/v0.0.13...v0.0.14)
+
+## [v0.0.13](https://github.com/muoncore/test-event-stores/tree/v0.0.13) (2017-10-19)
+[Full Changelog](https://github.com/muoncore/test-event-stores/compare/v0.0.12...v0.0.13)
+
+## [v0.0.12](https://github.com/muoncore/test-event-stores/tree/v0.0.12) (2017-10-19)
+[Full Changelog](https://github.com/muoncore/test-event-stores/compare/v0.0.9...v0.0.12)
+
+## [v0.0.9](https://github.com/muoncore/test-event-stores/tree/v0.0.9) (2017-06-22)
+[Full Changelog](https://github.com/muoncore/test-event-stores/compare/v0.0.8...v0.0.9)
+
+## [v0.0.8](https://github.com/muoncore/test-event-stores/tree/v0.0.8) (2017-06-21)
+[Full Changelog](https://github.com/muoncore/test-event-stores/compare/v0.0.7...v0.0.8)
+
 ## [v0.0.7](https://github.com/muoncore/test-event-stores/tree/v0.0.7) (2017-06-21)
 [Full Changelog](https://github.com/muoncore/test-event-stores/compare/v0.0.6...v0.0.7)
 

@@ -7,7 +7,6 @@ import io.muoncore.channel.support.Scheduler
 import io.muoncore.codec.json.JsonOnlyCodecs
 import io.muoncore.exception.NoSuchServiceException
 import io.muoncore.protocol.ServerStacks
-import reactor.Environment
 import spock.lang.Specification
 
 class AMQPMuonTransportSpec extends Specification {
@@ -18,7 +17,6 @@ class AMQPMuonTransportSpec extends Specification {
     }
 
     def "Opens listen service queue for handshake. For every handshake, create a new channel"() {
-        Environment.initializeIfEmpty()
 
         def serverStacks = Mock(ServerStacks)
         def serviceQueue = Mock(ServiceQueue)

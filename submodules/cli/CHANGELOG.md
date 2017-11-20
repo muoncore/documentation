@@ -6,6 +6,7 @@
 
 **Closed issues:**
 
+- RPC should pass auth through as a parsed object [\#7](https://github.com/muoncore/muon-cli/issues/7)
 - Add --raw to stream and event replay [\#5](https://github.com/muoncore/muon-cli/issues/5)
 
 ## [v7.2.5](https://github.com/muoncore/muon-cli/tree/v7.2.5) (2017-04-05)

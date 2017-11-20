@@ -13,8 +13,8 @@ clean: build
 muonjs: clean
 	mkdir dist
 	./node_modules/browserify/bin/cmd.js -r muon-core -r jquery -r json-markup -r ./src/index.js:muonjs > ./dist/muon.js
-	./node_modules/minifier/index.js --output ./dist/muon.min.js ./dist/muon.js
-	cp dist/muon.min.js test/server/muon.min.js
+	#./node_modules/minifier/index.js --output ./dist/muon.min.js ./dist/muon.js
+	cp dist/muon.js test/server/muon.min.js
 
 run: muonjs
 	npm run dev
