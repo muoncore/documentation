@@ -323,7 +323,32 @@ language.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="java">Unresolved directive in submodules<span style="color: #666666">/</span>java<span style="color: #666666">/</span>doc<span style="color: #666666">/</span>intro<span style="color: #666666">.</span><span style="color: #7D9029">adoc</span> <span style="color: #666666">-</span> <span style="color: #A0A000">include:</span><span style="color: #666666">:</span>submodules<span style="color: #666666">/</span>java<span style="color: #666666">/</span>doc<span style="color: #666666">/</span>src<span style="color: #666666">/</span>main<span style="color: #666666">/</span>java<span style="color: #666666">/</span>io<span style="color: #666666">/</span>muoncore<span style="color: #666666">/</span>example<span style="color: #666666">/</span>MuonServerExample<span style="color: #666666">.</span><span style="color: #7D9029">java</span><span style="color: #666666">[</span>tags<span style="color: #666666">=</span>main<span style="color: #666666">]</span></code></pre>
+<pre class="pygments highlight"><code data-lang="java"><span style="color: #008000; font-weight: bold">public</span> <span style="color: #008000; font-weight: bold">class</span> <span style="color: #0000FF; font-weight: bold">MuonServerExample</span> <span style="color: #666666">{</span>
+
+  <span style="color: #008000; font-weight: bold">public</span> <span style="color: #008000; font-weight: bold">static</span> <span style="color: #B00040">void</span> <span style="color: #0000FF">main</span><span style="color: #666666">(</span>String<span style="color: #666666">[]</span> args<span style="color: #666666">)</span> <span style="color: #666666">{</span>
+
+    AutoConfiguration config <span style="color: #666666">=</span> MuonConfigBuilder<span style="color: #666666">.</span><span style="color: #7D9029">withServiceIdentifier</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;my-test-service&quot;</span><span style="color: #666666">)</span>               <i class="conum" data-value="1"></i><b>(1)</b>
+      <span style="color: #666666">.</span><span style="color: #7D9029">addWriter</span><span style="color: #666666">(</span>conf <span style="color: #666666">-&gt;</span> <span style="color: #666666">{</span>
+        conf<span style="color: #666666">.</span><span style="color: #7D9029">getProperties</span><span style="color: #666666">().</span><span style="color: #7D9029">put</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;muon.discovery.factories&quot;</span><span style="color: #666666">,</span> <span style="color: #BA2121">&quot;io.muoncore.discovery.amqp.AmqpDiscoveryFactory&quot;</span><span style="color: #666666">);</span> <i class="conum" data-value="2"></i><b>(2)</b>
+        conf<span style="color: #666666">.</span><span style="color: #7D9029">getProperties</span><span style="color: #666666">().</span><span style="color: #7D9029">put</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;amqp.discovery.url&quot;</span><span style="color: #666666">,</span> <span style="color: #BA2121">&quot;amqp://muon:microservices@localhost&quot;</span><span style="color: #666666">);</span>
+
+        conf<span style="color: #666666">.</span><span style="color: #7D9029">getProperties</span><span style="color: #666666">().</span><span style="color: #7D9029">put</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;muon.transport.factories&quot;</span><span style="color: #666666">,</span> <span style="color: #BA2121">&quot;io.muoncore.transport.amqp.AmqpMuonTransportFactory&quot;</span><span style="color: #666666">);</span>  <i class="conum" data-value="3"></i><b>(3)</b>
+        conf<span style="color: #666666">.</span><span style="color: #7D9029">getProperties</span><span style="color: #666666">().</span><span style="color: #7D9029">put</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;amqp.transport.url&quot;</span><span style="color: #666666">,</span> <span style="color: #BA2121">&quot;amqp://muon:microservices@localhost&quot;</span><span style="color: #666666">);</span>
+
+      <span style="color: #666666">})</span>
+      <span style="color: #666666">.</span><span style="color: #7D9029">build</span><span style="color: #666666">();</span>
+
+    Muon muon <span style="color: #666666">=</span> MuonBuilder<span style="color: #666666">.</span><span style="color: #7D9029">withConfig</span><span style="color: #666666">(</span>config<span style="color: #666666">).</span><span style="color: #7D9029">build</span><span style="color: #666666">();</span>              <i class="conum" data-value="4"></i><b>(4)</b>
+
+    RpcServer rpc <span style="color: #666666">=</span> <span style="color: #008000; font-weight: bold">new</span> <span style="color: #0000FF">RpcServer</span><span style="color: #666666">(</span>muon<span style="color: #666666">);</span>                             <i class="conum" data-value="5"></i><b>(5)</b>
+
+    rpc<span style="color: #666666">.</span><span style="color: #7D9029">handleRequest</span><span style="color: #666666">(</span>path<span style="color: #666666">(</span><span style="color: #BA2121">&quot;/&quot;</span><span style="color: #666666">))</span>                                     <i class="conum" data-value="6"></i><b>(6)</b>
+      <span style="color: #666666">.</span><span style="color: #7D9029">addResponseType</span><span style="color: #666666">(</span>Map<span style="color: #666666">.</span><span style="color: #7D9029">class</span><span style="color: #666666">)</span>
+      <span style="color: #666666">.</span><span style="color: #7D9029">handler</span><span style="color: #666666">(</span>request <span style="color: #666666">-&gt;</span> <span style="color: #666666">{</span>
+        request<span style="color: #666666">.</span><span style="color: #7D9029">ok</span><span style="color: #666666">(</span>Collections<span style="color: #666666">.</span><span style="color: #7D9029">singletonMap</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;message&quot;</span><span style="color: #666666">,</span> <span style="color: #BA2121">&quot;hello world&quot;</span><span style="color: #666666">));</span>  <i class="conum" data-value="7"></i><b>(7)</b>
+      <span style="color: #666666">});</span>
+  <span style="color: #666666">}</span>
+<span style="color: #666666">}</span></code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -686,7 +711,16 @@ construction.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="java">Unresolved directive in submodules<span style="color: #666666">/</span>java<span style="color: #666666">/</span>doc<span style="color: #666666">/</span>transport<span style="color: #666666">.</span><span style="color: #7D9029">adoc</span> <span style="color: #666666">-</span> <span style="color: #A0A000">include:</span><span style="color: #666666">:</span>submodules<span style="color: #666666">/</span>java<span style="color: #666666">/</span>doc<span style="color: #666666">/</span>src<span style="color: #666666">/</span>main<span style="color: #666666">/</span>java<span style="color: #666666">/</span>io<span style="color: #666666">/</span>muoncore<span style="color: #666666">/</span>example<span style="color: #666666">/</span>MuonClientExample<span style="color: #666666">.</span><span style="color: #7D9029">java</span><span style="color: #666666">[</span>tags<span style="color: #666666">=</span>config<span style="color: #666666">]</span></code></pre>
+<pre class="pygments highlight"><code data-lang="java">    AutoConfiguration config <span style="color: #666666">=</span> MuonConfigBuilder<span style="color: #666666">.</span><span style="color: #7D9029">withServiceIdentifier</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;my-test-service&quot;</span><span style="color: #666666">)</span>               <i class="conum" data-value="1"></i><b>(1)</b>
+      <span style="color: #666666">.</span><span style="color: #7D9029">addWriter</span><span style="color: #666666">(</span>conf <span style="color: #666666">-&gt;</span> <span style="color: #666666">{</span>
+        conf<span style="color: #666666">.</span><span style="color: #7D9029">getProperties</span><span style="color: #666666">().</span><span style="color: #7D9029">put</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;muon.discovery.factories&quot;</span><span style="color: #666666">,</span> <span style="color: #BA2121">&quot;io.muoncore.discovery.amqp.AmqpDiscoveryFactory&quot;</span><span style="color: #666666">);</span> <i class="conum" data-value="2"></i><b>(2)</b>
+        conf<span style="color: #666666">.</span><span style="color: #7D9029">getProperties</span><span style="color: #666666">().</span><span style="color: #7D9029">put</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;amqp.discovery.url&quot;</span><span style="color: #666666">,</span> <span style="color: #BA2121">&quot;amqp://muon:microservices@localhost&quot;</span><span style="color: #666666">);</span>
+
+        conf<span style="color: #666666">.</span><span style="color: #7D9029">getProperties</span><span style="color: #666666">().</span><span style="color: #7D9029">put</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;muon.transport.factories&quot;</span><span style="color: #666666">,</span> <span style="color: #BA2121">&quot;io.muoncore.transport.amqp.AmqpMuonTransportFactory&quot;</span><span style="color: #666666">);</span>  <i class="conum" data-value="3"></i><b>(3)</b>
+        conf<span style="color: #666666">.</span><span style="color: #7D9029">getProperties</span><span style="color: #666666">().</span><span style="color: #7D9029">put</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;amqp.transport.url&quot;</span><span style="color: #666666">,</span> <span style="color: #BA2121">&quot;amqp://muon:microservices@localhost&quot;</span><span style="color: #666666">);</span>
+
+      <span style="color: #666666">})</span>
+      <span style="color: #666666">.</span><span style="color: #7D9029">build</span><span style="color: #666666">();</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -694,7 +728,24 @@ construction.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="java">Unresolved directive in submodules<span style="color: #666666">/</span>java<span style="color: #666666">/</span>doc<span style="color: #666666">/</span>transport<span style="color: #666666">.</span><span style="color: #7D9029">adoc</span> <span style="color: #666666">-</span> <span style="color: #A0A000">include:</span><span style="color: #666666">:</span>submodules<span style="color: #666666">/</span>java<span style="color: #666666">/</span>doc<span style="color: #666666">/</span>src<span style="color: #666666">/</span>main<span style="color: #666666">/</span>java<span style="color: #666666">/</span>io<span style="color: #666666">/</span>muoncore<span style="color: #666666">/</span>example<span style="color: #666666">/</span>ManualMuonBuild<span style="color: #666666">.</span><span style="color: #7D9029">java</span><span style="color: #666666">[</span>tags<span style="color: #666666">=</span>transport<span style="color: #666666">]</span></code></pre>
+<pre class="pygments highlight"><code data-lang="java">    EventBus bus <span style="color: #666666">=</span> <span style="color: #008000; font-weight: bold">new</span> <span style="color: #0000FF">EventBus</span><span style="color: #666666">();</span>
+
+    AutoConfiguration config <span style="color: #666666">=</span> MuonConfigBuilder
+           <span style="color: #666666">.</span><span style="color: #7D9029">withServiceIdentifier</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;my-test-service&quot;</span><span style="color: #666666">).</span><span style="color: #7D9029">build</span><span style="color: #666666">();</span>   <i class="conum" data-value="1"></i><b>(1)</b>
+
+    Muon muon <span style="color: #666666">=</span> <span style="color: #008000; font-weight: bold">new</span> <span style="color: #0000FF">MultiTransportMuon</span><span style="color: #666666">(</span>                         <i class="conum" data-value="2"></i><b>(2)</b>
+      config<span style="color: #666666">,</span>
+      <span style="color: #008000; font-weight: bold">new</span> <span style="color: #0000FF">InMemDiscovery</span><span style="color: #666666">(),</span>
+      Collections<span style="color: #666666">.</span><span style="color: #7D9029">singletonList</span><span style="color: #666666">(</span><span style="color: #008000; font-weight: bold">new</span> <span style="color: #0000FF">InMemTransport</span><span style="color: #666666">(</span>config<span style="color: #666666">,</span> bus<span style="color: #666666">)),</span>  <i class="conum" data-value="3"></i><b>(3)</b>
+      <span style="color: #008000; font-weight: bold">new</span> <span style="color: #0000FF">JsonOnlyCodecs</span><span style="color: #666666">());</span>
+
+    Muon muondisco <span style="color: #666666">=</span> <span style="color: #008000; font-weight: bold">new</span> <span style="color: #0000FF">MultiTransportMuon</span><span style="color: #666666">(</span>                         <i class="conum" data-value="1"></i><b>(1)</b>
+      config<span style="color: #666666">,</span>
+      <span style="color: #008000; font-weight: bold">new</span> <span style="color: #0000FF">MultiDiscovery</span><span style="color: #666666">(</span>Collections<span style="color: #666666">.</span><span style="color: #7D9029">singletonList</span><span style="color: #666666">(</span><span style="color: #008000; font-weight: bold">new</span> <span style="color: #0000FF">InMemDiscovery</span><span style="color: #666666">())),</span> <i class="conum" data-value="2"></i><b>(2)</b>
+      Collections<span style="color: #666666">.</span><span style="color: #7D9029">singletonList</span><span style="color: #666666">(</span><span style="color: #008000; font-weight: bold">new</span> <span style="color: #0000FF">InMemTransport</span><span style="color: #666666">(</span>config<span style="color: #666666">,</span> bus<span style="color: #666666">)),</span>
+      <span style="color: #008000; font-weight: bold">new</span> <span style="color: #0000FF">JsonOnlyCodecs</span><span style="color: #666666">());</span>
+  <span style="color: #666666">}</span>
+<span style="color: #666666">}</span></code></pre>
 </div>
 </div>
 </div>
@@ -818,7 +869,16 @@ construction.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="java">Unresolved directive in submodules<span style="color: #666666">/</span>java<span style="color: #666666">/</span>doc<span style="color: #666666">/</span>discovery<span style="color: #666666">.</span><span style="color: #7D9029">adoc</span> <span style="color: #666666">-</span> <span style="color: #A0A000">include:</span><span style="color: #666666">:</span>submodules<span style="color: #666666">/</span>java<span style="color: #666666">/</span>doc<span style="color: #666666">/</span>src<span style="color: #666666">/</span>main<span style="color: #666666">/</span>java<span style="color: #666666">/</span>io<span style="color: #666666">/</span>muoncore<span style="color: #666666">/</span>example<span style="color: #666666">/</span>MuonClientExample<span style="color: #666666">.</span><span style="color: #7D9029">java</span><span style="color: #666666">[</span>tags<span style="color: #666666">=</span>config<span style="color: #666666">]</span></code></pre>
+<pre class="pygments highlight"><code data-lang="java">    AutoConfiguration config <span style="color: #666666">=</span> MuonConfigBuilder<span style="color: #666666">.</span><span style="color: #7D9029">withServiceIdentifier</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;my-test-service&quot;</span><span style="color: #666666">)</span>               <i class="conum" data-value="1"></i><b>(1)</b>
+      <span style="color: #666666">.</span><span style="color: #7D9029">addWriter</span><span style="color: #666666">(</span>conf <span style="color: #666666">-&gt;</span> <span style="color: #666666">{</span>
+        conf<span style="color: #666666">.</span><span style="color: #7D9029">getProperties</span><span style="color: #666666">().</span><span style="color: #7D9029">put</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;muon.discovery.factories&quot;</span><span style="color: #666666">,</span> <span style="color: #BA2121">&quot;io.muoncore.discovery.amqp.AmqpDiscoveryFactory&quot;</span><span style="color: #666666">);</span> <i class="conum" data-value="2"></i><b>(2)</b>
+        conf<span style="color: #666666">.</span><span style="color: #7D9029">getProperties</span><span style="color: #666666">().</span><span style="color: #7D9029">put</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;amqp.discovery.url&quot;</span><span style="color: #666666">,</span> <span style="color: #BA2121">&quot;amqp://muon:microservices@localhost&quot;</span><span style="color: #666666">);</span>
+
+        conf<span style="color: #666666">.</span><span style="color: #7D9029">getProperties</span><span style="color: #666666">().</span><span style="color: #7D9029">put</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;muon.transport.factories&quot;</span><span style="color: #666666">,</span> <span style="color: #BA2121">&quot;io.muoncore.transport.amqp.AmqpMuonTransportFactory&quot;</span><span style="color: #666666">);</span>  <i class="conum" data-value="3"></i><b>(3)</b>
+        conf<span style="color: #666666">.</span><span style="color: #7D9029">getProperties</span><span style="color: #666666">().</span><span style="color: #7D9029">put</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;amqp.transport.url&quot;</span><span style="color: #666666">,</span> <span style="color: #BA2121">&quot;amqp://muon:microservices@localhost&quot;</span><span style="color: #666666">);</span>
+
+      <span style="color: #666666">})</span>
+      <span style="color: #666666">.</span><span style="color: #7D9029">build</span><span style="color: #666666">();</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -826,7 +886,11 @@ construction.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="java">Unresolved directive in submodules<span style="color: #666666">/</span>java<span style="color: #666666">/</span>doc<span style="color: #666666">/</span>discovery<span style="color: #666666">.</span><span style="color: #7D9029">adoc</span> <span style="color: #666666">-</span> <span style="color: #A0A000">include:</span><span style="color: #666666">:</span>submodules<span style="color: #666666">/</span>java<span style="color: #666666">/</span>doc<span style="color: #666666">/</span>src<span style="color: #666666">/</span>main<span style="color: #666666">/</span>java<span style="color: #666666">/</span>io<span style="color: #666666">/</span>muoncore<span style="color: #666666">/</span>example<span style="color: #666666">/</span>ManualMuonBuild<span style="color: #666666">.</span><span style="color: #7D9029">java</span><span style="color: #666666">[</span>tags<span style="color: #666666">=</span>discovery<span style="color: #666666">]</span></code></pre>
+<pre class="pygments highlight"><code data-lang="java">    Muon muondisco <span style="color: #666666">=</span> <span style="color: #008000; font-weight: bold">new</span> <span style="color: #0000FF">MultiTransportMuon</span><span style="color: #666666">(</span>                         <i class="conum" data-value="1"></i><b>(1)</b>
+      config<span style="color: #666666">,</span>
+      <span style="color: #008000; font-weight: bold">new</span> <span style="color: #0000FF">MultiDiscovery</span><span style="color: #666666">(</span>Collections<span style="color: #666666">.</span><span style="color: #7D9029">singletonList</span><span style="color: #666666">(</span><span style="color: #008000; font-weight: bold">new</span> <span style="color: #0000FF">InMemDiscovery</span><span style="color: #666666">())),</span> <i class="conum" data-value="2"></i><b>(2)</b>
+      Collections<span style="color: #666666">.</span><span style="color: #7D9029">singletonList</span><span style="color: #666666">(</span><span style="color: #008000; font-weight: bold">new</span> <span style="color: #0000FF">InMemTransport</span><span style="color: #666666">(</span>config<span style="color: #666666">,</span> bus<span style="color: #666666">)),</span>
+      <span style="color: #008000; font-weight: bold">new</span> <span style="color: #0000FF">JsonOnlyCodecs</span><span style="color: #666666">());</span></code></pre>
 </div>
 </div>
 <div class="colist arabic">
